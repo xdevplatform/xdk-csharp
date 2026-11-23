@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   check-version:
@@ -62,15 +63,24 @@ jobs:
           dotnet test -c Release --no-build --nologo
           dotnet pack src/Xdk/Xdk.csproj -c Release --no-build --nologo -o artifacts
 
+      - name: NuGet login (OIDC trusted publishing -> short-lived key)
+        id: nuget-login
+        env:
+          HAS_NUGET_USER: ${{ secrets.NUGET_USER }}
+        if: ${{ env.HAS_NUGET_USER != '' }}
+        uses: NuGet/login@v1
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
       - name: Push to NuGet
         env:
-          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+          EFFECTIVE_NUGET_KEY: ${{ steps.nuget-login.outputs.NUGET_API_KEY || secrets.NUGET_API_KEY }}
         run: |
-          if [ -z "$NUGET_API_KEY" ]; then
-            echo "NUGET_API_KEY is not configured yet; skipping NuGet push."
+          if [ -z "$EFFECTIVE_NUGET_KEY" ]; then
+            echo "::warning::Neither NUGET_USER (OIDC Trusted Publishing) nor NUGET_API_KEY is configured yet; skipping NuGet.org push."
             exit 0
           fi
-          dotnet nuget push "artifacts/*.nupkg" --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          dotnet nuget push "artifacts/*.nupkg" --api-key "$EFFECTIVE_NUGET_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
 
       - name: Create tag
         run: |
