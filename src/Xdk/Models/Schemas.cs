@@ -77,6 +77,12 @@ public partial class ActivitySubscriptionFilter
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Keyword { get; set; }
 
+    /// <summary>Event-specific string predicates applied to the subscription.</summary>
+
+    [JsonPropertyName("qualifiers")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public Dictionary<string, string>? Qualifiers { get; set; }
+
     /// <summary>Unique identifier of a User</summary>
 
     [JsonPropertyName("user_id")]
@@ -751,7 +757,7 @@ public partial class AddMediaToLibraryMonetization
 
     [JsonPropertyName("blocked_advertiser_category_ids")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<int>? BlockedAdvertiserCategoryIds { get; set; }
+    public List<long>? BlockedAdvertiserCategoryIds { get; set; }
 
     /// <summary>Advertiser account ids whose ads may not run against the video.</summary>
 
@@ -775,7 +781,7 @@ public partial class AddMediaToLibraryMonetization
 
     [JsonPropertyName("video_category_ids")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<int>? VideoCategoryIds { get; set; }
+    public List<long>? VideoCategoryIds { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -1035,35 +1041,35 @@ public partial class Analytics
 {
     [JsonPropertyName("app_install_attempts")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? AppInstallAttempts { get; set; }
+    public long? AppInstallAttempts { get; set; }
 
     [JsonPropertyName("app_opens")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? AppOpens { get; set; }
+    public long? AppOpens { get; set; }
 
     [JsonPropertyName("bookmarks")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Bookmarks { get; set; }
+    public long? Bookmarks { get; set; }
 
     [JsonPropertyName("detail_expands")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? DetailExpands { get; set; }
+    public long? DetailExpands { get; set; }
 
     [JsonPropertyName("email_tweet")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? EmailTweet { get; set; }
+    public long? EmailTweet { get; set; }
 
     [JsonPropertyName("engagements")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Engagements { get; set; }
+    public long? Engagements { get; set; }
 
     [JsonPropertyName("follows")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Follows { get; set; }
+    public long? Follows { get; set; }
 
     [JsonPropertyName("hashtag_clicks")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? HashtagClicks { get; set; }
+    public long? HashtagClicks { get; set; }
 
     [JsonPropertyName("id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -1071,35 +1077,35 @@ public partial class Analytics
 
     [JsonPropertyName("impressions")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Impressions { get; set; }
+    public long? Impressions { get; set; }
 
     [JsonPropertyName("likes")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Likes { get; set; }
+    public long? Likes { get; set; }
 
     [JsonPropertyName("media_views")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? MediaViews { get; set; }
+    public long? MediaViews { get; set; }
 
     [JsonPropertyName("permalink_clicks")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? PermalinkClicks { get; set; }
+    public long? PermalinkClicks { get; set; }
 
     [JsonPropertyName("quote_tweets")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? QuoteTweets { get; set; }
+    public long? QuoteTweets { get; set; }
 
     [JsonPropertyName("replies")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Replies { get; set; }
+    public long? Replies { get; set; }
 
     [JsonPropertyName("retweets")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Retweets { get; set; }
+    public long? Retweets { get; set; }
 
     [JsonPropertyName("shares")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Shares { get; set; }
+    public long? Shares { get; set; }
 
     [JsonPropertyName("timestamp")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -1113,19 +1119,19 @@ public partial class Analytics
 
     [JsonPropertyName("unfollows")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Unfollows { get; set; }
+    public long? Unfollows { get; set; }
 
     [JsonPropertyName("unlikes")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Unlikes { get; set; }
+    public long? Unlikes { get; set; }
 
     [JsonPropertyName("url_clicks")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? UrlClicks { get; set; }
+    public long? UrlClicks { get; set; }
 
     [JsonPropertyName("user_profile_clicks")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? UserProfileClicks { get; set; }
+    public long? UserProfileClicks { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -1163,7 +1169,7 @@ public partial class AppendMediaUploadRequest
 
     [JsonPropertyName("media")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public JsonElement? Media { get; set; }
+    public string? Media { get; set; }
 
     /// <summary>The segment's position in the file, counting from 0.</summary>
 
@@ -1203,7 +1209,7 @@ public partial class AppendMediaUploadResponseData
 
     [JsonPropertyName("expires_at")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ExpiresAt { get; set; }
+    public long? ExpiresAt { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -1619,7 +1625,7 @@ public partial class ArticleCreateDraftContentStateBlocksDataCashtags
 
     [JsonPropertyName("from_index")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? FromIndex { get; set; }
+    public long? FromIndex { get; set; }
 
     /// <summary>The tagged text.</summary>
 
@@ -1631,7 +1637,7 @@ public partial class ArticleCreateDraftContentStateBlocksDataCashtags
 
     [JsonPropertyName("to_index")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ToIndex { get; set; }
+    public long? ToIndex { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -1647,7 +1653,7 @@ public partial class ArticleCreateDraftContentStateBlocksDataHashtags
 
     [JsonPropertyName("from_index")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? FromIndex { get; set; }
+    public long? FromIndex { get; set; }
 
     /// <summary>The tagged text.</summary>
 
@@ -1659,7 +1665,7 @@ public partial class ArticleCreateDraftContentStateBlocksDataHashtags
 
     [JsonPropertyName("to_index")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ToIndex { get; set; }
+    public long? ToIndex { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -1675,7 +1681,7 @@ public partial class ArticleCreateDraftContentStateBlocksDataMentions
 
     [JsonPropertyName("from_index")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? FromIndex { get; set; }
+    public long? FromIndex { get; set; }
 
     /// <summary>The tagged text.</summary>
 
@@ -1687,7 +1693,7 @@ public partial class ArticleCreateDraftContentStateBlocksDataMentions
 
     [JsonPropertyName("to_index")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ToIndex { get; set; }
+    public long? ToIndex { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -1703,7 +1709,7 @@ public partial class ArticleCreateDraftContentStateBlocksDataUrls
 
     [JsonPropertyName("from_index")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? FromIndex { get; set; }
+    public long? FromIndex { get; set; }
 
     /// <summary>The tagged text.</summary>
 
@@ -1715,7 +1721,7 @@ public partial class ArticleCreateDraftContentStateBlocksDataUrls
 
     [JsonPropertyName("to_index")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ToIndex { get; set; }
+    public long? ToIndex { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -1731,19 +1737,19 @@ public partial class ArticleCreateDraftContentStateBlocksEntityRanges
 
     [JsonPropertyName("key")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Key { get; set; }
+    public long? Key { get; set; }
 
     /// <summary>Length of the entity range.</summary>
 
     [JsonPropertyName("length")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Length { get; set; }
+    public long? Length { get; set; }
 
     /// <summary>Start offset in the text.</summary>
 
     [JsonPropertyName("offset")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Offset { get; set; }
+    public long? Offset { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -1759,13 +1765,13 @@ public partial class ArticleCreateDraftContentStateBlocksInlineStyleRanges
 
     [JsonPropertyName("length")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Length { get; set; }
+    public long? Length { get; set; }
 
     /// <summary>Start offset in the text.</summary>
 
     [JsonPropertyName("offset")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Offset { get; set; }
+    public long? Offset { get; set; }
 
     /// <summary>The inline style.</summary>
 
@@ -2059,7 +2065,7 @@ public partial class Broadcast
 
     [JsonPropertyName("chat_option")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ChatOption { get; set; }
+    public long? ChatOption { get; set; }
 
     [JsonPropertyName("created_at_ms")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -2071,7 +2077,7 @@ public partial class Broadcast
 
     [JsonPropertyName("height")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Height { get; set; }
+    public long? Height { get; set; }
 
     [JsonPropertyName("id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -2159,7 +2165,7 @@ public partial class Broadcast
 
     [JsonPropertyName("width")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Width { get; set; }
+    public long? Width { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -2194,6 +2200,14 @@ public partial class BroadcastChatMessage
     [JsonPropertyName("id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Id { get; set; }
+
+    [JsonPropertyName("relay_source")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? RelaySource { get; set; }
+
+    [JsonPropertyName("relay_user")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? RelayUser { get; set; }
 
     [JsonPropertyName("reply_to")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -2275,7 +2289,7 @@ public partial class Call
 
     [JsonPropertyName("participant_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ParticipantCount { get; set; }
+    public long? ParticipantCount { get; set; }
 
     /// <summary>Title of the call.</summary>
 
@@ -2399,7 +2413,7 @@ public partial class ChatConversation
 
     [JsonPropertyName("message_ttl_ms")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? MessageTtlMs { get; set; }
+    public long? MessageTtlMs { get; set; }
 
     /// <summary>The ID of the latest notifying message in the conversation.</summary>
 
@@ -2575,7 +2589,7 @@ public partial class ChatGroupInvite
 
     [JsonPropertyName("member_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? MemberCount { get; set; }
+    public long? MemberCount { get; set; }
 
     /// <summary>Invite token. Together with the conversation ID it identifies the link.</summary>
 
@@ -2609,7 +2623,7 @@ public partial class ChatMediaUploadAppendRequest
 
     [JsonPropertyName("media")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public JsonElement? Media { get; set; }
+    public string? Media { get; set; }
 
     /// <summary>The media hash key returned by the initialize step.</summary>
 
@@ -2655,7 +2669,7 @@ public partial class ChatMediaUploadAppendResponseData
 
     [JsonPropertyName("expires_at")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ExpiresAt { get; set; }
+    public long? ExpiresAt { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -2751,7 +2765,7 @@ public partial class ChatMediaUploadInitializeRequest
 
     [JsonPropertyName("total_bytes")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? TotalBytes { get; set; }
+    public long? TotalBytes { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -2975,7 +2989,7 @@ public partial class ChatPermissionsUnavailableProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -3101,7 +3115,7 @@ public partial class Community
 
     [JsonPropertyName("member_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? MemberCount { get; set; }
+    public long? MemberCount { get; set; }
 
     [JsonPropertyName("name")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -3525,7 +3539,7 @@ public partial class CreateBotResponseData
 
     [JsonPropertyName("token_expires_at_ms")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? TokenExpiresAtMs { get; set; }
+    public long? TokenExpiresAtMs { get; set; }
 
     /// <summary>The bot's X handle (screen name).</summary>
 
@@ -3623,7 +3637,7 @@ public partial class CreateBroadcastResponseData
 
     [JsonPropertyName("chat_option")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ChatOption { get; set; }
+    public long? ChatOption { get; set; }
 
     /// <summary>Broadcast id.</summary>
 
@@ -3781,7 +3795,7 @@ public partial class CreateCallResponseData
 
     [JsonPropertyName("participant_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ParticipantCount { get; set; }
+    public long? ParticipantCount { get; set; }
 
     /// <summary>Title of the call.</summary>
 
@@ -5201,15 +5215,15 @@ public partial class CreateMediaSubtitlesSubtitles
 
 
 /// <summary>
-/// Model for CreatePostsClip
+/// Model for CreatePostDraftClip
 /// </summary>
-public partial class CreatePostsClip
+public partial class CreatePostDraftClip
 {
     /// <summary>Second of the video at which the clip ends. A clip is 5 to 60 seconds long and at most 30% of the video.</summary>
 
     [JsonPropertyName("end_seconds")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? EndSeconds { get; set; }
+    public long? EndSeconds { get; set; }
 
     /// <summary>The ID of the Post whose video is clipped. The Post must have exactly one video, longer than 2 minutes.</summary>
 
@@ -5221,7 +5235,395 @@ public partial class CreatePostsClip
 
     [JsonPropertyName("start_seconds")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? StartSeconds { get; set; }
+    public long? StartSeconds { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for CreatePostDraftEditOptions
+/// </summary>
+public partial class CreatePostDraftEditOptions
+{
+    /// <summary>The ID of the Post being edited.</summary>
+
+    [JsonPropertyName("previous_post_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PreviousPostId { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for CreatePostDraftGeo
+/// </summary>
+public partial class CreatePostDraftGeo
+{
+    /// <summary>Place ID for geo tagging.</summary>
+
+    [JsonPropertyName("place_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PlaceId { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for CreatePostDraftMedia
+/// </summary>
+public partial class CreatePostDraftMedia
+{
+    [JsonPropertyName("call_to_actions")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CreatePostDraftMediaCallToActions? CallToActions { get; set; }
+
+    /// <summary>Description for the media, rendered on the Post card for video and Amplify content.</summary>
+
+    [JsonPropertyName("description")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Description { get; set; }
+
+    /// <summary>When true, the media's asset URLs do not expire and external syndicated playback is allowed.</summary>
+
+    [JsonPropertyName("embeddable")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? Embeddable { get; set; }
+
+    /// <summary>Media IDs to attach to the Post, in the order given.</summary>
+
+    [JsonPropertyName("media_ids")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<string>? MediaIds { get; set; }
+
+    /// <summary>Media id whose asset is used as the preview image.</summary>
+
+    [JsonPropertyName("preview_media_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PreviewMediaId { get; set; }
+
+    /// <summary>User IDs tagged in the media.</summary>
+
+    [JsonPropertyName("tagged_user_ids")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<string>? TaggedUserIds { get; set; }
+
+    /// <summary>Title for the media, rendered on the Post card for video and Amplify content.</summary>
+
+    [JsonPropertyName("title")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Title { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for CreatePostDraftMediaCallToActions
+/// </summary>
+public partial class CreatePostDraftMediaCallToActions
+{
+    [JsonPropertyName("app_install")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CreatePostDraftMediaCallToActionsAppInstall? AppInstall { get; set; }
+
+    [JsonPropertyName("visit_site")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CreatePostDraftMediaCallToActionsVisitSite? VisitSite { get; set; }
+
+    [JsonPropertyName("watch_now")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CreatePostDraftMediaCallToActionsWatchNow? WatchNow { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for CreatePostDraftMediaCallToActionsAppInstall
+/// </summary>
+public partial class CreatePostDraftMediaCallToActionsAppInstall
+{
+    /// <summary>Apple App Store iPhone app id.</summary>
+
+    [JsonPropertyName("app_store_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? AppStoreId { get; set; }
+
+    /// <summary>Apple App Store iPad app id.</summary>
+
+    [JsonPropertyName("ipad_app_store_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? IpadAppStoreId { get; set; }
+
+    /// <summary>Google Play Store app id.</summary>
+
+    [JsonPropertyName("play_store_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PlayStoreId { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for CreatePostDraftMediaCallToActionsVisitSite
+/// </summary>
+public partial class CreatePostDraftMediaCallToActionsVisitSite
+{
+    /// <summary>HTTPS URL the CTA links to.</summary>
+
+    [JsonPropertyName("url")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Url { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for CreatePostDraftMediaCallToActionsWatchNow
+/// </summary>
+public partial class CreatePostDraftMediaCallToActionsWatchNow
+{
+    /// <summary>HTTPS URL the CTA links to.</summary>
+
+    [JsonPropertyName("url")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Url { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for CreatePostDraftPoll
+/// </summary>
+public partial class CreatePostDraftPoll
+{
+    /// <summary>Duration of the poll in minutes.</summary>
+
+    [JsonPropertyName("duration_minutes")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? DurationMinutes { get; set; }
+
+    /// <summary>Poll options (2-4 choices, 1-25 characters each).</summary>
+
+    [JsonPropertyName("options")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<string>? Options { get; set; }
+
+    /// <summary>Who can reply to the poll Tweet. Accepted for compatibility; it carries no backend argument and is dropped before the mutation is issued (see `translate_body`).</summary>
+
+    [JsonPropertyName("reply_settings")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? ReplySettings { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for CreatePostDraftReply
+/// </summary>
+public partial class CreatePostDraftReply
+{
+    /// <summary>If true, reply metadata is automatically populated. Accepted for compatibility; it carries no backend argument and is dropped before the mutation is issued (see `translate_body`).</summary>
+
+    [JsonPropertyName("auto_populate_reply_metadata")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? AutoPopulateReplyMetadata { get; set; }
+
+    /// <summary>User IDs to exclude from the reply thread.</summary>
+
+    [JsonPropertyName("exclude_reply_user_ids")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<string>? ExcludeReplyUserIds { get; set; }
+
+    /// <summary>The ID of the tweet being replied to.</summary>
+
+    [JsonPropertyName("in_reply_to_tweet_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? InReplyToTweetId { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for CreatePostDraftRequest
+/// </summary>
+public partial class CreatePostDraftRequest
+{
+    /// <summary>Card URI parameter.</summary>
+
+    [JsonPropertyName("card_uri")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? CardUri { get; set; }
+
+    [JsonPropertyName("clip")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CreatePostDraftClip? Clip { get; set; }
+
+    /// <summary>Community to post the tweet to.</summary>
+
+    [JsonPropertyName("community_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? CommunityId { get; set; }
+
+    /// <summary>Direct message deep link.</summary>
+
+    [JsonPropertyName("direct_message_deep_link")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? DirectMessageDeepLink { get; set; }
+
+    [JsonPropertyName("edit_options")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CreatePostDraftEditOptions? EditOptions { get; set; }
+
+    /// <summary>Restrict tweet to super followers.</summary>
+
+    [JsonPropertyName("for_super_followers_only")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? ForSuperFollowersOnly { get; set; }
+
+    [JsonPropertyName("geo")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CreatePostDraftGeo? Geo { get; set; }
+
+    /// <summary>Disclose that the tweet contains AI-generated media.</summary>
+
+    [JsonPropertyName("made_with_ai")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? MadeWithAi { get; set; }
+
+    [JsonPropertyName("media")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CreatePostDraftMedia? Media { get; set; }
+
+    /// <summary>If true, the tweet is not shown in the public timeline.</summary>
+
+    [JsonPropertyName("nullcast")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? Nullcast { get; set; }
+
+    /// <summary>Disclose that the tweet is a paid partnership.</summary>
+
+    [JsonPropertyName("paid_partnership")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? PaidPartnership { get; set; }
+
+    [JsonPropertyName("poll")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CreatePostDraftPoll? Poll { get; set; }
+
+    /// <summary>Tweet ID to quote.</summary>
+
+    [JsonPropertyName("quote_tweet_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? QuoteTweetId { get; set; }
+
+    [JsonPropertyName("reply")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CreatePostDraftReply? Reply { get; set; }
+
+    /// <summary>Who can reply to this tweet.</summary>
+
+    [JsonPropertyName("reply_settings")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? ReplySettings { get; set; }
+
+    /// <summary>Share an exclusive (super-follower) tweet with all followers.</summary>
+
+    [JsonPropertyName("share_with_followers")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? ShareWithFollowers { get; set; }
+
+    /// <summary>Text of the Post. Required unless media is provided. At most 280 characters unless the account has X Premium.</summary>
+
+    [JsonPropertyName("text")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Text { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for CreatePostDraftResponse
+/// </summary>
+public partial class CreatePostDraftResponse
+{
+    [JsonPropertyName("data")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CreatePostDraftResponseData? Data { get; set; }
+
+    [JsonPropertyName("errors")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<JsonElement>? Errors { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for CreatePostDraftResponseData
+/// </summary>
+public partial class CreatePostDraftResponseData
+{
+    /// <summary>Unique identifier of the saved draft.</summary>
+
+    [JsonPropertyName("id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Id { get; set; }
+
+    /// <summary>The text of the saved draft.</summary>
+
+    [JsonPropertyName("text")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Text { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for CreatePostsClip
+/// </summary>
+public partial class CreatePostsClip
+{
+    /// <summary>Second of the video at which the clip ends. A clip is 5 to 60 seconds long and at most 30% of the video.</summary>
+
+    [JsonPropertyName("end_seconds")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public long? EndSeconds { get; set; }
+
+    /// <summary>The ID of the Post whose video is clipped. The Post must have exactly one video, longer than 2 minutes.</summary>
+
+    [JsonPropertyName("post_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PostId { get; set; }
+
+    /// <summary>Second of the video at which the clip starts.</summary>
+
+    [JsonPropertyName("start_seconds")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public long? StartSeconds { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -6009,7 +6411,7 @@ public partial class CreateUserBroadcastResponseDataBroadcast
 
     [JsonPropertyName("chat_option")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ChatOption { get; set; }
+    public long? ChatOption { get; set; }
 
     /// <summary>Creation time, milliseconds since Unix epoch (decimal string).</summary>
 
@@ -6027,7 +6429,7 @@ public partial class CreateUserBroadcastResponseDataBroadcast
 
     [JsonPropertyName("height")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Height { get; set; }
+    public long? Height { get; set; }
 
     /// <summary>Broadcast id; equal to `broadcast_id`.</summary>
 
@@ -6141,7 +6543,7 @@ public partial class CreateUserBroadcastResponseDataBroadcast
 
     [JsonPropertyName("width")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Width { get; set; }
+    public long? Width { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -6225,7 +6627,7 @@ public partial class CreateUserSourceResponseDataSource
 
     [JsonPropertyName("creation_time")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? CreationTime { get; set; }
+    public long? CreationTime { get; set; }
 
     /// <summary>Source id; also the RTMP stream key.</summary>
 
@@ -6255,7 +6657,7 @@ public partial class CreateUserSourceResponseDataSource
 
     [JsonPropertyName("owner_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? OwnerId { get; set; }
+    public long? OwnerId { get; set; }
 
     /// <summary>Ingest region as an AWS region name, e.g. `us-east-1` or `us-west-2`. Accepted as `region` when creating a source.</summary>
 
@@ -6311,7 +6713,7 @@ public partial class CreateUserSourceResponseDataSourceCreationOrigin
 
     [JsonPropertyName("value")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Value { get; set; }
+    public long? Value { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -6339,7 +6741,7 @@ public partial class CreateUserSourceResponseDataSourceVideoService
 
     [JsonPropertyName("value")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Value { get; set; }
+    public long? Value { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -6719,7 +7121,7 @@ public partial class DeleteAllConnectionsResponseData
 
     [JsonPropertyName("failed_kills")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? FailedKills { get; set; }
+    public long? FailedKills { get; set; }
 
     [JsonPropertyName("results")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -6729,7 +7131,7 @@ public partial class DeleteAllConnectionsResponseData
 
     [JsonPropertyName("successful_kills")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? SuccessfulKills { get; set; }
+    public long? SuccessfulKills { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -7407,7 +7809,7 @@ public partial class DeleteConnectionsByEndpointResponseData
 
     [JsonPropertyName("failed_kills")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? FailedKills { get; set; }
+    public long? FailedKills { get; set; }
 
     [JsonPropertyName("results")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -7417,7 +7819,7 @@ public partial class DeleteConnectionsByEndpointResponseData
 
     [JsonPropertyName("successful_kills")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? SuccessfulKills { get; set; }
+    public long? SuccessfulKills { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -7489,7 +7891,7 @@ public partial class DeleteConnectionsByUuidsResponseData
 
     [JsonPropertyName("failed_kills")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? FailedKills { get; set; }
+    public long? FailedKills { get; set; }
 
     [JsonPropertyName("results")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -7499,7 +7901,7 @@ public partial class DeleteConnectionsByUuidsResponseData
 
     [JsonPropertyName("successful_kills")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? SuccessfulKills { get; set; }
+    public long? SuccessfulKills { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -7648,6 +8050,40 @@ public partial class DeleteMediaSubtitlesResponse
 public partial class DeleteMediaSubtitlesResponseData
 {
     /// <summary>Indicates whether the subtitles were deleted.</summary>
+
+    [JsonPropertyName("deleted")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? Deleted { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for DeletePostDraftResponse
+/// </summary>
+public partial class DeletePostDraftResponse
+{
+    [JsonPropertyName("data")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public DeletePostDraftResponseData? Data { get; set; }
+
+    [JsonPropertyName("errors")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<JsonElement>? Errors { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for DeletePostDraftResponseData
+/// </summary>
+public partial class DeletePostDraftResponseData
+{
+    /// <summary>Whether the draft is gone from the user's drafts.</summary>
 
     [JsonPropertyName("deleted")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8097,7 +8533,7 @@ public partial class DisallowedResourceProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8123,7 +8559,7 @@ public partial class DmBadAttachmentProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8149,7 +8585,7 @@ public partial class DmBadCtaProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8175,7 +8611,7 @@ public partial class DmBadCustomProfileProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8201,7 +8637,7 @@ public partial class DmBadMediaProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8227,7 +8663,7 @@ public partial class DmBadQuickReplyProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8253,7 +8689,7 @@ public partial class DmBadUrlProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8279,7 +8715,7 @@ public partial class DmConversationNameTooLongProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8305,7 +8741,7 @@ public partial class DmConversationNotFoundProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8331,7 +8767,7 @@ public partial class DmDuplicateProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8475,7 +8911,7 @@ public partial class DmInactiveDeviceProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8501,7 +8937,7 @@ public partial class DmNotDeliveredProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8527,7 +8963,7 @@ public partial class DmNotFoundProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8553,7 +8989,7 @@ public partial class DmNotOwnerProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8579,7 +9015,7 @@ public partial class DmParticipantNotAddedProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8605,7 +9041,7 @@ public partial class DmParticipantNotFoundProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8631,7 +9067,7 @@ public partial class DmParticipantRestrictedProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8657,7 +9093,7 @@ public partial class DmParticipantUnavailableProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8683,7 +9119,7 @@ public partial class DmRateLimitedProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8709,7 +9145,7 @@ public partial class DmRecipientBlocksSenderProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8735,7 +9171,7 @@ public partial class DmRecipientCannotReceiveProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8761,7 +9197,7 @@ public partial class DmRecipientEncryptedUnavailableProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8787,7 +9223,7 @@ public partial class DmRecipientNotAcceptingProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8813,7 +9249,7 @@ public partial class DmRecipientNotFoundProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8839,7 +9275,7 @@ public partial class DmRecipientRestrictsGroupsProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8865,7 +9301,7 @@ public partial class DmRecipientUnavailableProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8891,7 +9327,7 @@ public partial class DmRequestInProgressProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8917,7 +9353,7 @@ public partial class DmSafetyLimitedProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8943,7 +9379,7 @@ public partial class DmSafetyRejectedProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8969,7 +9405,7 @@ public partial class DmSenderBlocksRecipientProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -8995,7 +9431,7 @@ public partial class DmSenderDeclinedDmsProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9021,7 +9457,7 @@ public partial class DmSenderDmsClosedProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9047,7 +9483,7 @@ public partial class DmSenderEncryptedUnavailableProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9073,7 +9509,7 @@ public partial class DmSenderNotInConversationProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9099,7 +9535,7 @@ public partial class DmSenderNotPermittedProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9125,7 +9561,7 @@ public partial class DmSenderNotVerifiedProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9151,7 +9587,7 @@ public partial class DmSenderPhoneRequiredProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9177,7 +9613,7 @@ public partial class DmSenderReadOnlyProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9203,7 +9639,7 @@ public partial class DmSenderUnavailableProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9229,7 +9665,7 @@ public partial class DmTextEmptyProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9255,7 +9691,7 @@ public partial class DmTextTooLongProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9281,7 +9717,7 @@ public partial class DmTooFewParticipantsProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9307,7 +9743,7 @@ public partial class DmTooManyParticipantsProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9333,7 +9769,7 @@ public partial class DmUnsupportedMessageProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9617,7 +10053,7 @@ public partial class EncryptionRequiredProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9823,7 +10259,7 @@ public partial class FieldHydrationFailureProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9861,7 +10297,7 @@ public partial class FieldUnauthorizedProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9903,7 +10339,7 @@ public partial class FinalizeMediaUploadResponseData
 
     [JsonPropertyName("expires_after_secs")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ExpiresAfterSecs { get; set; }
+    public long? ExpiresAfterSecs { get; set; }
 
     /// <summary>Unique identifier of the media.</summary>
 
@@ -9929,7 +10365,7 @@ public partial class FinalizeMediaUploadResponseData
 
     [JsonPropertyName("size")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Size { get; set; }
+    public long? Size { get; set; }
 
     [JsonPropertyName("video")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -9949,7 +10385,7 @@ public partial class FinalizeMediaUploadResponseDataImage
 
     [JsonPropertyName("h")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? H { get; set; }
+    public long? H { get; set; }
 
     /// <summary>MIME type of the uploaded image.</summary>
 
@@ -9961,7 +10397,7 @@ public partial class FinalizeMediaUploadResponseDataImage
 
     [JsonPropertyName("w")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? W { get; set; }
+    public long? W { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -9977,13 +10413,13 @@ public partial class FinalizeMediaUploadResponseDataProcessingInfo
 
     [JsonPropertyName("check_after_secs")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? CheckAfterSecs { get; set; }
+    public long? CheckAfterSecs { get; set; }
 
     /// <summary>Processing completion percentage.</summary>
 
     [JsonPropertyName("progress_percent")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ProgressPercent { get; set; }
+    public long? ProgressPercent { get; set; }
 
     /// <summary>Processing state (pending, in_progress, failed, succeeded).</summary>
 
@@ -11293,7 +11729,7 @@ public partial class GetMediaLibraryCategoriesResponseDataAdvertiserCategories
 
     [JsonPropertyName("id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Id { get; set; }
+    public long? Id { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -11315,7 +11751,7 @@ public partial class GetMediaLibraryCategoriesResponseDataVideoCategories
 
     [JsonPropertyName("id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Id { get; set; }
+    public long? Id { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -11349,7 +11785,7 @@ public partial class GetMediaUploadStatusResponseData
 
     [JsonPropertyName("expires_after_secs")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ExpiresAfterSecs { get; set; }
+    public long? ExpiresAfterSecs { get; set; }
 
     /// <summary>Unique identifier of the media.</summary>
 
@@ -11375,7 +11811,7 @@ public partial class GetMediaUploadStatusResponseData
 
     [JsonPropertyName("size")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Size { get; set; }
+    public long? Size { get; set; }
 
     [JsonPropertyName("video")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -11395,7 +11831,7 @@ public partial class GetMediaUploadStatusResponseDataImage
 
     [JsonPropertyName("h")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? H { get; set; }
+    public long? H { get; set; }
 
     /// <summary>MIME type of the uploaded image.</summary>
 
@@ -11407,7 +11843,7 @@ public partial class GetMediaUploadStatusResponseDataImage
 
     [JsonPropertyName("w")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? W { get; set; }
+    public long? W { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -11423,13 +11859,13 @@ public partial class GetMediaUploadStatusResponseDataProcessingInfo
 
     [JsonPropertyName("check_after_secs")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? CheckAfterSecs { get; set; }
+    public long? CheckAfterSecs { get; set; }
 
     /// <summary>Processing completion percentage.</summary>
 
     [JsonPropertyName("progress_percent")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ProgressPercent { get; set; }
+    public long? ProgressPercent { get; set; }
 
     /// <summary>Processing state (pending, in_progress, failed, succeeded).</summary>
 
@@ -11470,6 +11906,192 @@ public partial class GetNewsResponse
     [JsonPropertyName("errors")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public List<JsonElement>? Errors { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for GetPostDraftsResponse
+/// </summary>
+public partial class GetPostDraftsResponse
+{
+    [JsonPropertyName("data")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<GetPostDraftsResponseData>? Data { get; set; }
+
+    [JsonPropertyName("errors")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<JsonElement>? Errors { get; set; }
+
+    [JsonPropertyName("meta")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public GetPostDraftsResponseMeta? Meta { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for GetPostDraftsResponseData
+/// </summary>
+public partial class GetPostDraftsResponseData
+{
+    /// <summary>When the draft was saved (RFC 3339).</summary>
+
+    [JsonPropertyName("created_at")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? CreatedAt { get; set; }
+
+    /// <summary>Unique identifier of the draft.</summary>
+
+    [JsonPropertyName("id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Id { get; set; }
+
+    /// <summary>Whether the draft discloses AI-generated media.</summary>
+
+    [JsonPropertyName("made_with_ai")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? MadeWithAi { get; set; }
+
+    [JsonPropertyName("media")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public GetPostDraftsResponseDataMedia? Media { get; set; }
+
+    /// <summary>Whether the draft discloses a paid partnership.</summary>
+
+    [JsonPropertyName("paid_partnership")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? PaidPartnership { get; set; }
+
+    /// <summary>The ID of the Post this Post quotes.</summary>
+
+    [JsonPropertyName("quote_tweet_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? QuoteTweetId { get; set; }
+
+    [JsonPropertyName("reply")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public GetPostDraftsResponseDataReply? Reply { get; set; }
+
+    /// <summary>The text of the draft. Empty for a draft that only has media.</summary>
+
+    [JsonPropertyName("text")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Text { get; set; }
+
+    /// <summary>For a draft that is a thread, the Posts after the first one, in order. Each replies to the Post before it.</summary>
+
+    [JsonPropertyName("thread")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<GetPostDraftsResponseDataThread>? Thread { get; set; }
+
+    /// <summary>Parts of the draft that the other fields do not carry. Present only when the draft holds more than is listed.</summary>
+
+    [JsonPropertyName("unsupported_content")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<string>? UnsupportedContent { get; set; }
+
+    /// <summary>When the draft last changed (RFC 3339).</summary>
+
+    [JsonPropertyName("updated_at")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? UpdatedAt { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for GetPostDraftsResponseDataMedia
+/// </summary>
+public partial class GetPostDraftsResponseDataMedia
+{
+    /// <summary>Media IDs attached to the Post, in order.</summary>
+
+    [JsonPropertyName("media_ids")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<string>? MediaIds { get; set; }
+
+    /// <summary>IDs of the users tagged in any of the media.</summary>
+
+    [JsonPropertyName("tagged_user_ids")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<string>? TaggedUserIds { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for GetPostDraftsResponseDataReply
+/// </summary>
+public partial class GetPostDraftsResponseDataReply
+{
+    /// <summary>IDs of the users the reply does not mention.</summary>
+
+    [JsonPropertyName("exclude_reply_user_ids")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<string>? ExcludeReplyUserIds { get; set; }
+
+    /// <summary>The ID of the Post the draft replies to.</summary>
+
+    [JsonPropertyName("in_reply_to_tweet_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? InReplyToTweetId { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for GetPostDraftsResponseDataThread
+/// </summary>
+public partial class GetPostDraftsResponseDataThread
+{
+    [JsonPropertyName("media")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public GetPostDraftsResponseDataThreadMedia? Media { get; set; }
+
+    /// <summary>The ID of the Post this Post quotes.</summary>
+
+    [JsonPropertyName("quote_tweet_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? QuoteTweetId { get; set; }
+
+    /// <summary>The text of the Post. Empty when it only has media.</summary>
+
+    [JsonPropertyName("text")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Text { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for GetPostDraftsResponseDataThreadMedia
+/// </summary>
+public partial class GetPostDraftsResponseDataThreadMedia
+{
+    /// <summary>Media IDs attached to the Post, in order.</summary>
+
+    [JsonPropertyName("media_ids")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<string>? MediaIds { get; set; }
+
+    /// <summary>IDs of the users tagged in any of the media.</summary>
+
+    [JsonPropertyName("tagged_user_ids")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<string>? TaggedUserIds { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -11579,7 +12201,7 @@ public partial class GetPostsCountsAllResponseData
 
     [JsonPropertyName("post_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? PostCount { get; set; }
+    public long? PostCount { get; set; }
 
     /// <summary>Start of the count bucket (inclusive), RFC 3339.</summary>
 
@@ -11629,7 +12251,7 @@ public partial class GetPostsCountsRecentResponseData
 
     [JsonPropertyName("post_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? PostCount { get; set; }
+    public long? PostCount { get; set; }
 
     /// <summary>Start of the count bucket (inclusive), RFC 3339.</summary>
 
@@ -11833,7 +12455,7 @@ public partial class GetRuleCountsResponseDataAllProjectClientApps
 
     [JsonPropertyName("rule_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? RuleCount { get; set; }
+    public long? RuleCount { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -11855,7 +12477,7 @@ public partial class GetRuleCountsResponseDataClientAppRulesCount
 
     [JsonPropertyName("rule_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? RuleCount { get; set; }
+    public long? RuleCount { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -12307,6 +12929,24 @@ public partial class GetTrendsByWoeidResponse
 
 
 /// <summary>
+/// Model for GetTrendsLocationsResponse
+/// </summary>
+public partial class GetTrendsLocationsResponse
+{
+    [JsonPropertyName("data")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<TrendLocation>? Data { get; set; }
+
+    [JsonPropertyName("errors")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<JsonElement>? Errors { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
 /// Model for GetTrendsPersonalizedTrendsResponse
 /// </summary>
 public partial class GetTrendsPersonalizedTrendsResponse
@@ -12469,7 +13109,7 @@ public partial class GetUserBroadcastResponseDataBroadcast
 
     [JsonPropertyName("chat_option")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ChatOption { get; set; }
+    public long? ChatOption { get; set; }
 
     /// <summary>Creation time, milliseconds since Unix epoch (decimal string).</summary>
 
@@ -12487,7 +13127,7 @@ public partial class GetUserBroadcastResponseDataBroadcast
 
     [JsonPropertyName("height")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Height { get; set; }
+    public long? Height { get; set; }
 
     /// <summary>Broadcast id; equal to `broadcast_id`.</summary>
 
@@ -12601,7 +13241,7 @@ public partial class GetUserBroadcastResponseDataBroadcast
 
     [JsonPropertyName("width")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Width { get; set; }
+    public long? Width { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -12653,7 +13293,7 @@ public partial class GetUserSourceResponseDataSource
 
     [JsonPropertyName("creation_time")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? CreationTime { get; set; }
+    public long? CreationTime { get; set; }
 
     /// <summary>Source id; also the RTMP stream key.</summary>
 
@@ -12683,7 +13323,7 @@ public partial class GetUserSourceResponseDataSource
 
     [JsonPropertyName("owner_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? OwnerId { get; set; }
+    public long? OwnerId { get; set; }
 
     /// <summary>Ingest region as an AWS region name, e.g. `us-east-1` or `us-west-2`. Accepted as `region` when creating a source.</summary>
 
@@ -12739,7 +13379,7 @@ public partial class GetUserSourceResponseDataSourceCreationOrigin
 
     [JsonPropertyName("value")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Value { get; set; }
+    public long? Value { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -12767,7 +13407,7 @@ public partial class GetUserSourceResponseDataSourceVideoService
 
     [JsonPropertyName("value")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Value { get; set; }
+    public long? Value { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -13743,7 +14383,7 @@ public partial class InitializeMediaUploadRequest
 
     [JsonPropertyName("total_bytes")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? TotalBytes { get; set; }
+    public long? TotalBytes { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -13777,7 +14417,7 @@ public partial class InitializeMediaUploadResponseData
 
     [JsonPropertyName("expires_after_secs")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ExpiresAfterSecs { get; set; }
+    public long? ExpiresAfterSecs { get; set; }
 
     /// <summary>Unique identifier of the upload session.</summary>
 
@@ -13807,7 +14447,7 @@ public partial class InternalErrorProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -13837,7 +14477,7 @@ public partial class InvalidRequestProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -13921,7 +14561,7 @@ public partial class JoinCallMediaAudio
 
     [JsonPropertyName("sample_rate")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? SampleRate { get; set; }
+    public long? SampleRate { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -14055,7 +14695,7 @@ public partial class JoinCallResponseDataCall
 
     [JsonPropertyName("participant_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ParticipantCount { get; set; }
+    public long? ParticipantCount { get; set; }
 
     /// <summary>Title of the call.</summary>
 
@@ -14597,7 +15237,7 @@ public partial class ListUserBroadcastsResponseDataBroadcasts
 
     [JsonPropertyName("chat_option")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ChatOption { get; set; }
+    public long? ChatOption { get; set; }
 
     /// <summary>Creation time, milliseconds since Unix epoch (decimal string).</summary>
 
@@ -14615,7 +15255,7 @@ public partial class ListUserBroadcastsResponseDataBroadcasts
 
     [JsonPropertyName("height")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Height { get; set; }
+    public long? Height { get; set; }
 
     /// <summary>Broadcast id; equal to `broadcast_id`.</summary>
 
@@ -14729,7 +15369,7 @@ public partial class ListUserBroadcastsResponseDataBroadcasts
 
     [JsonPropertyName("width")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Width { get; set; }
+    public long? Width { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -14797,7 +15437,7 @@ public partial class ListUserSourcesResponseDataSources
 
     [JsonPropertyName("creation_time")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? CreationTime { get; set; }
+    public long? CreationTime { get; set; }
 
     /// <summary>Source id; also the RTMP stream key.</summary>
 
@@ -14827,7 +15467,7 @@ public partial class ListUserSourcesResponseDataSources
 
     [JsonPropertyName("owner_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? OwnerId { get; set; }
+    public long? OwnerId { get; set; }
 
     /// <summary>Ingest region as an AWS region name, e.g. `us-east-1` or `us-west-2`. Accepted as `region` when creating a source.</summary>
 
@@ -14883,7 +15523,7 @@ public partial class ListUserSourcesResponseDataSourcesCreationOrigin
 
     [JsonPropertyName("value")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Value { get; set; }
+    public long? Value { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -14911,7 +15551,7 @@ public partial class ListUserSourcesResponseDataSourcesVideoService
 
     [JsonPropertyName("value")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Value { get; set; }
+    public long? Value { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -15113,11 +15753,11 @@ public partial class Media
 
     [JsonPropertyName("duration_ms")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? DurationMs { get; set; }
+    public long? DurationMs { get; set; }
 
     [JsonPropertyName("height")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Height { get; set; }
+    public long? Height { get; set; }
 
     [JsonPropertyName("media_key")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -15173,7 +15813,7 @@ public partial class Media
 
     [JsonPropertyName("width")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Width { get; set; }
+    public long? Width { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -15187,11 +15827,11 @@ public partial class MediaAnalytics
 {
     [JsonPropertyName("cta_url_clicks")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? CtaUrlClicks { get; set; }
+    public long? CtaUrlClicks { get; set; }
 
     [JsonPropertyName("cta_watch_clicks")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? CtaWatchClicks { get; set; }
+    public long? CtaWatchClicks { get; set; }
 
     [JsonPropertyName("media_key")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -15199,27 +15839,27 @@ public partial class MediaAnalytics
 
     [JsonPropertyName("play_from_tap")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? PlayFromTap { get; set; }
+    public long? PlayFromTap { get; set; }
 
     [JsonPropertyName("playback25")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Playback25 { get; set; }
+    public long? Playback25 { get; set; }
 
     [JsonPropertyName("playback50")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Playback50 { get; set; }
+    public long? Playback50 { get; set; }
 
     [JsonPropertyName("playback75")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Playback75 { get; set; }
+    public long? Playback75 { get; set; }
 
     [JsonPropertyName("playback_complete")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? PlaybackComplete { get; set; }
+    public long? PlaybackComplete { get; set; }
 
     [JsonPropertyName("playback_start")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? PlaybackStart { get; set; }
+    public long? PlaybackStart { get; set; }
 
     [JsonPropertyName("timestamp")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -15233,11 +15873,11 @@ public partial class MediaAnalytics
 
     [JsonPropertyName("video_views")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? VideoViews { get; set; }
+    public long? VideoViews { get; set; }
 
     [JsonPropertyName("watch_time_ms")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? WatchTimeMs { get; set; }
+    public long? WatchTimeMs { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -15469,7 +16109,7 @@ public partial class MediaUploadRequest
 
     [JsonPropertyName("media")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public JsonElement? Media { get; set; }
+    public string? Media { get; set; }
 
     /// <summary>The category of the media being uploaded.</summary>
 
@@ -15509,7 +16149,7 @@ public partial class MediaUploadResponseData
 
     [JsonPropertyName("expires_after_secs")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ExpiresAfterSecs { get; set; }
+    public long? ExpiresAfterSecs { get; set; }
 
     /// <summary>Unique identifier of the media.</summary>
 
@@ -15535,7 +16175,7 @@ public partial class MediaUploadResponseData
 
     [JsonPropertyName("size")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Size { get; set; }
+    public long? Size { get; set; }
 
     [JsonPropertyName("video")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -15555,7 +16195,7 @@ public partial class MediaUploadResponseDataImage
 
     [JsonPropertyName("h")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? H { get; set; }
+    public long? H { get; set; }
 
     /// <summary>MIME type of the uploaded image.</summary>
 
@@ -15567,7 +16207,7 @@ public partial class MediaUploadResponseDataImage
 
     [JsonPropertyName("w")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? W { get; set; }
+    public long? W { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -15583,13 +16223,13 @@ public partial class MediaUploadResponseDataProcessingInfo
 
     [JsonPropertyName("check_after_secs")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? CheckAfterSecs { get; set; }
+    public long? CheckAfterSecs { get; set; }
 
     /// <summary>Processing completion percentage.</summary>
 
     [JsonPropertyName("progress_percent")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ProgressPercent { get; set; }
+    public long? ProgressPercent { get; set; }
 
     /// <summary>Processing state (pending, in_progress, failed, succeeded).</summary>
 
@@ -15657,7 +16297,7 @@ public partial class MessageRequestNotSupportedProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -16123,7 +16763,7 @@ public partial class NotAuthorizedForFieldProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -16169,7 +16809,7 @@ public partial class NotAuthorizedForResourceProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -16463,7 +17103,7 @@ public partial class Poll
 {
     [JsonPropertyName("duration_minutes")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? DurationMinutes { get; set; }
+    public long? DurationMinutes { get; set; }
 
     [JsonPropertyName("end_datetime")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -17449,7 +18089,7 @@ public partial class RecipientNotMessageableProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -17475,7 +18115,7 @@ public partial class RecipientXchatSetupRequiredProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -18409,7 +19049,7 @@ public partial class ResourceNotFoundProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -18447,7 +19087,7 @@ public partial class ResourceUnavailableProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -18625,7 +19265,7 @@ public partial class RotateBotTokenResponseData
 
     [JsonPropertyName("token_expires_at_ms")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? TokenExpiresAtMs { get; set; }
+    public long? TokenExpiresAtMs { get; set; }
 
     /// <summary>The bot's X handle (screen name). May be absent for an org-only bot.</summary>
 
@@ -19229,6 +19869,12 @@ public partial class SendBroadcastChatRequest
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? RelaySource { get; set; }
 
+    /// <summary>The name of the person who wrote this message on the platform it was relayed from, shown next to that platform's icon. Display text only, not an X account. Requires `relay_source`. Links are not allowed.</summary>
+
+    [JsonPropertyName("relay_user")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? RelayUser { get; set; }
+
     /// <summary>Message id to reply to, returned as timestamp when sent.</summary>
 
     [JsonPropertyName("reply_to")]
@@ -19523,7 +20169,7 @@ public partial class Space
 
     [JsonPropertyName("participant_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ParticipantCount { get; set; }
+    public long? ParticipantCount { get; set; }
 
     [JsonPropertyName("scheduled_start")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -19545,7 +20191,7 @@ public partial class Space
 
     [JsonPropertyName("subscriber_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? SubscriberCount { get; set; }
+    public long? SubscriberCount { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -19829,7 +20475,111 @@ public partial class Trend
 
     [JsonPropertyName("tweet_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? TweetCount { get; set; }
+    public long? TweetCount { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// The location where the trend surfaced.
+/// </summary>
+public partial class TrendActivityLocation
+{
+    [JsonPropertyName("country")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Country { get; set; }
+
+    [JsonPropertyName("country_code")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? CountryCode { get; set; }
+
+    [JsonPropertyName("name")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Name { get; set; }
+
+    [JsonPropertyName("parent_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public long? ParentId { get; set; }
+
+    [JsonPropertyName("place_type")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PlaceType { get; set; }
+
+    [JsonPropertyName("woeid")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public long? Woeid { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// A newly surfaced trend in a WOEID location.
+/// </summary>
+public partial class TrendActivityResponsePayload
+{
+    /// <summary>The location where the trend surfaced.</summary>
+
+    [JsonPropertyName("location")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public TrendActivityLocation? Location { get; set; }
+
+    [JsonPropertyName("trend_name")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? TrendName { get; set; }
+
+    [JsonPropertyName("tweet_count")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public long? TweetCount { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for TrendLocation
+/// </summary>
+public partial class TrendLocation
+{
+    /// <summary>The country the location is in. Omitted for a location that is not in one country, such as Worldwide.</summary>
+
+    [JsonPropertyName("country")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Country { get; set; }
+
+    /// <summary>The two-letter code of the location's country, such as `US`. Omitted when `country` is.</summary>
+
+    [JsonPropertyName("country_code")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? CountryCode { get; set; }
+
+    /// <summary>The location's name.</summary>
+
+    [JsonPropertyName("name")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Name { get; set; }
+
+    /// <summary>The WOEID of the location that contains this one, such as a town's country. Omitted for a location with no parent.</summary>
+
+    [JsonPropertyName("parent_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public long? ParentId { get; set; }
+
+    /// <summary>The kind of place: `town`, `country`, or `supername` (Worldwide). Omitted for a location whose kind is not known.</summary>
+
+    [JsonPropertyName("place_type")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PlaceType { get; set; }
+
+    /// <summary>The location's WOEID. Pass it to `GET /2/trends/by/woeid/{woeid}`.</summary>
+
+    [JsonPropertyName("woeid")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public long? Woeid { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -20031,7 +20781,7 @@ public partial class UnencryptedSendNotAllowedProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -20541,7 +21291,7 @@ public partial class UpdateActivitySubscriptionResponseData
 
     [JsonPropertyName("total_subscriptions")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? TotalSubscriptions { get; set; }
+    public long? TotalSubscriptions { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -20701,6 +21451,128 @@ public partial class UpdateBotResponseData
 
 
 /// <summary>
+/// Model for UpdateBroadcastRequest
+/// </summary>
+public partial class UpdateBroadcastRequest
+{
+    /// <summary>Who can chat: 0 default, 1 chat off, 2 everyone, 3 verified accounts, 4 accounts the host follows, 5 the host's subscribers, 6 accounts followed by an account the host follows.</summary>
+
+    [JsonPropertyName("chat_option")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? ChatOption { get; set; }
+
+    /// <summary>New live category, e.g. `gaming`. Ids come from GET /2/broadcasts/categories; an unknown id is a 400. An empty string removes the broadcast's category.</summary>
+
+    [JsonPropertyName("live_category_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? LiveCategoryId { get; set; }
+
+    /// <summary>New broadcast title.</summary>
+
+    [JsonPropertyName("title")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Title { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for UpdateBroadcastResponse
+/// </summary>
+public partial class UpdateBroadcastResponse
+{
+    [JsonPropertyName("data")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public UpdateBroadcastResponseData? Data { get; set; }
+
+    [JsonPropertyName("errors")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<JsonElement>? Errors { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for UpdateBroadcastResponseData
+/// </summary>
+public partial class UpdateBroadcastResponseData
+{
+    /// <summary>Broadcast id; the same as `id`.</summary>
+
+    [JsonPropertyName("broadcast_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? BroadcastId { get; set; }
+
+    /// <summary>Who can chat: 0 default, 1 chat off, 2 everyone, 3 verified accounts, 4 accounts the host follows, 5 the host's subscribers, 6 accounts followed by an account the host follows.</summary>
+
+    [JsonPropertyName("chat_option")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public long? ChatOption { get; set; }
+
+    /// <summary>Broadcast id.</summary>
+
+    [JsonPropertyName("id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Id { get; set; }
+
+    /// <summary>Broadcast language.</summary>
+
+    [JsonPropertyName("language")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Language { get; set; }
+
+    /// <summary>The broadcast's live category. Missing when it has none.</summary>
+
+    [JsonPropertyName("live_category_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? LiveCategoryId { get; set; }
+
+    /// <summary>Media key of the broadcast.</summary>
+
+    [JsonPropertyName("media_key")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? MediaKey { get; set; }
+
+    /// <summary>The broadcast's watch page.</summary>
+
+    [JsonPropertyName("share_url")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? ShareUrl { get; set; }
+
+    /// <summary>Start time, milliseconds since Unix epoch (decimal string).</summary>
+
+    [JsonPropertyName("start_ms")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? StartMs { get; set; }
+
+    /// <summary>Broadcast state, `RUNNING` once live.</summary>
+
+    [JsonPropertyName("state")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? State { get; set; }
+
+    /// <summary>Broadcast title.</summary>
+
+    [JsonPropertyName("title")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Title { get; set; }
+
+    /// <summary>Id of the Post announcing the broadcast. Missing when the Post hasn't been created yet, was suppressed with `should_not_tweet`, or could not be created.</summary>
+
+    [JsonPropertyName("tweet_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? TweetId { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
 /// Model for UpdateBroadcastStateRequest
 /// </summary>
 public partial class UpdateBroadcastStateRequest
@@ -20709,7 +21581,7 @@ public partial class UpdateBroadcastStateRequest
 
     [JsonPropertyName("chat_option")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ChatOption { get; set; }
+    public long? ChatOption { get; set; }
 
     /// <summary>Not allowed with `END`.</summary>
 
@@ -21947,7 +22819,7 @@ public partial class UpdateMediaInLibraryMonetization
 
     [JsonPropertyName("blocked_advertiser_category_ids")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<int>? BlockedAdvertiserCategoryIds { get; set; }
+    public List<long>? BlockedAdvertiserCategoryIds { get; set; }
 
     /// <summary>Advertiser account ids whose ads may not run against the video.</summary>
 
@@ -21971,7 +22843,7 @@ public partial class UpdateMediaInLibraryMonetization
 
     [JsonPropertyName("video_category_ids")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<int>? VideoCategoryIds { get; set; }
+    public List<long>? VideoCategoryIds { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -22665,7 +23537,7 @@ public partial class UpdateUserBroadcastStateResponseDataBroadcast
 
     [JsonPropertyName("chat_option")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ChatOption { get; set; }
+    public long? ChatOption { get; set; }
 
     /// <summary>Creation time, milliseconds since Unix epoch (decimal string).</summary>
 
@@ -22683,7 +23555,7 @@ public partial class UpdateUserBroadcastStateResponseDataBroadcast
 
     [JsonPropertyName("height")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Height { get; set; }
+    public long? Height { get; set; }
 
     /// <summary>Broadcast id; equal to `broadcast_id`.</summary>
 
@@ -22797,7 +23669,7 @@ public partial class UpdateUserBroadcastStateResponseDataBroadcast
 
     [JsonPropertyName("width")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Width { get; set; }
+    public long? Width { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -22865,7 +23737,7 @@ public partial class UpdateUserSourceResponseDataSource
 
     [JsonPropertyName("creation_time")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? CreationTime { get; set; }
+    public long? CreationTime { get; set; }
 
     /// <summary>Source id; also the RTMP stream key.</summary>
 
@@ -22895,7 +23767,7 @@ public partial class UpdateUserSourceResponseDataSource
 
     [JsonPropertyName("owner_id")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? OwnerId { get; set; }
+    public long? OwnerId { get; set; }
 
     /// <summary>Ingest region as an AWS region name, e.g. `us-east-1` or `us-west-2`. Accepted as `region` when creating a source.</summary>
 
@@ -22951,7 +23823,7 @@ public partial class UpdateUserSourceResponseDataSourceCreationOrigin
 
     [JsonPropertyName("value")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Value { get; set; }
+    public long? Value { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -22979,7 +23851,7 @@ public partial class UpdateUserSourceResponseDataSourceVideoService
 
     [JsonPropertyName("value")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Value { get; set; }
+    public long? Value { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -23027,7 +23899,7 @@ public partial class Usage
 {
     [JsonPropertyName("cap_reset_day")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? CapResetDay { get; set; }
+    public long? CapResetDay { get; set; }
 
     /// <summary>Per-client-app daily Post usage for the caller's project.</summary>
 
@@ -23117,7 +23989,7 @@ public partial class User
 
     [JsonPropertyName("active_follower_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? ActiveFollowerCount { get; set; }
+    public long? ActiveFollowerCount { get; set; }
 
     /// <summary>Metadata about a user's affiliation.</summary>
 
@@ -23241,7 +24113,7 @@ public partial class User
 
     [JsonPropertyName("subscriber_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? SubscriberCount { get; set; }
+    public long? SubscriberCount { get; set; }
 
     /// <summary>Indicates if this User subscribes to you.</summary>
 
@@ -23283,7 +24155,7 @@ public partial class User
 
     [JsonPropertyName("verified_followers_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? VerifiedFollowersCount { get; set; }
+    public long? VerifiedFollowersCount { get; set; }
 
     /// <summary>The X Blue verified type of the user, e.g.: blue, government, business or none.</summary>
 
@@ -23853,7 +24725,7 @@ public partial class XchatSetupRequiredProblem
 
     [JsonPropertyName("status")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? Status { get; set; }
+    public long? Status { get; set; }
 
     [JsonPropertyName("title")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -24223,7 +25095,7 @@ public partial class GetBotsResponseMeta
 {
     [JsonPropertyName("max_bots")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? MaxBots { get; set; }
+    public long? MaxBots { get; set; }
 
     /// <summary>Number of items in the data array.</summary>
 
@@ -24359,7 +25231,7 @@ public partial class GetChatGroupAdminRequestsResponseMeta
 
     [JsonPropertyName("total_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? TotalCount { get; set; }
+    public long? TotalCount { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -24385,7 +25257,7 @@ public partial class GetChatMessageRequestsResponseMeta
 
     [JsonPropertyName("total_count")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public int? TotalCount { get; set; }
+    public long? TotalCount { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
@@ -24624,6 +25496,28 @@ public partial class GetListsPostsResponseMeta
     [JsonPropertyName("previous_token")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? PreviousToken { get; set; }
+
+    /// <summary>Number of items in the data array.</summary>
+
+    [JsonPropertyName("result_count")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? ResultCount { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for GetPostDraftsResponseMeta
+/// </summary>
+public partial class GetPostDraftsResponseMeta
+{
+    /// <summary>Pagination token for the next page of results.</summary>
+
+    [JsonPropertyName("next_token")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? NextToken { get; set; }
 
     /// <summary>Number of items in the data array.</summary>
 

@@ -42,6 +42,141 @@ public sealed class SpacesClient
 
 
 
+    public sealed class GetByIdsOptions
+    {
+        
+        
+        public List<string>? SpaceFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? TopicFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetByIdsOptions Clone()
+        {
+            var copy = (GetByIdsOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+    public sealed class GetPostsOptions
+    {
+        
+        
+        public int? MaxResults { get; set; }
+        
+        
+        
+        public string? PaginationToken { get; set; }
+        
+        
+        
+        public List<string>? PostFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? MediaFields { get; set; }
+        
+        
+        
+        public List<string>? PollFields { get; set; }
+        
+        
+        
+        public List<string>? PlaceFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetPostsOptions Clone()
+        {
+            var copy = (GetPostsOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+    public sealed class SearchOptions
+    {
+        
+        
+        public string? State { get; set; }
+        
+        
+        
+        public int? MaxResults { get; set; }
+        
+        
+        
+        public List<string>? SpaceFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? TopicFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public SearchOptions Clone()
+        {
+            var copy = (SearchOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
     public sealed class GetByCreatorIdsOptions
     {
         
@@ -120,59 +255,6 @@ public sealed class SpacesClient
 
 
 
-    public sealed class GetPostsOptions
-    {
-        
-        
-        public int? MaxResults { get; set; }
-        
-        
-        
-        public string? PaginationToken { get; set; }
-        
-        
-        
-        public List<string>? PostFields { get; set; }
-        
-        
-        
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        public List<string>? MediaFields { get; set; }
-        
-        
-        
-        public List<string>? PollFields { get; set; }
-        
-        
-        
-        public List<string>? PlaceFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public GetPostsOptions Clone()
-        {
-            var copy = (GetPostsOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
     public sealed class GetByIdOptions
     {
         
@@ -210,36 +292,79 @@ public sealed class SpacesClient
 
 
 
-    public sealed class GetByIdsOptions
+
+
+
+
+
+
+
+
+    
+    public Task<GetSpacesByIdsResponse> GetByIdsAsync(List<string> ids, GetByIdsOptions? options = null, CancellationToken cancellationToken = default)
     {
         
+        var opts = options ?? new GetByIdsOptions();
         
-        public List<string>? SpaceFields { get; set; }
+        var path = "/2/spaces";
         
-        
-        
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        public List<string>? TopicFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
 
-        public GetByIdsOptions Clone()
-        {
-            var copy = (GetByIdsOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "ids", ids);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "space.fields", opts.SpaceFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "topic.fields", opts.TopicFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetSpacesByIdsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
     }
+    
+
+    
+    
 
 
 
@@ -247,49 +372,201 @@ public sealed class SpacesClient
 
 
 
-    public sealed class SearchOptions
+
+
+
+    
+    public Task<GetSpacesPostsResponse> GetPostsAsync(string id, GetPostsOptions? options = null, CancellationToken cancellationToken = default)
     {
         
+        var opts = options ?? new GetPostsOptions();
         
-        public string? State { get; set; }
-        
-        
-        
-        public int? MaxResults { get; set; }
+        var path = "/2/spaces/{id}/tweets";
         
         
-        
-        public List<string>? SpaceFields { get; set; }
-        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
         
         
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        public List<string>? TopicFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
 
-        public SearchOptions Clone()
-        {
-            var copy = (SearchOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "poll.fields", opts.PollFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "place.fields", opts.PlaceFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetSpacesPostsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
     }
+    
+
+    
+    
+    
+    
+    
+
+    public Paginator<GetSpacesPostsResponse> GetPostsPages(string id, GetPostsOptions? options = null)
+    {
+        var baseOpts = options?.Clone() ?? new GetPostsOptions();
+        var initialToken = baseOpts.PaginationToken;
+        return new Paginator<GetSpacesPostsResponse>(
+            (token, ct) =>
+            {
+                var pageOpts = baseOpts.Clone();
+                pageOpts.PaginationToken = token;
+                return GetPostsAsync(id, pageOpts, ct);
+            },
+            initialToken);
+    }
+    
 
 
 
 
 
+
+
+
+
+
+    
+    public Task<SearchSpacesResponse> SearchAsync(string query, SearchOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new SearchOptions();
+        
+        var path = "/2/spaces/search";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "query", query);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "state", opts.State);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "space.fields", opts.SpaceFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "topic.fields", opts.TopicFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<SearchSpacesResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
 
 
 
@@ -473,121 +750,6 @@ public sealed class SpacesClient
 
 
     
-    public Task<GetSpacesPostsResponse> GetPostsAsync(string id, GetPostsOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetPostsOptions();
-        
-        var path = "/2/spaces/{id}/tweets";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "poll.fields", opts.PollFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "place.fields", opts.PlaceFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetSpacesPostsResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-    
-    
-    
-
-    public Paginator<GetSpacesPostsResponse> GetPostsPages(string id, GetPostsOptions? options = null)
-    {
-        var baseOpts = options?.Clone() ?? new GetPostsOptions();
-        var initialToken = baseOpts.PaginationToken;
-        return new Paginator<GetSpacesPostsResponse>(
-            (token, ct) =>
-            {
-                var pageOpts = baseOpts.Clone();
-                pageOpts.PaginationToken = token;
-                return GetPostsAsync(id, pageOpts, ct);
-            },
-            initialToken);
-    }
-    
-
-
-
-
-
-
-
-
-
-
-    
     public Task<GetSpacesByIdResponse> GetByIdAsync(string id, GetByIdOptions? options = null, CancellationToken cancellationToken = default)
     {
         
@@ -636,168 +798,6 @@ public sealed class SpacesClient
 
         
         return _client.SendJsonAsync<GetSpacesByIdResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetSpacesByIdsResponse> GetByIdsAsync(List<string> ids, GetByIdsOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetByIdsOptions();
-        
-        var path = "/2/spaces";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "ids", ids);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "space.fields", opts.SpaceFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "topic.fields", opts.TopicFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetSpacesByIdsResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<SearchSpacesResponse> SearchAsync(string query, SearchOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new SearchOptions();
-        
-        var path = "/2/spaces/search";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "query", query);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "state", opts.State);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "space.fields", opts.SpaceFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "topic.fields", opts.TopicFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<SearchSpacesResponse>(
             new HttpMethod("GET"),
             path,
             queryParams,

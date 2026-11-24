@@ -16,6 +16,59 @@ public class DirectMessagesPaginationTests
 {
     
     [Fact]
+    public async Task Paginate_GetEventsByConversationId()
+    {
+        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
+        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
+        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
+        var callIndex = 0;
+
+        var handler = new MockHttpMessageHandler(_ =>
+        {
+            callIndex++;
+            var body = callIndex == 1 ? page1 : page2;
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(body, Encoding.UTF8, "application/json"),
+            };
+        });
+
+        using var httpClient = new HttpClient(handler);
+        using var client = new XClient(new XClientOptions
+        {
+            BaseUrl = "https://api.example.com",
+            BearerToken = "test-bearer",
+            AccessToken = "test-access",
+            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
+            HttpClient = httpClient,
+        });
+
+        
+        
+        
+        
+        
+        
+        
+
+        var paginator = client.DirectMessages.GetEventsByConversationIdPages("test_id");
+        var pages = 0;
+        await foreach (var page in paginator)
+        {
+            object? boxed = page;
+            Assert.NotNull(boxed);
+            pages++;
+            if (pages > 5) break;
+        }
+
+        Assert.Equal(2, pages);
+        Assert.Equal(2, handler.Requests.Count);
+        
+        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
+        
+    }
+    
+    [Fact]
     public async Task Paginate_GetEventsByParticipantId()
     {
         var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
@@ -100,59 +153,6 @@ public class DirectMessagesPaginationTests
         
 
         var paginator = client.DirectMessages.GetEventsPages();
-        var pages = 0;
-        await foreach (var page in paginator)
-        {
-            object? boxed = page;
-            Assert.NotNull(boxed);
-            pages++;
-            if (pages > 5) break;
-        }
-
-        Assert.Equal(2, pages);
-        Assert.Equal(2, handler.Requests.Count);
-        
-        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
-        
-    }
-    
-    [Fact]
-    public async Task Paginate_GetEventsByConversationId()
-    {
-        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
-        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
-        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
-        var callIndex = 0;
-
-        var handler = new MockHttpMessageHandler(_ =>
-        {
-            callIndex++;
-            var body = callIndex == 1 ? page1 : page2;
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent(body, Encoding.UTF8, "application/json"),
-            };
-        });
-
-        using var httpClient = new HttpClient(handler);
-        using var client = new XClient(new XClientOptions
-        {
-            BaseUrl = "https://api.example.com",
-            BearerToken = "test-bearer",
-            AccessToken = "test-access",
-            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
-            HttpClient = httpClient,
-        });
-
-        
-        
-        
-        
-        
-        
-        
-
-        var paginator = client.DirectMessages.GetEventsByConversationIdPages("test_id");
         var pages = 0;
         await foreach (var page in paginator)
         {

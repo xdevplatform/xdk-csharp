@@ -29,8 +29,8 @@ public class CommunityNotesStructureTests
 
         
         Assert.True(
-            methodNames.Contains("CreateAsync") || methodNames.Contains("CreateStream"),
-            "Expected CreateAsync or CreateStream on CommunityNotesClient");
+            methodNames.Contains("DeleteAsync") || methodNames.Contains("DeleteStream"),
+            "Expected DeleteAsync or DeleteStream on CommunityNotesClient");
         
         
         Assert.True(
@@ -46,8 +46,8 @@ public class CommunityNotesStructureTests
         
         
         Assert.True(
-            methodNames.Contains("DeleteAsync") || methodNames.Contains("DeleteStream"),
-            "Expected DeleteAsync or DeleteStream on CommunityNotesClient");
+            methodNames.Contains("CreateAsync") || methodNames.Contains("CreateStream"),
+            "Expected CreateAsync or CreateStream on CommunityNotesClient");
         
         
         Assert.True(

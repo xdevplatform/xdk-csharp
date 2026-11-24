@@ -29,50 +29,23 @@ public class BroadcastsStructureTests
 
         
         Assert.True(
-            methodNames.Contains("GetUserBroadcastAsync") || methodNames.Contains("GetUserBroadcastStream"),
-            "Expected GetUserBroadcastAsync or GetUserBroadcastStream on BroadcastsClient");
+            methodNames.Contains("GoLiveScheduledBroadcastAsync") || methodNames.Contains("GoLiveScheduledBroadcastStream"),
+            "Expected GoLiveScheduledBroadcastAsync or GoLiveScheduledBroadcastStream on BroadcastsClient");
         
         
         Assert.True(
-            methodNames.Contains("DeleteUserBroadcastAsync") || methodNames.Contains("DeleteUserBroadcastStream"),
-            "Expected DeleteUserBroadcastAsync or DeleteUserBroadcastStream on BroadcastsClient");
+            methodNames.Contains("ListUserSourcesAsync") || methodNames.Contains("ListUserSourcesStream"),
+            "Expected ListUserSourcesAsync or ListUserSourcesStream on BroadcastsClient");
         
         
         Assert.True(
-            methodNames.Contains("GetScheduledBroadcastAsync") || methodNames.Contains("GetScheduledBroadcastStream"),
-            "Expected GetScheduledBroadcastAsync or GetScheduledBroadcastStream on BroadcastsClient");
+            methodNames.Contains("CreateUserSourceAsync") || methodNames.Contains("CreateUserSourceStream"),
+            "Expected CreateUserSourceAsync or CreateUserSourceStream on BroadcastsClient");
         
         
         Assert.True(
-            methodNames.Contains("UpdateScheduledBroadcastAsync") || methodNames.Contains("UpdateScheduledBroadcastStream"),
-            "Expected UpdateScheduledBroadcastAsync or UpdateScheduledBroadcastStream on BroadcastsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("DeleteScheduledBroadcastAsync") || methodNames.Contains("DeleteScheduledBroadcastStream"),
-            "Expected DeleteScheduledBroadcastAsync or DeleteScheduledBroadcastStream on BroadcastsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("UnmuteChatUserAsync") || methodNames.Contains("UnmuteChatUserStream"),
-            "Expected UnmuteChatUserAsync or UnmuteChatUserStream on BroadcastsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("ListScheduledAsync") || methodNames.Contains("ListScheduledStream"),
-            "Expected ListScheduledAsync or ListScheduledStream on BroadcastsClient");
-        
-        Assert.Contains("ListScheduledPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("CreateScheduledBroadcastAsync") || methodNames.Contains("CreateScheduledBroadcastStream"),
-            "Expected CreateScheduledBroadcastAsync or CreateScheduledBroadcastStream on BroadcastsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("UnmuteBroadcastChatUserAsync") || methodNames.Contains("UnmuteBroadcastChatUserStream"),
-            "Expected UnmuteBroadcastChatUserAsync or UnmuteBroadcastChatUserStream on BroadcastsClient");
+            methodNames.Contains("ListLiveCategoriesAsync") || methodNames.Contains("ListLiveCategoriesStream"),
+            "Expected ListLiveCategoriesAsync or ListLiveCategoriesStream on BroadcastsClient");
         
         
         Assert.True(
@@ -91,28 +64,18 @@ public class BroadcastsStructureTests
         
         
         Assert.True(
-            methodNames.Contains("GetSourceStreamKeyAsync") || methodNames.Contains("GetSourceStreamKeyStream"),
-            "Expected GetSourceStreamKeyAsync or GetSourceStreamKeyStream on BroadcastsClient");
+            methodNames.Contains("GetChatModeratorsAsync") || methodNames.Contains("GetChatModeratorsStream"),
+            "Expected GetChatModeratorsAsync or GetChatModeratorsStream on BroadcastsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("AddChatModeratorAsync") || methodNames.Contains("AddChatModeratorStream"),
+            "Expected AddChatModeratorAsync or AddChatModeratorStream on BroadcastsClient");
         
         
         Assert.True(
             methodNames.Contains("GetRegionAsync") || methodNames.Contains("GetRegionStream"),
             "Expected GetRegionAsync or GetRegionStream on BroadcastsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("ListUserSourcesAsync") || methodNames.Contains("ListUserSourcesStream"),
-            "Expected ListUserSourcesAsync or ListUserSourcesStream on BroadcastsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("CreateUserSourceAsync") || methodNames.Contains("CreateUserSourceStream"),
-            "Expected CreateUserSourceAsync or CreateUserSourceStream on BroadcastsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("UpdateBroadcastStateAsync") || methodNames.Contains("UpdateBroadcastStateStream"),
-            "Expected UpdateBroadcastStateAsync or UpdateBroadcastStateStream on BroadcastsClient");
         
         
         Assert.True(
@@ -128,65 +91,13 @@ public class BroadcastsStructureTests
         
         
         Assert.True(
-            methodNames.Contains("DeleteBroadcastChatMessageAsync") || methodNames.Contains("DeleteBroadcastChatMessageStream"),
-            "Expected DeleteBroadcastChatMessageAsync or DeleteBroadcastChatMessageStream on BroadcastsClient");
+            methodNames.Contains("UnmuteChatUserAsync") || methodNames.Contains("UnmuteChatUserStream"),
+            "Expected UnmuteChatUserAsync or UnmuteChatUserStream on BroadcastsClient");
         
         
         Assert.True(
-            methodNames.Contains("GetChatMutedUsersAsync") || methodNames.Contains("GetChatMutedUsersStream"),
-            "Expected GetChatMutedUsersAsync or GetChatMutedUsersStream on BroadcastsClient");
-        
-        Assert.Contains("GetChatMutedUsersPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("MuteChatUserAsync") || methodNames.Contains("MuteChatUserStream"),
-            "Expected MuteChatUserAsync or MuteChatUserStream on BroadcastsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetChatModeratorsAsync") || methodNames.Contains("GetChatModeratorsStream"),
-            "Expected GetChatModeratorsAsync or GetChatModeratorsStream on BroadcastsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("AddChatModeratorAsync") || methodNames.Contains("AddChatModeratorStream"),
-            "Expected AddChatModeratorAsync or AddChatModeratorStream on BroadcastsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("ListUserAsync") || methodNames.Contains("ListUserStream"),
-            "Expected ListUserAsync or ListUserStream on BroadcastsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("CreateUserBroadcastAsync") || methodNames.Contains("CreateUserBroadcastStream"),
-            "Expected CreateUserBroadcastAsync or CreateUserBroadcastStream on BroadcastsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("UpdateUserBroadcastStateAsync") || methodNames.Contains("UpdateUserBroadcastStateStream"),
-            "Expected UpdateUserBroadcastStateAsync or UpdateUserBroadcastStateStream on BroadcastsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("ListSourcesAsync") || methodNames.Contains("ListSourcesStream"),
-            "Expected ListSourcesAsync or ListSourcesStream on BroadcastsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("CreateSourceAsync") || methodNames.Contains("CreateSourceStream"),
-            "Expected CreateSourceAsync or CreateSourceStream on BroadcastsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetBroadcastAsync") || methodNames.Contains("GetBroadcastStream"),
-            "Expected GetBroadcastAsync or GetBroadcastStream on BroadcastsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("DeleteBroadcastAsync") || methodNames.Contains("DeleteBroadcastStream"),
-            "Expected DeleteBroadcastAsync or DeleteBroadcastStream on BroadcastsClient");
+            methodNames.Contains("UnmuteBroadcastChatUserAsync") || methodNames.Contains("UnmuteBroadcastChatUserStream"),
+            "Expected UnmuteBroadcastChatUserAsync or UnmuteBroadcastChatUserStream on BroadcastsClient");
         
         
         Assert.True(
@@ -199,6 +110,26 @@ public class BroadcastsStructureTests
         Assert.True(
             methodNames.Contains("SendBroadcastChatAsync") || methodNames.Contains("SendBroadcastChatStream"),
             "Expected SendBroadcastChatAsync or SendBroadcastChatStream on BroadcastsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("DeleteBroadcastChatMessageAsync") || methodNames.Contains("DeleteBroadcastChatMessageStream"),
+            "Expected DeleteBroadcastChatMessageAsync or DeleteBroadcastChatMessageStream on BroadcastsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("UpdateBroadcastStateAsync") || methodNames.Contains("UpdateBroadcastStateStream"),
+            "Expected UpdateBroadcastStateAsync or UpdateBroadcastStateStream on BroadcastsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("ListUserAsync") || methodNames.Contains("ListUserStream"),
+            "Expected ListUserAsync or ListUserStream on BroadcastsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("CreateUserBroadcastAsync") || methodNames.Contains("CreateUserBroadcastStream"),
+            "Expected CreateUserBroadcastAsync or CreateUserBroadcastStream on BroadcastsClient");
         
         
         Assert.True(
@@ -217,8 +148,45 @@ public class BroadcastsStructureTests
         
         
         Assert.True(
+            methodNames.Contains("UpdateUserBroadcastStateAsync") || methodNames.Contains("UpdateUserBroadcastStateStream"),
+            "Expected UpdateUserBroadcastStateAsync or UpdateUserBroadcastStateStream on BroadcastsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetSourceStreamKeyAsync") || methodNames.Contains("GetSourceStreamKeyStream"),
+            "Expected GetSourceStreamKeyAsync or GetSourceStreamKeyStream on BroadcastsClient");
+        
+        
+        Assert.True(
             methodNames.Contains("RemoveChatModeratorAsync") || methodNames.Contains("RemoveChatModeratorStream"),
             "Expected RemoveChatModeratorAsync or RemoveChatModeratorStream on BroadcastsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetBroadcastAsync") || methodNames.Contains("GetBroadcastStream"),
+            "Expected GetBroadcastAsync or GetBroadcastStream on BroadcastsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("UpdateBroadcastAsync") || methodNames.Contains("UpdateBroadcastStream"),
+            "Expected UpdateBroadcastAsync or UpdateBroadcastStream on BroadcastsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("DeleteBroadcastAsync") || methodNames.Contains("DeleteBroadcastStream"),
+            "Expected DeleteBroadcastAsync or DeleteBroadcastStream on BroadcastsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("ListScheduledAsync") || methodNames.Contains("ListScheduledStream"),
+            "Expected ListScheduledAsync or ListScheduledStream on BroadcastsClient");
+        
+        Assert.Contains("ListScheduledPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("CreateScheduledBroadcastAsync") || methodNames.Contains("CreateScheduledBroadcastStream"),
+            "Expected CreateScheduledBroadcastAsync or CreateScheduledBroadcastStream on BroadcastsClient");
         
         
         Assert.True(
@@ -227,13 +195,50 @@ public class BroadcastsStructureTests
         
         
         Assert.True(
-            methodNames.Contains("ListLiveCategoriesAsync") || methodNames.Contains("ListLiveCategoriesStream"),
-            "Expected ListLiveCategoriesAsync or ListLiveCategoriesStream on BroadcastsClient");
+            methodNames.Contains("ListSourcesAsync") || methodNames.Contains("ListSourcesStream"),
+            "Expected ListSourcesAsync or ListSourcesStream on BroadcastsClient");
         
         
         Assert.True(
-            methodNames.Contains("GoLiveScheduledBroadcastAsync") || methodNames.Contains("GoLiveScheduledBroadcastStream"),
-            "Expected GoLiveScheduledBroadcastAsync or GoLiveScheduledBroadcastStream on BroadcastsClient");
+            methodNames.Contains("CreateSourceAsync") || methodNames.Contains("CreateSourceStream"),
+            "Expected CreateSourceAsync or CreateSourceStream on BroadcastsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetScheduledBroadcastAsync") || methodNames.Contains("GetScheduledBroadcastStream"),
+            "Expected GetScheduledBroadcastAsync or GetScheduledBroadcastStream on BroadcastsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("UpdateScheduledBroadcastAsync") || methodNames.Contains("UpdateScheduledBroadcastStream"),
+            "Expected UpdateScheduledBroadcastAsync or UpdateScheduledBroadcastStream on BroadcastsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("DeleteScheduledBroadcastAsync") || methodNames.Contains("DeleteScheduledBroadcastStream"),
+            "Expected DeleteScheduledBroadcastAsync or DeleteScheduledBroadcastStream on BroadcastsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetChatMutedUsersAsync") || methodNames.Contains("GetChatMutedUsersStream"),
+            "Expected GetChatMutedUsersAsync or GetChatMutedUsersStream on BroadcastsClient");
+        
+        Assert.Contains("GetChatMutedUsersPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("MuteChatUserAsync") || methodNames.Contains("MuteChatUserStream"),
+            "Expected MuteChatUserAsync or MuteChatUserStream on BroadcastsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetUserBroadcastAsync") || methodNames.Contains("GetUserBroadcastStream"),
+            "Expected GetUserBroadcastAsync or GetUserBroadcastStream on BroadcastsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("DeleteUserBroadcastAsync") || methodNames.Contains("DeleteUserBroadcastStream"),
+            "Expected DeleteUserBroadcastAsync or DeleteUserBroadcastStream on BroadcastsClient");
         
         
     }

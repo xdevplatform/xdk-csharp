@@ -42,30 +42,6 @@ public sealed class ChatClient
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public sealed class GetConversationEventsOptions
     {
         
@@ -92,92 +68,6 @@ public sealed class ChatClient
             return copy;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-    public sealed class GetSettingsOptions
-    {
-        
-        
-        public List<string>? ChatSettingsFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public GetSettingsOptions Clone()
-        {
-            var copy = (GetSettingsOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public sealed class GetMessageRequestsOptions
-    {
-        
-        
-        public string? InboxType { get; set; }
-        
-        
-        
-        public int? MaxResults { get; set; }
-        
-        
-        
-        public string? PaginationToken { get; set; }
-        
-        
-        
-        public List<string>? ChatMessageRequestFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public GetMessageRequestsOptions Clone()
-        {
-            var copy = (GetMessageRequestsOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-
 
 
 
@@ -250,27 +140,32 @@ public sealed class ChatClient
 
 
 
+    public sealed class GetConversationOptions
+    {
+        
+        
+        public List<string>? ChatConversationFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        public GetConversationOptions Clone()
+        {
+            var copy = (GetConversationOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
 
 
 
@@ -315,6 +210,87 @@ public sealed class ChatClient
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public sealed class GetMessageRequestsOptions
+    {
+        
+        
+        public string? InboxType { get; set; }
+        
+        
+        
+        public int? MaxResults { get; set; }
+        
+        
+        
+        public string? PaginationToken { get; set; }
+        
+        
+        
+        public List<string>? ChatMessageRequestFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetMessageRequestsOptions Clone()
+        {
+            var copy = (GetMessageRequestsOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public sealed class GetMessageRequestOptions
     {
         
@@ -340,6 +316,14 @@ public sealed class ChatClient
 
 
 
+
+
+
+
+
+
+
+
     public sealed class GetGroupInviteOptions
     {
         
@@ -358,51 +342,6 @@ public sealed class ChatClient
             return copy;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public sealed class GetConversationOptions
-    {
-        
-        
-        public List<string>? ChatConversationFields { get; set; }
-        
-        
-        
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public GetConversationOptions Clone()
-        {
-            var copy = (GetConversationOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
 
 
 
@@ -495,59 +434,25 @@ public sealed class ChatClient
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<AcceptChatMessageRequestResponse> AcceptMessageRequestAsync(string id, CancellationToken cancellationToken = default)
+    public sealed class GetSettingsOptions
     {
         
-        var path = "/2/chat/message_requests/{id}/accept";
+        
+        public List<string>? ChatSettingsFields { get; set; }
         
         
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
         
         
+        public Dictionary<string, string> Headers { get; set; } = new();
 
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<AcceptChatMessageRequestResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
+        public GetSettingsOptions Clone()
+        {
+            var copy = (GetSettingsOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
     }
-    
 
-    
-    
 
 
 
@@ -558,43 +463,11 @@ public sealed class ChatClient
 
 
 
-    
-    public Task<MuteChatConversationResponse> MuteConversationAsync(string id, MuteChatConversationRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/mute";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
 
-        var queryParams = new Dictionary<string, string>();
-        
 
-        var extraHeaders = new Dictionary<string, string>();
-        
 
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
 
-        
-        return _client.SendJsonAsync<MuteChatConversationResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
 
-    
-    
 
 
 
@@ -605,43 +478,11 @@ public sealed class ChatClient
 
 
 
-    
-    public Task<UnmuteChatConversationResponse> UnmuteConversationAsync(string id, UnmuteChatConversationRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/mute";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
 
-        var queryParams = new Dictionary<string, string>();
-        
 
-        var extraHeaders = new Dictionary<string, string>();
-        
 
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
 
-        
-        return _client.SendJsonAsync<UnmuteChatConversationResponse>(
-            new HttpMethod("DELETE"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
 
-    
-    
 
 
 
@@ -652,137 +493,14 @@ public sealed class ChatClient
 
 
 
-    
-    public Task<AddChatGroupAdminsResponse> AddGroupAdminsAsync(string id, AddChatGroupAdminsRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/admins";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
 
-        var queryParams = new Dictionary<string, string>();
-        
 
-        var extraHeaders = new Dictionary<string, string>();
-        
 
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
 
-        
-        return _client.SendJsonAsync<AddChatGroupAdminsResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
 
-    
-    
 
 
 
-
-
-
-
-
-
-
-    
-    public Task<MarkChatConversationReadResponse> MarkConversationReadAsync(string id, MarkChatConversationReadRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/read";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<MarkChatConversationReadResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<DeleteChatMessagesResponse> DeleteMessagesAsync(string id, DeleteChatMessagesRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/messages/delete";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<DeleteChatMessagesResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
 
 
 
@@ -926,61 +644,14 @@ public sealed class ChatClient
 
 
     
-    public Task<GetChatSettingsResponse> GetSettingsAsync(GetSettingsOptions? options = null, CancellationToken cancellationToken = default)
+    public Task<CreateChatGroupJoinRequestResponse> CreateGroupJoinRequestAsync(string id, CreateChatGroupJoinRequestRequest body, CancellationToken cancellationToken = default)
     {
         
-        var opts = options ?? new GetSettingsOptions();
-        
-        var path = "/2/chat/settings";
-        
-
-        var queryParams = new Dictionary<string, string>();
+        var path = "/2/chat/conversations/{id}/join_requests";
         
         
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
         
-        XClient.AddQueryParam(queryParams, "chat_settings.fields", opts.ChatSettingsFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetChatSettingsResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<UpdateChatSettingsResponse> UpdateSettingsAsync(UpdateChatSettingsRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/settings";
         
 
         var queryParams = new Dictionary<string, string>();
@@ -994,8 +665,8 @@ public sealed class ChatClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<UpdateChatSettingsResponse>(
-            new HttpMethod("PUT"),
+        return _client.SendJsonAsync<CreateChatGroupJoinRequestResponse>(
+            new HttpMethod("POST"),
             path,
             queryParams,
             extraHeaders,
@@ -1020,14 +691,10 @@ public sealed class ChatClient
 
 
     
-    public Task<MarkChatConversationUnreadResponse> MarkConversationUnreadAsync(string id, CancellationToken cancellationToken = default)
+    public Task<InitializeChatGroupResponse> InitializeGroupAsync(CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/chat/conversations/{id}/unread";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
+        var path = "/2/chat/conversations/group/initialize";
         
 
         var queryParams = new Dictionary<string, string>();
@@ -1041,380 +708,7 @@ public sealed class ChatClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<MarkChatConversationUnreadResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<ChatMediaUploadAppendResponse> MediaUploadAppendAsync(string id, ChatMediaUploadAppendRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/media/upload/{id}/append";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<ChatMediaUploadAppendResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetChatMessageRequestsResponse> GetMessageRequestsAsync(GetMessageRequestsOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetMessageRequestsOptions();
-        
-        var path = "/2/chat/message_requests";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "inbox_type", opts.InboxType);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "chat_message_request.fields", opts.ChatMessageRequestFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetChatMessageRequestsResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-    
-    
-    
-
-    public Paginator<GetChatMessageRequestsResponse> GetMessageRequestsPages(GetMessageRequestsOptions? options = null)
-    {
-        var baseOpts = options?.Clone() ?? new GetMessageRequestsOptions();
-        var initialToken = baseOpts.PaginationToken;
-        return new Paginator<GetChatMessageRequestsResponse>(
-            (token, ct) =>
-            {
-                var pageOpts = baseOpts.Clone();
-                pageOpts.PaginationToken = token;
-                return GetMessageRequestsAsync(pageOpts, ct);
-            },
-            initialToken);
-    }
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<EnableChatGroupInviteResponse> EnableGroupInviteAsync(string id, EnableChatGroupInviteRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/invite";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<EnableChatGroupInviteResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<DisableChatGroupInviteResponse> DisableGroupInviteAsync(string id, DisableChatGroupInviteRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/invite";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<DisableChatGroupInviteResponse>(
-            new HttpMethod("DELETE"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<RejectChatGroupJoinRequestsResponse> RejectGroupJoinRequestsAsync(string id, RejectChatGroupJoinRequestsRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/join_requests/reject";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<RejectChatGroupJoinRequestsResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<ApproveChatGroupAdminRequestResponse> ApproveGroupAdminRequestAsync(string id, string userId, ApproveChatGroupAdminRequestRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/admin_requests/{user_id}/approve";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-        
-        path = path.Replace("{user_id}", XClient.EncodePathSegment(userId));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<ApproveChatGroupAdminRequestResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<AddChatGroupMembersResponse> AddGroupMembersAsync(string id, AddChatGroupMembersRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/members";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<AddChatGroupMembersResponse>(
+        return _client.SendJsonAsync<InitializeChatGroupResponse>(
             new HttpMethod("POST"),
             path,
             queryParams,
@@ -1578,10 +872,10 @@ public sealed class ChatClient
 
 
     
-    public Task<RemoveChatGroupMembersResponse> RemoveGroupMembersAsync(string id, RemoveChatGroupMembersRequest body, CancellationToken cancellationToken = default)
+    public Task<AddUserPublicKeyResponse> AddUserPublicKeyAsync(string id, AddUserPublicKeyRequest body, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/chat/conversations/{id}/members/remove";
+        var path = "/2/users/{id}/public_keys";
         
         
         path = path.Replace("{id}", XClient.EncodePathSegment(id));
@@ -1599,54 +893,7 @@ public sealed class ChatClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<RemoveChatGroupMembersResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<CreateChatGroupJoinRequestResponse> CreateGroupJoinRequestAsync(string id, CreateChatGroupJoinRequestRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/join_requests";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<CreateChatGroupJoinRequestResponse>(
+        return _client.SendJsonAsync<AddUserPublicKeyResponse>(
             new HttpMethod("POST"),
             path,
             queryParams,
@@ -1723,53 +970,10 @@ public sealed class ChatClient
 
 
     
-    public Task<ChatMediaUploadInitializeResponse> MediaUploadInitializeAsync(ChatMediaUploadInitializeRequest body, CancellationToken cancellationToken = default)
+    public Task<DeleteChatMessagesResponse> DeleteMessagesAsync(string id, DeleteChatMessagesRequest body, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/chat/media/upload/initialize";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<ChatMediaUploadInitializeResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<AddUserPublicKeyResponse> AddUserPublicKeyAsync(string id, AddUserPublicKeyRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/users/{id}/public_keys";
+        var path = "/2/chat/conversations/{id}/messages/delete";
         
         
         path = path.Replace("{id}", XClient.EncodePathSegment(id));
@@ -1787,623 +991,7 @@ public sealed class ChatClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<AddUserPublicKeyResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<RejectChatGroupAdminRequestResponse> RejectGroupAdminRequestAsync(string id, string userId, RejectChatGroupAdminRequestRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/admin_requests/{user_id}/reject";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-        
-        path = path.Replace("{user_id}", XClient.EncodePathSegment(userId));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<RejectChatGroupAdminRequestResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<SendChatMessageResponse> SendMessageAsync(string id, SendChatMessageRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/messages";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<SendChatMessageResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<CreateChatConversationResponse> CreateConversationAsync(CreateChatConversationRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/group";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<CreateChatConversationResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<ArchiveChatConversationResponse> ArchiveConversationAsync(string id, ArchiveChatConversationRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/archive";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<ArchiveChatConversationResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<UnarchiveChatConversationResponse> UnarchiveConversationAsync(string id, UnarchiveChatConversationRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/archive";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<UnarchiveChatConversationResponse>(
-            new HttpMethod("DELETE"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<UpdateChatGroupAdminSettingsResponse> UpdateGroupAdminSettingsAsync(string id, UpdateChatGroupAdminSettingsRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/admin_settings";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<UpdateChatGroupAdminSettingsResponse>(
-            new HttpMethod("PUT"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<UpdateChatConversationScreenCaptureResponse> UpdateConversationScreenCaptureAsync(string id, UpdateChatConversationScreenCaptureRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/screen_capture";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<UpdateChatConversationScreenCaptureResponse>(
-            new HttpMethod("PUT"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetChatConversationPinnedMessagesResponse> GetConversationPinnedMessagesAsync(string id, GetConversationPinnedMessagesOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetConversationPinnedMessagesOptions();
-        
-        var path = "/2/chat/conversations/{id}/pinned_messages";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "chat_pinned_message.fields", opts.ChatPinnedMessageFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetChatConversationPinnedMessagesResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-    
-    
-    
-
-    public Paginator<GetChatConversationPinnedMessagesResponse> GetConversationPinnedMessagesPages(string id, GetConversationPinnedMessagesOptions? options = null)
-    {
-        var baseOpts = options?.Clone() ?? new GetConversationPinnedMessagesOptions();
-        var initialToken = baseOpts.PaginationToken;
-        return new Paginator<GetChatConversationPinnedMessagesResponse>(
-            (token, ct) =>
-            {
-                var pageOpts = baseOpts.Clone();
-                pageOpts.PaginationToken = token;
-                return GetConversationPinnedMessagesAsync(id, pageOpts, ct);
-            },
-            initialToken);
-    }
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetChatMessageRequestResponse> GetMessageRequestAsync(string id, GetMessageRequestOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetMessageRequestOptions();
-        
-        var path = "/2/chat/message_requests/{id}";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "chat_message_request_detail.fields", opts.ChatMessageRequestDetailFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetChatMessageRequestResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetChatGroupInviteResponse> GetGroupInviteAsync(string id, string token, GetGroupInviteOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetGroupInviteOptions();
-        
-        var path = "/2/chat/conversations/{id}/invites/{token}";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-        
-        path = path.Replace("{token}", XClient.EncodePathSegment(token));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "chat_group_invite.fields", opts.ChatGroupInviteFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetChatGroupInviteResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<AddConversationKeysResponse> AddConversationKeysAsync(string id, AddConversationKeysRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/conversations/{id}/keys";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<AddConversationKeysResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<ChatMediaUploadFinalizeResponse> MediaUploadFinalizeAsync(string id, ChatMediaUploadFinalizeRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/chat/media/upload/{id}/finalize";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<ChatMediaUploadFinalizeResponse>(
+        return _client.SendJsonAsync<DeleteChatMessagesResponse>(
             new HttpMethod("POST"),
             path,
             queryParams,
@@ -2590,10 +1178,93 @@ public sealed class ChatClient
 
 
     
-    public Task<InitializeChatGroupResponse> InitializeGroupAsync(CancellationToken cancellationToken = default)
+    public Task<GetChatConversationPinnedMessagesResponse> GetConversationPinnedMessagesAsync(string id, GetConversationPinnedMessagesOptions? options = null, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/chat/conversations/group/initialize";
+        var opts = options ?? new GetConversationPinnedMessagesOptions();
+        
+        var path = "/2/chat/conversations/{id}/pinned_messages";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "chat_pinned_message.fields", opts.ChatPinnedMessageFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetChatConversationPinnedMessagesResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+    
+    
+    
+
+    public Paginator<GetChatConversationPinnedMessagesResponse> GetConversationPinnedMessagesPages(string id, GetConversationPinnedMessagesOptions? options = null)
+    {
+        var baseOpts = options?.Clone() ?? new GetConversationPinnedMessagesOptions();
+        var initialToken = baseOpts.PaginationToken;
+        return new Paginator<GetChatConversationPinnedMessagesResponse>(
+            (token, ct) =>
+            {
+                var pageOpts = baseOpts.Clone();
+                pageOpts.PaginationToken = token;
+                return GetConversationPinnedMessagesAsync(id, pageOpts, ct);
+            },
+            initialToken);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<RemoveChatGroupMembersResponse> RemoveGroupMembersAsync(string id, RemoveChatGroupMembersRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/members/remove";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
         
 
         var queryParams = new Dictionary<string, string>();
@@ -2603,11 +1274,11 @@ public sealed class ChatClient
         
 
         IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
+        object? requestBody = body;
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<InitializeChatGroupResponse>(
+        return _client.SendJsonAsync<RemoveChatGroupMembersResponse>(
             new HttpMethod("POST"),
             path,
             queryParams,
@@ -2621,6 +1292,379 @@ public sealed class ChatClient
     
 
     
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<AddChatGroupMembersResponse> AddGroupMembersAsync(string id, AddChatGroupMembersRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/members";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<AddChatGroupMembersResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<AddConversationKeysResponse> AddConversationKeysAsync(string id, AddConversationKeysRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/keys";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<AddConversationKeysResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<UpdateChatConversationScreenCaptureResponse> UpdateConversationScreenCaptureAsync(string id, UpdateChatConversationScreenCaptureRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/screen_capture";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<UpdateChatConversationScreenCaptureResponse>(
+            new HttpMethod("PUT"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<ApproveChatGroupAdminRequestResponse> ApproveGroupAdminRequestAsync(string id, string userId, ApproveChatGroupAdminRequestRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/admin_requests/{user_id}/approve";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+        
+        path = path.Replace("{user_id}", XClient.EncodePathSegment(userId));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<ApproveChatGroupAdminRequestResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<MuteChatConversationResponse> MuteConversationAsync(string id, MuteChatConversationRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/mute";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<MuteChatConversationResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<UnmuteChatConversationResponse> UnmuteConversationAsync(string id, UnmuteChatConversationRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/mute";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<UnmuteChatConversationResponse>(
+            new HttpMethod("DELETE"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetChatMessageRequestsResponse> GetMessageRequestsAsync(GetMessageRequestsOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetMessageRequestsOptions();
+        
+        var path = "/2/chat/message_requests";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "inbox_type", opts.InboxType);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "chat_message_request.fields", opts.ChatMessageRequestFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetChatMessageRequestsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+    
+    
+    
+
+    public Paginator<GetChatMessageRequestsResponse> GetMessageRequestsPages(GetMessageRequestsOptions? options = null)
+    {
+        var baseOpts = options?.Clone() ?? new GetMessageRequestsOptions();
+        var initialToken = baseOpts.PaginationToken;
+        return new Paginator<GetChatMessageRequestsResponse>(
+            (token, ct) =>
+            {
+                var pageOpts = baseOpts.Clone();
+                pageOpts.PaginationToken = token;
+                return GetMessageRequestsAsync(pageOpts, ct);
+            },
+            initialToken);
+    }
     
 
 
@@ -2656,6 +1700,492 @@ public sealed class ChatClient
         
         return _client.SendJsonAsync<SendChatTypingIndicatorResponse>(
             new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<ChatMediaUploadInitializeResponse> MediaUploadInitializeAsync(ChatMediaUploadInitializeRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/media/upload/initialize";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<ChatMediaUploadInitializeResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<SendChatMessageResponse> SendMessageAsync(string id, SendChatMessageRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/messages";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<SendChatMessageResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<MarkChatConversationReadResponse> MarkConversationReadAsync(string id, MarkChatConversationReadRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/read";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<MarkChatConversationReadResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetChatMessageRequestResponse> GetMessageRequestAsync(string id, GetMessageRequestOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetMessageRequestOptions();
+        
+        var path = "/2/chat/message_requests/{id}";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "chat_message_request_detail.fields", opts.ChatMessageRequestDetailFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetChatMessageRequestResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<EnableChatGroupInviteResponse> EnableGroupInviteAsync(string id, EnableChatGroupInviteRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/invite";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<EnableChatGroupInviteResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<DisableChatGroupInviteResponse> DisableGroupInviteAsync(string id, DisableChatGroupInviteRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/invite";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<DisableChatGroupInviteResponse>(
+            new HttpMethod("DELETE"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetChatGroupInviteResponse> GetGroupInviteAsync(string id, string token, GetGroupInviteOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetGroupInviteOptions();
+        
+        var path = "/2/chat/conversations/{id}/invites/{token}";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+        
+        path = path.Replace("{token}", XClient.EncodePathSegment(token));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "chat_group_invite.fields", opts.ChatGroupInviteFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetChatGroupInviteResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<AddChatGroupAdminsResponse> AddGroupAdminsAsync(string id, AddChatGroupAdminsRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/admins";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<AddChatGroupAdminsResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<RejectChatGroupJoinRequestsResponse> RejectGroupJoinRequestsAsync(string id, RejectChatGroupJoinRequestsRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/join_requests/reject";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<RejectChatGroupJoinRequestsResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<UpdateChatGroupAdminSettingsResponse> UpdateGroupAdminSettingsAsync(string id, UpdateChatGroupAdminSettingsRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/admin_settings";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<UpdateChatGroupAdminSettingsResponse>(
+            new HttpMethod("PUT"),
             path,
             queryParams,
             extraHeaders,
@@ -2809,6 +2339,476 @@ public sealed class ChatClient
             },
             initialToken);
     }
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetChatSettingsResponse> GetSettingsAsync(GetSettingsOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetSettingsOptions();
+        
+        var path = "/2/chat/settings";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "chat_settings.fields", opts.ChatSettingsFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetChatSettingsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<UpdateChatSettingsResponse> UpdateSettingsAsync(UpdateChatSettingsRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/settings";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<UpdateChatSettingsResponse>(
+            new HttpMethod("PUT"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<ArchiveChatConversationResponse> ArchiveConversationAsync(string id, ArchiveChatConversationRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/archive";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<ArchiveChatConversationResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<UnarchiveChatConversationResponse> UnarchiveConversationAsync(string id, UnarchiveChatConversationRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/archive";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<UnarchiveChatConversationResponse>(
+            new HttpMethod("DELETE"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<RejectChatGroupAdminRequestResponse> RejectGroupAdminRequestAsync(string id, string userId, RejectChatGroupAdminRequestRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/admin_requests/{user_id}/reject";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+        
+        path = path.Replace("{user_id}", XClient.EncodePathSegment(userId));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<RejectChatGroupAdminRequestResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<MarkChatConversationUnreadResponse> MarkConversationUnreadAsync(string id, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/{id}/unread";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<MarkChatConversationUnreadResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<AcceptChatMessageRequestResponse> AcceptMessageRequestAsync(string id, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/message_requests/{id}/accept";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<AcceptChatMessageRequestResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<ChatMediaUploadAppendResponse> MediaUploadAppendAsync(string id, ChatMediaUploadAppendRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/media/upload/{id}/append";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<ChatMediaUploadAppendResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<ChatMediaUploadFinalizeResponse> MediaUploadFinalizeAsync(string id, ChatMediaUploadFinalizeRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/media/upload/{id}/finalize";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<ChatMediaUploadFinalizeResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<CreateChatConversationResponse> CreateConversationAsync(CreateChatConversationRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/chat/conversations/group";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<CreateChatConversationResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
     
 
 

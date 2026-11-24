@@ -71,57 +71,18 @@ public sealed class AccountActivityClient
 
 
     
-    public Task<GetAccountActivitySubscriptionsResponse> GetSubscriptionsAsync(string webhookId, CancellationToken cancellationToken = default)
+    public Task<DeleteAccountActivitySubscriptionResponse> DeleteSubscriptionAsync(string webhookId, string userId, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/account_activity/webhooks/{webhook_id}/subscriptions/all/list";
+        var path = "/2/account_activity/webhooks/{webhook_id}/subscriptions/{user_id}/all";
         
         
         path = path.Replace("{webhook_id}", XClient.EncodePathSegment(webhookId));
         
         
-
-        var queryParams = new Dictionary<string, string>();
         
-
-        var extraHeaders = new Dictionary<string, string>();
+        path = path.Replace("{user_id}", XClient.EncodePathSegment(userId));
         
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetAccountActivitySubscriptionsResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetAccountActivitySubscriptionCountResponse> GetSubscriptionCountAsync(CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/account_activity/subscriptions/count";
         
 
         var queryParams = new Dictionary<string, string>();
@@ -135,8 +96,8 @@ public sealed class AccountActivityClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<GetAccountActivitySubscriptionCountResponse>(
-            new HttpMethod("GET"),
+        return _client.SendJsonAsync<DeleteAccountActivitySubscriptionResponse>(
+            new HttpMethod("DELETE"),
             path,
             queryParams,
             extraHeaders,
@@ -255,17 +216,56 @@ public sealed class AccountActivityClient
 
 
     
-    public Task<DeleteAccountActivitySubscriptionResponse> DeleteSubscriptionAsync(string webhookId, string userId, CancellationToken cancellationToken = default)
+    public Task<GetAccountActivitySubscriptionCountResponse> GetSubscriptionCountAsync(CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/account_activity/webhooks/{webhook_id}/subscriptions/{user_id}/all";
+        var path = "/2/account_activity/subscriptions/count";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetAccountActivitySubscriptionCountResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetAccountActivitySubscriptionsResponse> GetSubscriptionsAsync(string webhookId, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/account_activity/webhooks/{webhook_id}/subscriptions/all/list";
         
         
         path = path.Replace("{webhook_id}", XClient.EncodePathSegment(webhookId));
-        
-        
-        
-        path = path.Replace("{user_id}", XClient.EncodePathSegment(userId));
         
         
 
@@ -280,8 +280,8 @@ public sealed class AccountActivityClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<DeleteAccountActivitySubscriptionResponse>(
-            new HttpMethod("DELETE"),
+        return _client.SendJsonAsync<GetAccountActivitySubscriptionsResponse>(
+            new HttpMethod("GET"),
             path,
             queryParams,
             extraHeaders,

@@ -153,10 +153,14 @@ public sealed class CommunityNotesClient
 
 
     
-    public Task<CreateCommunityNotesResponse> CreateAsync(CreateCommunityNotesRequest body, CancellationToken cancellationToken = default)
+    public Task<DeleteCommunityNotesResponse> DeleteAsync(string id, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/notes";
+        var path = "/2/notes/{id}";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
         
 
         var queryParams = new Dictionary<string, string>();
@@ -166,12 +170,12 @@ public sealed class CommunityNotesClient
         
 
         IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
+        object? requestBody = null;
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<CreateCommunityNotesResponse>(
-            new HttpMethod("POST"),
+        return _client.SendJsonAsync<DeleteCommunityNotesResponse>(
+            new HttpMethod("DELETE"),
             path,
             queryParams,
             extraHeaders,
@@ -326,14 +330,10 @@ public sealed class CommunityNotesClient
 
 
     
-    public Task<DeleteCommunityNotesResponse> DeleteAsync(string id, CancellationToken cancellationToken = default)
+    public Task<CreateCommunityNotesResponse> CreateAsync(CreateCommunityNotesRequest body, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/notes/{id}";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
+        var path = "/2/notes";
         
 
         var queryParams = new Dictionary<string, string>();
@@ -343,12 +343,12 @@ public sealed class CommunityNotesClient
         
 
         IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
+        object? requestBody = body;
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<DeleteCommunityNotesResponse>(
-            new HttpMethod("DELETE"),
+        return _client.SendJsonAsync<CreateCommunityNotesResponse>(
+            new HttpMethod("POST"),
             path,
             queryParams,
             extraHeaders,

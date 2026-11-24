@@ -29,13 +29,8 @@ public class AccountActivityStructureTests
 
         
         Assert.True(
-            methodNames.Contains("GetSubscriptionsAsync") || methodNames.Contains("GetSubscriptionsStream"),
-            "Expected GetSubscriptionsAsync or GetSubscriptionsStream on AccountActivityClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetSubscriptionCountAsync") || methodNames.Contains("GetSubscriptionCountStream"),
-            "Expected GetSubscriptionCountAsync or GetSubscriptionCountStream on AccountActivityClient");
+            methodNames.Contains("DeleteSubscriptionAsync") || methodNames.Contains("DeleteSubscriptionStream"),
+            "Expected DeleteSubscriptionAsync or DeleteSubscriptionStream on AccountActivityClient");
         
         
         Assert.True(
@@ -49,8 +44,13 @@ public class AccountActivityStructureTests
         
         
         Assert.True(
-            methodNames.Contains("DeleteSubscriptionAsync") || methodNames.Contains("DeleteSubscriptionStream"),
-            "Expected DeleteSubscriptionAsync or DeleteSubscriptionStream on AccountActivityClient");
+            methodNames.Contains("GetSubscriptionCountAsync") || methodNames.Contains("GetSubscriptionCountStream"),
+            "Expected GetSubscriptionCountAsync or GetSubscriptionCountStream on AccountActivityClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetSubscriptionsAsync") || methodNames.Contains("GetSubscriptionsStream"),
+            "Expected GetSubscriptionsAsync or GetSubscriptionsStream on AccountActivityClient");
         
         
     }

@@ -29,6 +29,11 @@ public class TrendsStructureTests
 
         
         Assert.True(
+            methodNames.Contains("GetLocationsAsync") || methodNames.Contains("GetLocationsStream"),
+            "Expected GetLocationsAsync or GetLocationsStream on TrendsClient");
+        
+        
+        Assert.True(
             methodNames.Contains("GetByWoeidAsync") || methodNames.Contains("GetByWoeidStream"),
             "Expected GetByWoeidAsync or GetByWoeidStream on TrendsClient");
         

@@ -26,8 +26,8 @@ namespace Xdk;
 /// </summary>
 public sealed class XClient : IDisposable
 {
-    public const string Version = "0.1.0";
-    public const string UserAgent = "xdk-csharp/0.1.0";
+    public const string Version = "0.1.1";
+    public const string UserAgent = "xdk-csharp/0.1.1";
 
     private static readonly HashSet<int> RetryableStatusCodes = new() { 429, 500, 502, 503, 504 };
 
@@ -46,53 +46,53 @@ public sealed class XClient : IDisposable
     public JsonSerializerOptions JsonOptions { get; }
 
 
-    public CommunityNotesClient CommunityNotes { get; }
-
-    public ConnectionsClient Connections { get; }
-
-    public StreamClient Stream { get; }
-
-    public MediaClient Media { get; }
-
-    public PostsClient Posts { get; }
-
-    public AccountActivityClient AccountActivity { get; }
-
-    public DirectMessagesClient DirectMessages { get; }
-
-    public UsageClient Usage { get; }
-
-    public ArticlesClient Articles { get; }
-
-    public ChatClient Chat { get; }
-
-    public WebhooksClient Webhooks { get; }
-
-    public UsersClient Users { get; }
-
-    public BroadcastsClient Broadcasts { get; }
-
-    public ComplianceClient Compliance { get; }
-
     public NewsClient News { get; }
-
-    public BotsClient Bots { get; }
-
-    public ActivityClient Activity { get; }
-
-    public TrendsClient Trends { get; }
-
-    public SpacesClient Spaces { get; }
-
-    public GeneralClient General { get; }
-
-    public CommunitiesClient Communities { get; }
 
     public AccountClient Account { get; }
 
-    public CallsClient Calls { get; }
+    public BotsClient Bots { get; }
+
+    public WebhooksClient Webhooks { get; }
+
+    public ChatClient Chat { get; }
+
+    public PostsClient Posts { get; }
 
     public ListsClient Lists { get; }
+
+    public UsageClient Usage { get; }
+
+    public CommunityNotesClient CommunityNotes { get; }
+
+    public AccountActivityClient AccountActivity { get; }
+
+    public UsersClient Users { get; }
+
+    public StreamClient Stream { get; }
+
+    public BroadcastsClient Broadcasts { get; }
+
+    public MediaClient Media { get; }
+
+    public ConnectionsClient Connections { get; }
+
+    public ComplianceClient Compliance { get; }
+
+    public TrendsClient Trends { get; }
+
+    public CommunitiesClient Communities { get; }
+
+    public CallsClient Calls { get; }
+
+    public GeneralClient General { get; }
+
+    public DirectMessagesClient DirectMessages { get; }
+
+    public ActivityClient Activity { get; }
+
+    public SpacesClient Spaces { get; }
+
+    public ArticlesClient Articles { get; }
 
 
     public XClient(XClientOptions? options = null)
@@ -103,7 +103,7 @@ public sealed class XClient : IDisposable
             : opts.BaseUrl.TrimEnd('/');
         BearerToken = opts.BearerToken;
         OAuth2 = opts.OAuth2;
-        _accessToken = opts.AccessToken ?? opts.OAuth2?.Token?.AccessToken;
+        _accessToken = opts.AccessToken;
         OAuth1 = opts.OAuth1;
         Timeout = opts.Timeout;
         Retry = opts.Retry;
@@ -134,62 +134,63 @@ public sealed class XClient : IDisposable
         {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             PropertyNameCaseInsensitive = false,
+            NumberHandling = JsonNumberHandling.AllowReadingFromString,
         };
 
 
-        CommunityNotes = new CommunityNotesClient(this);
-
-        Connections = new ConnectionsClient(this);
-
-        Stream = new StreamClient(this);
-
-        Media = new MediaClient(this);
-
-        Posts = new PostsClient(this);
-
-        AccountActivity = new AccountActivityClient(this);
-
-        DirectMessages = new DirectMessagesClient(this);
-
-        Usage = new UsageClient(this);
-
-        Articles = new ArticlesClient(this);
-
-        Chat = new ChatClient(this);
-
-        Webhooks = new WebhooksClient(this);
-
-        Users = new UsersClient(this);
-
-        Broadcasts = new BroadcastsClient(this);
-
-        Compliance = new ComplianceClient(this);
-
         News = new NewsClient(this);
-
-        Bots = new BotsClient(this);
-
-        Activity = new ActivityClient(this);
-
-        Trends = new TrendsClient(this);
-
-        Spaces = new SpacesClient(this);
-
-        General = new GeneralClient(this);
-
-        Communities = new CommunitiesClient(this);
 
         Account = new AccountClient(this);
 
-        Calls = new CallsClient(this);
+        Bots = new BotsClient(this);
+
+        Webhooks = new WebhooksClient(this);
+
+        Chat = new ChatClient(this);
+
+        Posts = new PostsClient(this);
 
         Lists = new ListsClient(this);
+
+        Usage = new UsageClient(this);
+
+        CommunityNotes = new CommunityNotesClient(this);
+
+        AccountActivity = new AccountActivityClient(this);
+
+        Users = new UsersClient(this);
+
+        Stream = new StreamClient(this);
+
+        Broadcasts = new BroadcastsClient(this);
+
+        Media = new MediaClient(this);
+
+        Connections = new ConnectionsClient(this);
+
+        Compliance = new ComplianceClient(this);
+
+        Trends = new TrendsClient(this);
+
+        Communities = new CommunitiesClient(this);
+
+        Calls = new CallsClient(this);
+
+        General = new GeneralClient(this);
+
+        DirectMessages = new DirectMessagesClient(this);
+
+        Activity = new ActivityClient(this);
+
+        Spaces = new SpacesClient(this);
+
+        Articles = new ArticlesClient(this);
 
     }
 
     public string? AccessToken
     {
-        get => _accessToken;
+        get => !string.IsNullOrEmpty(_accessToken) ? _accessToken : OAuth2?.Token?.AccessToken;
         set => _accessToken = value;
     }
 
@@ -201,7 +202,7 @@ public sealed class XClient : IDisposable
         {
             var refreshed = await OAuth2.RefreshTokenAsync(cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
-            if (!string.IsNullOrEmpty(refreshed.AccessToken))
+            if (!string.IsNullOrEmpty(_accessToken) && !string.IsNullOrEmpty(refreshed.AccessToken))
             {
                 _accessToken = refreshed.AccessToken;
             }
@@ -439,6 +440,33 @@ public sealed class XClient : IDisposable
                             {
                                 message = detailProp.GetString()!;
                             }
+                            else if (doc.RootElement.TryGetProperty("errors", out var errsProp)
+                                && errsProp.ValueKind == JsonValueKind.Array
+                                && errsProp.GetArrayLength() > 0)
+                            {
+                                var firstErr = errsProp[0];
+                                if (firstErr.ValueKind == JsonValueKind.Object)
+                                {
+                                    if (firstErr.TryGetProperty("message", out var em)
+                                        && em.ValueKind == JsonValueKind.String
+                                        && !string.IsNullOrEmpty(em.GetString()))
+                                    {
+                                        message = em.GetString()!;
+                                    }
+                                    else if (firstErr.TryGetProperty("detail", out var ed)
+                                        && ed.ValueKind == JsonValueKind.String
+                                        && !string.IsNullOrEmpty(ed.GetString()))
+                                    {
+                                        message = ed.GetString()!;
+                                    }
+                                }
+                            }
+                            else if (doc.RootElement.TryGetProperty("title", out var titleProp)
+                                && titleProp.ValueKind == JsonValueKind.String
+                                && !string.IsNullOrEmpty(titleProp.GetString()))
+                            {
+                                message = titleProp.GetString()!;
+                            }
                         }
                     }
                     catch
@@ -551,9 +579,10 @@ public sealed class XClient : IDisposable
             {
                 await RefreshTokenAsync(cancellationToken).ConfigureAwait(false);
             }
-            if (!string.IsNullOrEmpty(_accessToken))
+            var effectiveAccess = AccessToken;
+            if (!string.IsNullOrEmpty(effectiveAccess))
             {
-                req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
+                req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", effectiveAccess);
             }
         }
         else if (selected == "oauth1" && OAuth1 is { HasAccessToken: true })
@@ -572,15 +601,18 @@ public sealed class XClient : IDisposable
     private string? SelectAuthMethod(string method, IReadOnlyList<string>? schemes)
     {
         var hasBearer = !string.IsNullOrEmpty(BearerToken);
-        var hasOAuth2 = !string.IsNullOrEmpty(_accessToken)
-            || !string.IsNullOrEmpty(OAuth2?.Token?.AccessToken);
+        var hasOAuth2 = !string.IsNullOrEmpty(AccessToken);
         var hasOAuth1 = OAuth1 is { HasAccessToken: true };
 
-        if (schemes is null || schemes.Count == 0)
+        if (schemes is null)
         {
             if (hasBearer) return "bearer_token";
             if (hasOAuth2) return "oauth2_user_context";
             if (hasOAuth1) return "oauth1";
+            return null;
+        }
+        if (schemes.Count == 0)
+        {
             return null;
         }
 

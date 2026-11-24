@@ -34,11 +34,6 @@ public class ConnectionsStructureTests
         
         
         Assert.True(
-            methodNames.Contains("DeleteAllAsync") || methodNames.Contains("DeleteAllStream"),
-            "Expected DeleteAllAsync or DeleteAllStream on ConnectionsClient");
-        
-        
-        Assert.True(
             methodNames.Contains("GetConnectionHistoryAsync") || methodNames.Contains("GetConnectionHistoryStream"),
             "Expected GetConnectionHistoryAsync or GetConnectionHistoryStream on ConnectionsClient");
         
@@ -48,6 +43,11 @@ public class ConnectionsStructureTests
         Assert.True(
             methodNames.Contains("DeleteByUuidsAsync") || methodNames.Contains("DeleteByUuidsStream"),
             "Expected DeleteByUuidsAsync or DeleteByUuidsStream on ConnectionsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("DeleteAllAsync") || methodNames.Contains("DeleteAllStream"),
+            "Expected DeleteAllAsync or DeleteAllStream on ConnectionsClient");
         
         
     }

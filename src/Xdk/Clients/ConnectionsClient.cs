@@ -46,10 +46,6 @@ public sealed class ConnectionsClient
 
 
 
-
-
-
-
     public sealed class GetConnectionHistoryOptions
     {
         
@@ -103,6 +99,10 @@ public sealed class ConnectionsClient
 
 
 
+
+
+
+
     
     public Task<DeleteConnectionsByEndpointResponse> DeleteByEndpointAsync(string endpointId, CancellationToken cancellationToken = default)
     {
@@ -126,49 +126,6 @@ public sealed class ConnectionsClient
 
         
         return _client.SendJsonAsync<DeleteConnectionsByEndpointResponse>(
-            new HttpMethod("DELETE"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<DeleteAllConnectionsResponse> DeleteAllAsync(CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/connections/all";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<DeleteAllConnectionsResponse>(
             new HttpMethod("DELETE"),
             path,
             queryParams,
@@ -305,6 +262,49 @@ public sealed class ConnectionsClient
 
         
         return _client.SendJsonAsync<DeleteConnectionsByUuidsResponse>(
+            new HttpMethod("DELETE"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<DeleteAllConnectionsResponse> DeleteAllAsync(CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/connections/all";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<DeleteAllConnectionsResponse>(
             new HttpMethod("DELETE"),
             path,
             queryParams,

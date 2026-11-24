@@ -29,16 +29,6 @@ public class MediaStructureTests
 
         
         Assert.True(
-            methodNames.Contains("GetAmplifyProgramPostsAsync") || methodNames.Contains("GetAmplifyProgramPostsStream"),
-            "Expected GetAmplifyProgramPostsAsync or GetAmplifyProgramPostsStream on MediaClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("InitializeUploadAsync") || methodNames.Contains("InitializeUploadStream"),
-            "Expected InitializeUploadAsync or InitializeUploadStream on MediaClient");
-        
-        
-        Assert.True(
             methodNames.Contains("GetUploadStatusAsync") || methodNames.Contains("GetUploadStatusStream"),
             "Expected GetUploadStatusAsync or GetUploadStatusStream on MediaClient");
         
@@ -49,13 +39,33 @@ public class MediaStructureTests
         
         
         Assert.True(
+            methodNames.Contains("GetAmplifyProgramAsync") || methodNames.Contains("GetAmplifyProgramStream"),
+            "Expected GetAmplifyProgramAsync or GetAmplifyProgramStream on MediaClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetByKeyAsync") || methodNames.Contains("GetByKeyStream"),
+            "Expected GetByKeyAsync or GetByKeyStream on MediaClient");
+        
+        
+        Assert.True(
             methodNames.Contains("FinalizeUploadAsync") || methodNames.Contains("FinalizeUploadStream"),
             "Expected FinalizeUploadAsync or FinalizeUploadStream on MediaClient");
         
         
         Assert.True(
+            methodNames.Contains("CreateMetadataAsync") || methodNames.Contains("CreateMetadataStream"),
+            "Expected CreateMetadataAsync or CreateMetadataStream on MediaClient");
+        
+        
+        Assert.True(
             methodNames.Contains("AddToLibraryAsync") || methodNames.Contains("AddToLibraryStream"),
             "Expected AddToLibraryAsync or AddToLibraryStream on MediaClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("AppendUploadAsync") || methodNames.Contains("AppendUploadStream"),
+            "Expected AppendUploadAsync or AppendUploadStream on MediaClient");
         
         
         Assert.True(
@@ -69,28 +79,23 @@ public class MediaStructureTests
         
         
         Assert.True(
-            methodNames.Contains("GetByKeysAsync") || methodNames.Contains("GetByKeysStream"),
-            "Expected GetByKeysAsync or GetByKeysStream on MediaClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("AppendUploadAsync") || methodNames.Contains("AppendUploadStream"),
-            "Expected AppendUploadAsync or AppendUploadStream on MediaClient");
-        
-        
-        Assert.True(
             methodNames.Contains("AddPostToAmplifyProgramsAsync") || methodNames.Contains("AddPostToAmplifyProgramsStream"),
             "Expected AddPostToAmplifyProgramsAsync or AddPostToAmplifyProgramsStream on MediaClient");
         
         
         Assert.True(
-            methodNames.Contains("GetAmplifyProgramAsync") || methodNames.Contains("GetAmplifyProgramStream"),
-            "Expected GetAmplifyProgramAsync or GetAmplifyProgramStream on MediaClient");
+            methodNames.Contains("InitializeUploadAsync") || methodNames.Contains("InitializeUploadStream"),
+            "Expected InitializeUploadAsync or InitializeUploadStream on MediaClient");
         
         
         Assert.True(
-            methodNames.Contains("CreateMetadataAsync") || methodNames.Contains("CreateMetadataStream"),
-            "Expected CreateMetadataAsync or CreateMetadataStream on MediaClient");
+            methodNames.Contains("GetAmplifyProgramPostsAsync") || methodNames.Contains("GetAmplifyProgramPostsStream"),
+            "Expected GetAmplifyProgramPostsAsync or GetAmplifyProgramPostsStream on MediaClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetByKeysAsync") || methodNames.Contains("GetByKeysStream"),
+            "Expected GetByKeysAsync or GetByKeysStream on MediaClient");
         
         
         Assert.True(
@@ -104,18 +109,13 @@ public class MediaStructureTests
         
         
         Assert.True(
-            methodNames.Contains("GetAnalyticsAsync") || methodNames.Contains("GetAnalyticsStream"),
-            "Expected GetAnalyticsAsync or GetAnalyticsStream on MediaClient");
-        
-        
-        Assert.True(
             methodNames.Contains("GetAmplifyProgramsAsync") || methodNames.Contains("GetAmplifyProgramsStream"),
             "Expected GetAmplifyProgramsAsync or GetAmplifyProgramsStream on MediaClient");
         
         
         Assert.True(
-            methodNames.Contains("GetByKeyAsync") || methodNames.Contains("GetByKeyStream"),
-            "Expected GetByKeyAsync or GetByKeyStream on MediaClient");
+            methodNames.Contains("GetAnalyticsAsync") || methodNames.Contains("GetAnalyticsStream"),
+            "Expected GetAnalyticsAsync or GetAnalyticsStream on MediaClient");
         
         
         Assert.True(

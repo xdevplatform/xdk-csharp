@@ -29,8 +29,35 @@ public class ListsStructureTests
 
         
         Assert.True(
+            methodNames.Contains("GetFollowersAsync") || methodNames.Contains("GetFollowersStream"),
+            "Expected GetFollowersAsync or GetFollowersStream on ListsClient");
+        
+        Assert.Contains("GetFollowersPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("CreateAsync") || methodNames.Contains("CreateStream"),
+            "Expected CreateAsync or CreateStream on ListsClient");
+        
+        
+        Assert.True(
             methodNames.Contains("RemoveMemberByUserIdAsync") || methodNames.Contains("RemoveMemberByUserIdStream"),
             "Expected RemoveMemberByUserIdAsync or RemoveMemberByUserIdStream on ListsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetByIdAsync") || methodNames.Contains("GetByIdStream"),
+            "Expected GetByIdAsync or GetByIdStream on ListsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("UpdateAsync") || methodNames.Contains("UpdateStream"),
+            "Expected UpdateAsync or UpdateStream on ListsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("DeleteAsync") || methodNames.Contains("DeleteStream"),
+            "Expected DeleteAsync or DeleteStream on ListsClient");
         
         
         Assert.True(
@@ -50,33 +77,6 @@ public class ListsStructureTests
             "Expected GetPostsAsync or GetPostsStream on ListsClient");
         
         Assert.Contains("GetPostsPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("GetFollowersAsync") || methodNames.Contains("GetFollowersStream"),
-            "Expected GetFollowersAsync or GetFollowersStream on ListsClient");
-        
-        Assert.Contains("GetFollowersPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("CreateAsync") || methodNames.Contains("CreateStream"),
-            "Expected CreateAsync or CreateStream on ListsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetByIdAsync") || methodNames.Contains("GetByIdStream"),
-            "Expected GetByIdAsync or GetByIdStream on ListsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("UpdateAsync") || methodNames.Contains("UpdateStream"),
-            "Expected UpdateAsync or UpdateStream on ListsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("DeleteAsync") || methodNames.Contains("DeleteStream"),
-            "Expected DeleteAsync or DeleteStream on ListsClient");
         
         
     }

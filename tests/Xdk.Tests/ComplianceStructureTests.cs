@@ -34,16 +34,6 @@ public class ComplianceStructureTests
         
         
         Assert.True(
-            methodNames.Contains("GetJobsByIdAsync") || methodNames.Contains("GetJobsByIdStream"),
-            "Expected GetJobsByIdAsync or GetJobsByIdStream on ComplianceClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("DeleteJobsByIdAsync") || methodNames.Contains("DeleteJobsByIdStream"),
-            "Expected DeleteJobsByIdAsync or DeleteJobsByIdStream on ComplianceClient");
-        
-        
-        Assert.True(
             methodNames.Contains("DownloadJobResultsAsync") || methodNames.Contains("DownloadJobResultsStream"),
             "Expected DownloadJobResultsAsync or DownloadJobResultsStream on ComplianceClient");
         
@@ -56,6 +46,16 @@ public class ComplianceStructureTests
         Assert.True(
             methodNames.Contains("CreateJobsAsync") || methodNames.Contains("CreateJobsStream"),
             "Expected CreateJobsAsync or CreateJobsStream on ComplianceClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetJobsByIdAsync") || methodNames.Contains("GetJobsByIdStream"),
+            "Expected GetJobsByIdAsync or GetJobsByIdStream on ComplianceClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("DeleteJobsByIdAsync") || methodNames.Contains("DeleteJobsByIdStream"),
+            "Expected DeleteJobsByIdAsync or DeleteJobsByIdStream on ComplianceClient");
         
         
     }
