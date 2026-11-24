@@ -29,13 +29,13 @@ public class ArticlesStructureTests
 
         
         Assert.True(
-            methodNames.Contains("ArticlePublishAsync") || methodNames.Contains("ArticlePublishStream"),
-            "Expected ArticlePublishAsync or ArticlePublishStream on ArticlesClient");
+            methodNames.Contains("ArticleCreateDraftAsync") || methodNames.Contains("ArticleCreateDraftStream"),
+            "Expected ArticleCreateDraftAsync or ArticleCreateDraftStream on ArticlesClient");
         
         
         Assert.True(
-            methodNames.Contains("ArticleCreateDraftAsync") || methodNames.Contains("ArticleCreateDraftStream"),
-            "Expected ArticleCreateDraftAsync or ArticleCreateDraftStream on ArticlesClient");
+            methodNames.Contains("ArticlePublishAsync") || methodNames.Contains("ArticlePublishStream"),
+            "Expected ArticlePublishAsync or ArticlePublishStream on ArticlesClient");
         
         
     }

@@ -55,21 +55,16 @@ public class WebhooksContractsTests : IClassFixture<WebhooksLoopbackFixture>
 
     
     [Fact]
-    public async Task Contract_CreateWebhookReplayJob()
+    public async Task Contract_Validate()
     {
         
-        var mockJson = "{\"data\":{\"created_at\":\"test_value\",\"job_id\":\"test_value\"}}";
+        var mockJson = "{\"data\":{\"valid\":true}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
         
 
         
-        
-        var reqMockJson = "{\"from_date\":\"test_value\",\"to_date\":\"test_value\",\"webhook_id\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<CreateWebhookReplayJobRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
 
         
 
@@ -81,9 +76,10 @@ public class WebhooksContractsTests : IClassFixture<WebhooksLoopbackFixture>
         
         
         
+        
 
         
-        var result = await _client.Webhooks.CreateWebhookReplayJobAsync(reqBody);
+        var result = await _client.Webhooks.ValidateAsync("test_webhookId");
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -92,17 +88,54 @@ public class WebhooksContractsTests : IClassFixture<WebhooksLoopbackFixture>
 
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/webhooks/replay", captured.Path);
+        Assert.Equal("PUT", captured!.Method);
+        Assert.Contains("/2/webhooks/", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
         
         
-        Assert.NotEmpty(captured.BodyBytes);
+    }
+    
+    [Fact]
+    public async Task Contract_Delete()
+    {
         
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        var mockJson = "{\"data\":{\"deleted\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Webhooks.DeleteAsync("test_webhookId");
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("DELETE", captured!.Method);
+        Assert.Contains("/2/webhooks/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
         
         
     }
@@ -254,6 +287,59 @@ public class WebhooksContractsTests : IClassFixture<WebhooksLoopbackFixture>
     }
     
     [Fact]
+    public async Task Contract_CreateWebhookReplayJob()
+    {
+        
+        var mockJson = "{\"data\":{\"created_at\":\"test_value\",\"job_id\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"from_date\":\"test_value\",\"to_date\":\"test_value\",\"webhook_id\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<CreateWebhookReplayJobRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Webhooks.CreateWebhookReplayJobAsync(reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/webhooks/replay", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
     public async Task Contract_CreateStreamLink()
     {
         
@@ -332,92 +418,6 @@ public class WebhooksContractsTests : IClassFixture<WebhooksLoopbackFixture>
         Assert.NotNull(captured);
         Assert.Equal("DELETE", captured!.Method);
         Assert.Contains("/2/tweets/search/webhooks/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_Validate()
-    {
-        
-        var mockJson = "{\"data\":{\"valid\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Webhooks.ValidateAsync("test_webhookId");
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("PUT", captured!.Method);
-        Assert.Contains("/2/webhooks/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_Delete()
-    {
-        
-        var mockJson = "{\"data\":{\"deleted\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Webhooks.DeleteAsync("test_webhookId");
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("DELETE", captured!.Method);
-        Assert.Contains("/2/webhooks/", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));

@@ -55,49 +55,6 @@ public class ConnectionsContractsTests : IClassFixture<ConnectionsLoopbackFixtur
 
     
     [Fact]
-    public async Task Contract_DeleteByEndpoint()
-    {
-        
-        var mockJson = "{\"data\":{\"failed_kills\":1,\"results\":[{\"success\":true,\"uuid\":\"test_value\"}],\"successful_kills\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Connections.DeleteByEndpointAsync("test_endpointId");
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("DELETE", captured!.Method);
-        Assert.Contains("/2/connections/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
     public async Task Contract_GetConnectionHistory()
     {
         
@@ -212,6 +169,49 @@ public class ConnectionsContractsTests : IClassFixture<ConnectionsLoopbackFixtur
         
         using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
         Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_DeleteByEndpoint()
+    {
+        
+        var mockJson = "{\"data\":{\"failed_kills\":1,\"results\":[{\"success\":true,\"uuid\":\"test_value\"}],\"successful_kills\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Connections.DeleteByEndpointAsync("test_endpointId");
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("DELETE", captured!.Method);
+        Assert.Contains("/2/connections/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
         
         
     }

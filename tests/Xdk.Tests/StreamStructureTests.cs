@@ -29,23 +29,8 @@ public class StreamStructureTests
 
         
         Assert.True(
-            methodNames.Contains("PostsFirehosePtAsync") || methodNames.Contains("PostsFirehosePtStream"),
-            "Expected PostsFirehosePtAsync or PostsFirehosePtStream on StreamClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetRuleCountsAsync") || methodNames.Contains("GetRuleCountsStream"),
-            "Expected GetRuleCountsAsync or GetRuleCountsStream on StreamClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("PostsSampleAsync") || methodNames.Contains("PostsSampleStream"),
-            "Expected PostsSampleAsync or PostsSampleStream on StreamClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("LikesSample10Async") || methodNames.Contains("LikesSample10Stream"),
-            "Expected LikesSample10Async or LikesSample10Stream on StreamClient");
+            methodNames.Contains("PostsAsync") || methodNames.Contains("PostsStream"),
+            "Expected PostsAsync or PostsStream on StreamClient");
         
         
         Assert.True(
@@ -54,13 +39,63 @@ public class StreamStructureTests
         
         
         Assert.True(
-            methodNames.Contains("PostsAsync") || methodNames.Contains("PostsStream"),
-            "Expected PostsAsync or PostsStream on StreamClient");
+            methodNames.Contains("PostsFirehoseKoAsync") || methodNames.Contains("PostsFirehoseKoStream"),
+            "Expected PostsFirehoseKoAsync or PostsFirehoseKoStream on StreamClient");
         
         
         Assert.True(
-            methodNames.Contains("PostsSample10Async") || methodNames.Contains("PostsSample10Stream"),
-            "Expected PostsSample10Async or PostsSample10Stream on StreamClient");
+            methodNames.Contains("PostsFirehosePtAsync") || methodNames.Contains("PostsFirehosePtStream"),
+            "Expected PostsFirehosePtAsync or PostsFirehosePtStream on StreamClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("LikesComplianceAsync") || methodNames.Contains("LikesComplianceStream"),
+            "Expected LikesComplianceAsync or LikesComplianceStream on StreamClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("LikesSample10Async") || methodNames.Contains("LikesSample10Stream"),
+            "Expected LikesSample10Async or LikesSample10Stream on StreamClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("PostsSampleAsync") || methodNames.Contains("PostsSampleStream"),
+            "Expected PostsSampleAsync or PostsSampleStream on StreamClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetRuleCountsAsync") || methodNames.Contains("GetRuleCountsStream"),
+            "Expected GetRuleCountsAsync or GetRuleCountsStream on StreamClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("PostsFirehoseAsync") || methodNames.Contains("PostsFirehoseStream"),
+            "Expected PostsFirehoseAsync or PostsFirehoseStream on StreamClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("ActivityAsync") || methodNames.Contains("ActivityStream"),
+            "Expected ActivityAsync or ActivityStream on StreamClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("PostsFirehoseJaAsync") || methodNames.Contains("PostsFirehoseJaStream"),
+            "Expected PostsFirehoseJaAsync or PostsFirehoseJaStream on StreamClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("UsersComplianceAsync") || methodNames.Contains("UsersComplianceStream"),
+            "Expected UsersComplianceAsync or UsersComplianceStream on StreamClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("PostsComplianceAsync") || methodNames.Contains("PostsComplianceStream"),
+            "Expected PostsComplianceAsync or PostsComplianceStream on StreamClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("PostsFirehoseEnAsync") || methodNames.Contains("PostsFirehoseEnStream"),
+            "Expected PostsFirehoseEnAsync or PostsFirehoseEnStream on StreamClient");
         
         
         Assert.True(
@@ -76,48 +111,13 @@ public class StreamStructureTests
         
         
         Assert.True(
-            methodNames.Contains("PostsFirehoseAsync") || methodNames.Contains("PostsFirehoseStream"),
-            "Expected PostsFirehoseAsync or PostsFirehoseStream on StreamClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("PostsFirehoseJaAsync") || methodNames.Contains("PostsFirehoseJaStream"),
-            "Expected PostsFirehoseJaAsync or PostsFirehoseJaStream on StreamClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("PostsFirehoseEnAsync") || methodNames.Contains("PostsFirehoseEnStream"),
-            "Expected PostsFirehoseEnAsync or PostsFirehoseEnStream on StreamClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("ActivityAsync") || methodNames.Contains("ActivityStream"),
-            "Expected ActivityAsync or ActivityStream on StreamClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("PostsComplianceAsync") || methodNames.Contains("PostsComplianceStream"),
-            "Expected PostsComplianceAsync or PostsComplianceStream on StreamClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("LikesComplianceAsync") || methodNames.Contains("LikesComplianceStream"),
-            "Expected LikesComplianceAsync or LikesComplianceStream on StreamClient");
-        
-        
-        Assert.True(
             methodNames.Contains("LikesFirehoseAsync") || methodNames.Contains("LikesFirehoseStream"),
             "Expected LikesFirehoseAsync or LikesFirehoseStream on StreamClient");
         
         
         Assert.True(
-            methodNames.Contains("UsersComplianceAsync") || methodNames.Contains("UsersComplianceStream"),
-            "Expected UsersComplianceAsync or UsersComplianceStream on StreamClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("PostsFirehoseKoAsync") || methodNames.Contains("PostsFirehoseKoStream"),
-            "Expected PostsFirehoseKoAsync or PostsFirehoseKoStream on StreamClient");
+            methodNames.Contains("PostsSample10Async") || methodNames.Contains("PostsSample10Stream"),
+            "Expected PostsSample10Async or PostsSample10Stream on StreamClient");
         
         
     }

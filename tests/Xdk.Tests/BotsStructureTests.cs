@@ -29,16 +29,6 @@ public class BotsStructureTests
 
         
         Assert.True(
-            methodNames.Contains("GetAsync") || methodNames.Contains("GetStream"),
-            "Expected GetAsync or GetStream on BotsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("CreateBotAsync") || methodNames.Contains("CreateBotStream"),
-            "Expected CreateBotAsync or CreateBotStream on BotsClient");
-        
-        
-        Assert.True(
             methodNames.Contains("RotateBotTokenAsync") || methodNames.Contains("RotateBotTokenStream"),
             "Expected RotateBotTokenAsync or RotateBotTokenStream on BotsClient");
         
@@ -56,6 +46,16 @@ public class BotsStructureTests
         Assert.True(
             methodNames.Contains("DeleteBotAsync") || methodNames.Contains("DeleteBotStream"),
             "Expected DeleteBotAsync or DeleteBotStream on BotsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetAsync") || methodNames.Contains("GetStream"),
+            "Expected GetAsync or GetStream on BotsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("CreateBotAsync") || methodNames.Contains("CreateBotStream"),
+            "Expected CreateBotAsync or CreateBotStream on BotsClient");
         
         
     }

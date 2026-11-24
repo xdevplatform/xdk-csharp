@@ -16,7 +16,7 @@ public class DirectMessagesPaginationTests
 {
     
     [Fact]
-    public async Task Paginate_GetEventsByConversationId()
+    public async Task Paginate_GetEvents()
     {
         var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
         var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
@@ -45,13 +45,8 @@ public class DirectMessagesPaginationTests
 
         
         
-        
-        
-        
-        
-        
 
-        var paginator = client.DirectMessages.GetEventsByConversationIdPages("test_id");
+        var paginator = client.DirectMessages.GetEventsPages();
         var pages = 0;
         await foreach (var page in paginator)
         {
@@ -122,7 +117,7 @@ public class DirectMessagesPaginationTests
     }
     
     [Fact]
-    public async Task Paginate_GetEvents()
+    public async Task Paginate_GetEventsByConversationId()
     {
         var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
         var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
@@ -151,8 +146,13 @@ public class DirectMessagesPaginationTests
 
         
         
+        
+        
+        
+        
+        
 
-        var paginator = client.DirectMessages.GetEventsPages();
+        var paginator = client.DirectMessages.GetEventsByConversationIdPages("test_id");
         var pages = 0;
         await foreach (var page in paginator)
         {

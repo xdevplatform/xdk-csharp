@@ -29,15 +29,18 @@ public class ChatStructureTests
 
         
         Assert.True(
-            methodNames.Contains("GetConversationEventsAsync") || methodNames.Contains("GetConversationEventsStream"),
-            "Expected GetConversationEventsAsync or GetConversationEventsStream on ChatClient");
-        
-        Assert.Contains("GetConversationEventsPages", methodNames);
+            methodNames.Contains("SendMessageAsync") || methodNames.Contains("SendMessageStream"),
+            "Expected SendMessageAsync or SendMessageStream on ChatClient");
         
         
         Assert.True(
-            methodNames.Contains("RemoveGroupAdminsAsync") || methodNames.Contains("RemoveGroupAdminsStream"),
-            "Expected RemoveGroupAdminsAsync or RemoveGroupAdminsStream on ChatClient");
+            methodNames.Contains("AcceptMessageRequestAsync") || methodNames.Contains("AcceptMessageRequestStream"),
+            "Expected AcceptMessageRequestAsync or AcceptMessageRequestStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("CreateConversationAsync") || methodNames.Contains("CreateConversationStream"),
+            "Expected CreateConversationAsync or CreateConversationStream on ChatClient");
         
         
         Assert.True(
@@ -46,167 +49,10 @@ public class ChatStructureTests
         
         
         Assert.True(
-            methodNames.Contains("InitializeGroupAsync") || methodNames.Contains("InitializeGroupStream"),
-            "Expected InitializeGroupAsync or InitializeGroupStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetGroupAdminRequestsAsync") || methodNames.Contains("GetGroupAdminRequestsStream"),
-            "Expected GetGroupAdminRequestsAsync or GetGroupAdminRequestsStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("CreateGroupAdminRequestAsync") || methodNames.Contains("CreateGroupAdminRequestStream"),
-            "Expected CreateGroupAdminRequestAsync or CreateGroupAdminRequestStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("AddUserPublicKeyAsync") || methodNames.Contains("AddUserPublicKeyStream"),
-            "Expected AddUserPublicKeyAsync or AddUserPublicKeyStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("MediaDownloadAsync") || methodNames.Contains("MediaDownloadStream"),
-            "Expected MediaDownloadAsync or MediaDownloadStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("DeleteMessagesAsync") || methodNames.Contains("DeleteMessagesStream"),
-            "Expected DeleteMessagesAsync or DeleteMessagesStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetConversationAsync") || methodNames.Contains("GetConversationStream"),
-            "Expected GetConversationAsync or GetConversationStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("UpdateGroupAsync") || methodNames.Contains("UpdateGroupStream"),
-            "Expected UpdateGroupAsync or UpdateGroupStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("DeleteConversationAsync") || methodNames.Contains("DeleteConversationStream"),
-            "Expected DeleteConversationAsync or DeleteConversationStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetConversationPinnedMessagesAsync") || methodNames.Contains("GetConversationPinnedMessagesStream"),
-            "Expected GetConversationPinnedMessagesAsync or GetConversationPinnedMessagesStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("RemoveGroupMembersAsync") || methodNames.Contains("RemoveGroupMembersStream"),
-            "Expected RemoveGroupMembersAsync or RemoveGroupMembersStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("AddGroupMembersAsync") || methodNames.Contains("AddGroupMembersStream"),
-            "Expected AddGroupMembersAsync or AddGroupMembersStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("AddConversationKeysAsync") || methodNames.Contains("AddConversationKeysStream"),
-            "Expected AddConversationKeysAsync or AddConversationKeysStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("UpdateConversationScreenCaptureAsync") || methodNames.Contains("UpdateConversationScreenCaptureStream"),
-            "Expected UpdateConversationScreenCaptureAsync or UpdateConversationScreenCaptureStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("ApproveGroupAdminRequestAsync") || methodNames.Contains("ApproveGroupAdminRequestStream"),
-            "Expected ApproveGroupAdminRequestAsync or ApproveGroupAdminRequestStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("MuteConversationAsync") || methodNames.Contains("MuteConversationStream"),
-            "Expected MuteConversationAsync or MuteConversationStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("UnmuteConversationAsync") || methodNames.Contains("UnmuteConversationStream"),
-            "Expected UnmuteConversationAsync or UnmuteConversationStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetMessageRequestsAsync") || methodNames.Contains("GetMessageRequestsStream"),
-            "Expected GetMessageRequestsAsync or GetMessageRequestsStream on ChatClient");
-        
-        Assert.Contains("GetMessageRequestsPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("SendTypingIndicatorAsync") || methodNames.Contains("SendTypingIndicatorStream"),
-            "Expected SendTypingIndicatorAsync or SendTypingIndicatorStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("MediaUploadInitializeAsync") || methodNames.Contains("MediaUploadInitializeStream"),
-            "Expected MediaUploadInitializeAsync or MediaUploadInitializeStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("SendMessageAsync") || methodNames.Contains("SendMessageStream"),
-            "Expected SendMessageAsync or SendMessageStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("MarkConversationReadAsync") || methodNames.Contains("MarkConversationReadStream"),
-            "Expected MarkConversationReadAsync or MarkConversationReadStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetMessageRequestAsync") || methodNames.Contains("GetMessageRequestStream"),
-            "Expected GetMessageRequestAsync or GetMessageRequestStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("EnableGroupInviteAsync") || methodNames.Contains("EnableGroupInviteStream"),
-            "Expected EnableGroupInviteAsync or EnableGroupInviteStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("DisableGroupInviteAsync") || methodNames.Contains("DisableGroupInviteStream"),
-            "Expected DisableGroupInviteAsync or DisableGroupInviteStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetGroupInviteAsync") || methodNames.Contains("GetGroupInviteStream"),
-            "Expected GetGroupInviteAsync or GetGroupInviteStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("AddGroupAdminsAsync") || methodNames.Contains("AddGroupAdminsStream"),
-            "Expected AddGroupAdminsAsync or AddGroupAdminsStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("RejectGroupJoinRequestsAsync") || methodNames.Contains("RejectGroupJoinRequestsStream"),
-            "Expected RejectGroupJoinRequestsAsync or RejectGroupJoinRequestsStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("UpdateGroupAdminSettingsAsync") || methodNames.Contains("UpdateGroupAdminSettingsStream"),
-            "Expected UpdateGroupAdminSettingsAsync or UpdateGroupAdminSettingsStream on ChatClient");
-        
-        
-        Assert.True(
             methodNames.Contains("GetConversationsAsync") || methodNames.Contains("GetConversationsStream"),
             "Expected GetConversationsAsync or GetConversationsStream on ChatClient");
         
         Assert.Contains("GetConversationsPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("GetSettingsAsync") || methodNames.Contains("GetSettingsStream"),
-            "Expected GetSettingsAsync or GetSettingsStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("UpdateSettingsAsync") || methodNames.Contains("UpdateSettingsStream"),
-            "Expected UpdateSettingsAsync or UpdateSettingsStream on ChatClient");
         
         
         Assert.True(
@@ -225,28 +71,83 @@ public class ChatStructureTests
         
         
         Assert.True(
-            methodNames.Contains("MarkConversationUnreadAsync") || methodNames.Contains("MarkConversationUnreadStream"),
-            "Expected MarkConversationUnreadAsync or MarkConversationUnreadStream on ChatClient");
+            methodNames.Contains("AddConversationKeysAsync") || methodNames.Contains("AddConversationKeysStream"),
+            "Expected AddConversationKeysAsync or AddConversationKeysStream on ChatClient");
         
         
         Assert.True(
-            methodNames.Contains("AcceptMessageRequestAsync") || methodNames.Contains("AcceptMessageRequestStream"),
-            "Expected AcceptMessageRequestAsync or AcceptMessageRequestStream on ChatClient");
+            methodNames.Contains("RejectGroupJoinRequestsAsync") || methodNames.Contains("RejectGroupJoinRequestsStream"),
+            "Expected RejectGroupJoinRequestsAsync or RejectGroupJoinRequestsStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("SendTypingIndicatorAsync") || methodNames.Contains("SendTypingIndicatorStream"),
+            "Expected SendTypingIndicatorAsync or SendTypingIndicatorStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("UpdateConversationScreenCaptureAsync") || methodNames.Contains("UpdateConversationScreenCaptureStream"),
+            "Expected UpdateConversationScreenCaptureAsync or UpdateConversationScreenCaptureStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetConversationPinnedMessagesAsync") || methodNames.Contains("GetConversationPinnedMessagesStream"),
+            "Expected GetConversationPinnedMessagesAsync or GetConversationPinnedMessagesStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetSettingsAsync") || methodNames.Contains("GetSettingsStream"),
+            "Expected GetSettingsAsync or GetSettingsStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("UpdateSettingsAsync") || methodNames.Contains("UpdateSettingsStream"),
+            "Expected UpdateSettingsAsync or UpdateSettingsStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetConversationAsync") || methodNames.Contains("GetConversationStream"),
+            "Expected GetConversationAsync or GetConversationStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("UpdateGroupAsync") || methodNames.Contains("UpdateGroupStream"),
+            "Expected UpdateGroupAsync or UpdateGroupStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("DeleteConversationAsync") || methodNames.Contains("DeleteConversationStream"),
+            "Expected DeleteConversationAsync or DeleteConversationStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("MediaUploadInitializeAsync") || methodNames.Contains("MediaUploadInitializeStream"),
+            "Expected MediaUploadInitializeAsync or MediaUploadInitializeStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("MuteConversationAsync") || methodNames.Contains("MuteConversationStream"),
+            "Expected MuteConversationAsync or MuteConversationStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("UnmuteConversationAsync") || methodNames.Contains("UnmuteConversationStream"),
+            "Expected UnmuteConversationAsync or UnmuteConversationStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("AddGroupAdminsAsync") || methodNames.Contains("AddGroupAdminsStream"),
+            "Expected AddGroupAdminsAsync or AddGroupAdminsStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("AddUserPublicKeyAsync") || methodNames.Contains("AddUserPublicKeyStream"),
+            "Expected AddUserPublicKeyAsync or AddUserPublicKeyStream on ChatClient");
         
         
         Assert.True(
             methodNames.Contains("MediaUploadAppendAsync") || methodNames.Contains("MediaUploadAppendStream"),
             "Expected MediaUploadAppendAsync or MediaUploadAppendStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("MediaUploadFinalizeAsync") || methodNames.Contains("MediaUploadFinalizeStream"),
-            "Expected MediaUploadFinalizeAsync or MediaUploadFinalizeStream on ChatClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("CreateConversationAsync") || methodNames.Contains("CreateConversationStream"),
-            "Expected CreateConversationAsync or CreateConversationStream on ChatClient");
         
         
         Assert.True(
@@ -257,6 +158,105 @@ public class ChatStructureTests
         Assert.True(
             methodNames.Contains("DeleteConversationMessageTtlAsync") || methodNames.Contains("DeleteConversationMessageTtlStream"),
             "Expected DeleteConversationMessageTtlAsync or DeleteConversationMessageTtlStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("ApproveGroupAdminRequestAsync") || methodNames.Contains("ApproveGroupAdminRequestStream"),
+            "Expected ApproveGroupAdminRequestAsync or ApproveGroupAdminRequestStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("DeleteMessagesAsync") || methodNames.Contains("DeleteMessagesStream"),
+            "Expected DeleteMessagesAsync or DeleteMessagesStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetMessageRequestsAsync") || methodNames.Contains("GetMessageRequestsStream"),
+            "Expected GetMessageRequestsAsync or GetMessageRequestsStream on ChatClient");
+        
+        Assert.Contains("GetMessageRequestsPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("InitializeGroupAsync") || methodNames.Contains("InitializeGroupStream"),
+            "Expected InitializeGroupAsync or InitializeGroupStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("MarkConversationReadAsync") || methodNames.Contains("MarkConversationReadStream"),
+            "Expected MarkConversationReadAsync or MarkConversationReadStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("AddGroupMembersAsync") || methodNames.Contains("AddGroupMembersStream"),
+            "Expected AddGroupMembersAsync or AddGroupMembersStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("RemoveGroupAdminsAsync") || methodNames.Contains("RemoveGroupAdminsStream"),
+            "Expected RemoveGroupAdminsAsync or RemoveGroupAdminsStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetGroupInviteAsync") || methodNames.Contains("GetGroupInviteStream"),
+            "Expected GetGroupInviteAsync or GetGroupInviteStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetMessageRequestAsync") || methodNames.Contains("GetMessageRequestStream"),
+            "Expected GetMessageRequestAsync or GetMessageRequestStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetGroupAdminRequestsAsync") || methodNames.Contains("GetGroupAdminRequestsStream"),
+            "Expected GetGroupAdminRequestsAsync or GetGroupAdminRequestsStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("CreateGroupAdminRequestAsync") || methodNames.Contains("CreateGroupAdminRequestStream"),
+            "Expected CreateGroupAdminRequestAsync or CreateGroupAdminRequestStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("MarkConversationUnreadAsync") || methodNames.Contains("MarkConversationUnreadStream"),
+            "Expected MarkConversationUnreadAsync or MarkConversationUnreadStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetConversationEventsAsync") || methodNames.Contains("GetConversationEventsStream"),
+            "Expected GetConversationEventsAsync or GetConversationEventsStream on ChatClient");
+        
+        Assert.Contains("GetConversationEventsPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("MediaDownloadAsync") || methodNames.Contains("MediaDownloadStream"),
+            "Expected MediaDownloadAsync or MediaDownloadStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("UpdateGroupAdminSettingsAsync") || methodNames.Contains("UpdateGroupAdminSettingsStream"),
+            "Expected UpdateGroupAdminSettingsAsync or UpdateGroupAdminSettingsStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("EnableGroupInviteAsync") || methodNames.Contains("EnableGroupInviteStream"),
+            "Expected EnableGroupInviteAsync or EnableGroupInviteStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("DisableGroupInviteAsync") || methodNames.Contains("DisableGroupInviteStream"),
+            "Expected DisableGroupInviteAsync or DisableGroupInviteStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("RemoveGroupMembersAsync") || methodNames.Contains("RemoveGroupMembersStream"),
+            "Expected RemoveGroupMembersAsync or RemoveGroupMembersStream on ChatClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("MediaUploadFinalizeAsync") || methodNames.Contains("MediaUploadFinalizeStream"),
+            "Expected MediaUploadFinalizeAsync or MediaUploadFinalizeStream on ChatClient");
         
         
     }

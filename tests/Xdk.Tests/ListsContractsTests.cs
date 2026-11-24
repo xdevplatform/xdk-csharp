@@ -55,178 +55,6 @@ public class ListsContractsTests : IClassFixture<ListsLoopbackFixture>
 
     
     [Fact]
-    public async Task Contract_GetFollowers()
-    {
-        
-        var mockJson = "{\"data\":[{\"active_follower_count\":1,\"affiliation\":{},\"confirmed_email\":\"test_value\",\"connection_status\":[\"blocking\"],\"created_at\":\"2025-01-15T12:00:00.000Z\",\"description\":\"test_value\",\"entities\":{},\"id\":\"1234567890\",\"is_identity_verified\":true,\"location\":\"test_value\",\"most_recent_post_id\":\"test_value\",\"name\":\"test_value\",\"org_only\":true,\"parody\":true,\"pinned_post_id\":\"test_value\",\"profile_banner_url\":\"test_value\",\"profile_image_url\":\"test_value\",\"protected\":true,\"public_metrics\":{\"followers_count\":1,\"following_count\":1,\"listed_count\":1,\"post_count\":1},\"receives_your_chat\":\"test_value\",\"receives_your_dm\":true,\"subscriber_count\":1,\"subscribes_to_you\":true,\"subscription\":{\"subscribes_to_you\":true},\"subscription_type\":\"test_value\",\"url\":\"test_value\",\"username\":\"XDevelopers\",\"verified\":true,\"verified_followers_count\":1,\"verified_type\":\"test_value\",\"withheld\":{}}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"result_count\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new ListsClient.GetFollowersOptions();
-        options.Headers["X-Contract-Operation"] = "GetFollowers";
-        
-        
-        
-        options.MaxResults = 10;
-        
-        
-        
-        
-        options.PaginationToken = "opt_paginationToken";
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Lists.GetFollowersAsync("test_id", options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/lists/", captured.Path);
-        
-        Assert.Equal("GetFollowers", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_Create()
-    {
-        
-        var mockJson = "{\"data\":{\"id\":\"1234567890\",\"name\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            201,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"description\":\"test_value\",\"name\":\"test_value\",\"private\":true}";
-        var reqBody = JsonSerializer.Deserialize<CreateListsRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Lists.CreateAsync(reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/lists", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_RemoveMemberByUserId()
-    {
-        
-        var mockJson = "{\"data\":{\"is_member\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Lists.RemoveMemberByUserIdAsync("test_id", "test_userId");
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("DELETE", captured!.Method);
-        Assert.Contains("/2/lists/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
     public async Task Contract_GetById()
     {
         
@@ -395,6 +223,54 @@ public class ListsContractsTests : IClassFixture<ListsLoopbackFixture>
     }
     
     [Fact]
+    public async Task Contract_RemoveMemberByUserId()
+    {
+        
+        var mockJson = "{\"data\":{\"is_member\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Lists.RemoveMemberByUserIdAsync("test_id", "test_userId");
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("DELETE", captured!.Method);
+        Assert.Contains("/2/lists/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
     public async Task Contract_GetMembers()
     {
         
@@ -510,6 +386,130 @@ public class ListsContractsTests : IClassFixture<ListsLoopbackFixture>
         Assert.NotNull(captured);
         Assert.Equal("POST", captured!.Method);
         Assert.Contains("/2/lists/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetFollowers()
+    {
+        
+        var mockJson = "{\"data\":[{\"active_follower_count\":1,\"affiliation\":{},\"confirmed_email\":\"test_value\",\"connection_status\":[\"blocking\"],\"created_at\":\"2025-01-15T12:00:00.000Z\",\"description\":\"test_value\",\"entities\":{},\"id\":\"1234567890\",\"is_identity_verified\":true,\"location\":\"test_value\",\"most_recent_post_id\":\"test_value\",\"name\":\"test_value\",\"org_only\":true,\"parody\":true,\"pinned_post_id\":\"test_value\",\"profile_banner_url\":\"test_value\",\"profile_image_url\":\"test_value\",\"protected\":true,\"public_metrics\":{\"followers_count\":1,\"following_count\":1,\"listed_count\":1,\"post_count\":1},\"receives_your_chat\":\"test_value\",\"receives_your_dm\":true,\"subscriber_count\":1,\"subscribes_to_you\":true,\"subscription\":{\"subscribes_to_you\":true},\"subscription_type\":\"test_value\",\"url\":\"test_value\",\"username\":\"XDevelopers\",\"verified\":true,\"verified_followers_count\":1,\"verified_type\":\"test_value\",\"withheld\":{}}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"result_count\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new ListsClient.GetFollowersOptions();
+        options.Headers["X-Contract-Operation"] = "GetFollowers";
+        
+        
+        
+        options.MaxResults = 10;
+        
+        
+        
+        
+        options.PaginationToken = "opt_paginationToken";
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Lists.GetFollowersAsync("test_id", options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/lists/", captured.Path);
+        
+        Assert.Equal("GetFollowers", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_Create()
+    {
+        
+        var mockJson = "{\"data\":{\"id\":\"1234567890\",\"name\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            201,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"description\":\"test_value\",\"name\":\"test_value\",\"private\":true}";
+        var reqBody = JsonSerializer.Deserialize<CreateListsRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Lists.CreateAsync(reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/lists", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));

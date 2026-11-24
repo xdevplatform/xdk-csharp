@@ -59,14 +59,10 @@ public sealed class ArticlesClient
 
 
     
-    public Task<ArticlePublishResponse> ArticlePublishAsync(string articleId, CancellationToken cancellationToken = default)
+    public Task<ArticleCreateDraftResponse> ArticleCreateDraftAsync(ArticleCreateDraftRequest body, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/articles/{article_id}/publish";
-        
-        
-        path = path.Replace("{article_id}", XClient.EncodePathSegment(articleId));
-        
+        var path = "/2/articles/draft";
         
 
         var queryParams = new Dictionary<string, string>();
@@ -76,11 +72,11 @@ public sealed class ArticlesClient
         
 
         IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
+        object? requestBody = body;
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<ArticlePublishResponse>(
+        return _client.SendJsonAsync<ArticleCreateDraftResponse>(
             new HttpMethod("POST"),
             path,
             queryParams,
@@ -106,10 +102,14 @@ public sealed class ArticlesClient
 
 
     
-    public Task<ArticleCreateDraftResponse> ArticleCreateDraftAsync(ArticleCreateDraftRequest body, CancellationToken cancellationToken = default)
+    public Task<ArticlePublishResponse> ArticlePublishAsync(string articleId, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/articles/draft";
+        var path = "/2/articles/{article_id}/publish";
+        
+        
+        path = path.Replace("{article_id}", XClient.EncodePathSegment(articleId));
+        
         
 
         var queryParams = new Dictionary<string, string>();
@@ -119,11 +119,11 @@ public sealed class ArticlesClient
         
 
         IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
+        object? requestBody = null;
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<ArticleCreateDraftResponse>(
+        return _client.SendJsonAsync<ArticlePublishResponse>(
             new HttpMethod("POST"),
             path,
             queryParams,

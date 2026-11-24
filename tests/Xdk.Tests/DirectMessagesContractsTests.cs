@@ -169,65 +169,7 @@ public class DirectMessagesContractsTests : IClassFixture<DirectMessagesLoopback
     }
     
     [Fact]
-    public async Task Contract_CreateByParticipantId()
-    {
-        
-        var mockJson = "{\"data\":{\"dm_conversation_id\":\"test_value\",\"dm_event_id\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            201,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"attachments\":[{\"media_id\":\"1234567890\"}],\"text\":\"Hello from XDK!\"}";
-        var reqBody = JsonSerializer.Deserialize<CreateDirectMessagesByParticipantIdRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.DirectMessages.CreateByParticipantIdAsync("test_participantId", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/dm_conversations/with/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetEventsByConversationId()
+    public async Task Contract_GetEvents()
     {
         
         var mockJson = "{\"data\":[{\"attachments\":{},\"created_at\":\"2025-01-15T12:00:00.000Z\",\"dm_conversation_id\":\"test_value\",\"entities\":{},\"event_type\":\"test_value\",\"id\":\"1234567890\",\"participant_ids\":[\"test_value\"],\"referenced_posts\":[{\"id\":\"1234567890\"}],\"sender_id\":\"test_value\",\"text\":\"Hello from XDK!\"}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"result_count\":1}}";
@@ -240,8 +182,8 @@ public class DirectMessagesContractsTests : IClassFixture<DirectMessagesLoopback
 
         
         
-        var options = new DirectMessagesClient.GetEventsByConversationIdOptions();
-        options.Headers["X-Contract-Operation"] = "GetEventsByConversationId";
+        var options = new DirectMessagesClient.GetEventsOptions();
+        options.Headers["X-Contract-Operation"] = "GetEvents";
         
         
         
@@ -276,14 +218,9 @@ public class DirectMessagesContractsTests : IClassFixture<DirectMessagesLoopback
         
         
         
-        
-        
-        
-        
-        
 
         
-        var result = await _client.DirectMessages.GetEventsByConversationIdAsync("test_id", options);
+        var result = await _client.DirectMessages.GetEventsAsync(options);
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -293,70 +230,12 @@ public class DirectMessagesContractsTests : IClassFixture<DirectMessagesLoopback
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/dm_conversations/", captured.Path);
+        Assert.Contains("/2/dm_events", captured.Path);
         
-        Assert.Equal("GetEventsByConversationId", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_CreateByConversationId()
-    {
-        
-        var mockJson = "{\"data\":{\"dm_conversation_id\":\"test_value\",\"dm_event_id\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            201,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"attachments\":[{\"media_id\":\"1234567890\"}],\"text\":\"Hello from XDK!\"}";
-        var reqBody = JsonSerializer.Deserialize<CreateDirectMessagesByConversationIdRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.DirectMessages.CreateByConversationIdAsync("test_dmConversationId", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/dm_conversations/", captured.Path);
+        Assert.Equal("GetEvents", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
         
         
     }
@@ -439,19 +318,46 @@ public class DirectMessagesContractsTests : IClassFixture<DirectMessagesLoopback
     }
     
     [Fact]
-    public async Task Contract_DmConversationsMediaDownload()
+    public async Task Contract_GetEventsByConversationId()
     {
         
-        var expectedBinary = new byte[] { 0x00, 0x01, 0x58, 0x44, 0x4B, 0xFF };
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Bytes(
+        var mockJson = "{\"data\":[{\"attachments\":{},\"created_at\":\"2025-01-15T12:00:00.000Z\",\"dm_conversation_id\":\"test_value\",\"entities\":{},\"event_type\":\"test_value\",\"id\":\"1234567890\",\"participant_ids\":[\"test_value\"],\"referenced_posts\":[{\"id\":\"1234567890\"}],\"sender_id\":\"test_value\",\"text\":\"Hello from XDK!\"}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"result_count\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
-            "application/octet-stream",
-            expectedBinary));
+            mockJson));
         
 
         
 
         
+        
+        var options = new DirectMessagesClient.GetEventsByConversationIdOptions();
+        options.Headers["X-Contract-Operation"] = "GetEventsByConversationId";
+        
+        
+        
+        options.MaxResults = 10;
+        
+        
+        
+        
+        options.PaginationToken = "opt_paginationToken";
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         
         
@@ -466,25 +372,82 @@ public class DirectMessagesContractsTests : IClassFixture<DirectMessagesLoopback
         
         
         
-        
-        
-        
-        
-        
-        
 
         
-        var result = await _client.DirectMessages.DmConversationsMediaDownloadAsync("test_dmId", "test_mediaId", "test_resourceId");
-        Assert.Equal(expectedBinary, result);
+        var result = await _client.DirectMessages.GetEventsByConversationIdAsync("test_id", options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
         
 
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/dm_conversations/media/", captured.Path);
+        Assert.Contains("/2/dm_conversations/", captured.Path);
+        
+        Assert.Equal("GetEventsByConversationId", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_CreateByParticipantId()
+    {
+        
+        var mockJson = "{\"data\":{\"dm_conversation_id\":\"test_value\",\"dm_event_id\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            201,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"attachments\":[{\"media_id\":\"1234567890\"}],\"text\":\"Hello from XDK!\"}";
+        var reqBody = JsonSerializer.Deserialize<CreateDirectMessagesByParticipantIdRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.DirectMessages.CreateByParticipantIdAsync("test_participantId", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/dm_conversations/with/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
         
         
     }
@@ -543,33 +506,24 @@ public class DirectMessagesContractsTests : IClassFixture<DirectMessagesLoopback
     }
     
     [Fact]
-    public async Task Contract_GetEvents()
+    public async Task Contract_CreateByConversationId()
     {
         
-        var mockJson = "{\"data\":[{\"attachments\":{},\"created_at\":\"2025-01-15T12:00:00.000Z\",\"dm_conversation_id\":\"test_value\",\"entities\":{},\"event_type\":\"test_value\",\"id\":\"1234567890\",\"participant_ids\":[\"test_value\"],\"referenced_posts\":[{\"id\":\"1234567890\"}],\"sender_id\":\"test_value\",\"text\":\"Hello from XDK!\"}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"result_count\":1}}";
+        var mockJson = "{\"data\":{\"dm_conversation_id\":\"test_value\",\"dm_event_id\":\"test_value\"}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
+            201,
             mockJson));
         
 
         
+        
+        var reqMockJson = "{\"attachments\":[{\"media_id\":\"1234567890\"}],\"text\":\"Hello from XDK!\"}";
+        var reqBody = JsonSerializer.Deserialize<CreateDirectMessagesByConversationIdRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
 
         
-        
-        var options = new DirectMessagesClient.GetEventsOptions();
-        options.Headers["X-Contract-Operation"] = "GetEvents";
-        
-        
-        
-        options.MaxResults = 10;
-        
-        
-        
-        
-        options.PaginationToken = "opt_paginationToken";
-        
-        
-        
+
         
         
         
@@ -585,16 +539,7 @@ public class DirectMessagesContractsTests : IClassFixture<DirectMessagesLoopback
         
 
         
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.DirectMessages.GetEventsAsync(options);
+        var result = await _client.DirectMessages.CreateByConversationIdAsync("test_dmConversationId", reqBody);
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -603,10 +548,65 @@ public class DirectMessagesContractsTests : IClassFixture<DirectMessagesLoopback
 
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/dm_events", captured.Path);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/dm_conversations/", captured.Path);
         
-        Assert.Equal("GetEvents", captured.FirstHeader("X-Contract-Operation"));
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_DmConversationsMediaDownload()
+    {
+        
+        var expectedBinary = new byte[] { 0x00, 0x01, 0x58, 0x44, 0x4B, 0xFF };
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Bytes(
+            200,
+            "application/octet-stream",
+            expectedBinary));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.DirectMessages.DmConversationsMediaDownloadAsync("test_dmId", "test_mediaId", "test_resourceId");
+        Assert.Equal(expectedBinary, result);
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/dm_conversations/media/", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));

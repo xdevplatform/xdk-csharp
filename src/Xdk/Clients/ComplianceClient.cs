@@ -42,6 +42,56 @@ public sealed class ComplianceClient
 
 
 
+    public sealed class GetJobsByIdOptions
+    {
+        
+        
+        public List<string>? ComplianceJobFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetJobsByIdOptions Clone()
+        {
+            var copy = (GetJobsByIdOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+    public sealed class DeleteJobsByIdOptions
+    {
+        
+        
+        public List<string>? ComplianceJobFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public DeleteJobsByIdOptions Clone()
+        {
+            var copy = (DeleteJobsByIdOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
     public sealed class UploadJobSubmissionOptions
     {
         
@@ -56,31 +106,6 @@ public sealed class ComplianceClient
         public UploadJobSubmissionOptions Clone()
         {
             var copy = (UploadJobSubmissionOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-    public sealed class DownloadJobResultsOptions
-    {
-        
-        
-        public List<string>? ComplianceJobFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public DownloadJobResultsOptions Clone()
-        {
-            var copy = (DownloadJobResultsOptions)MemberwiseClone();
             copy.Headers = new Dictionary<string, string>(Headers);
             return copy;
         }
@@ -146,7 +171,7 @@ public sealed class ComplianceClient
 
 
 
-    public sealed class GetJobsByIdOptions
+    public sealed class DownloadJobResultsOptions
     {
         
         
@@ -157,9 +182,9 @@ public sealed class ComplianceClient
         
         public Dictionary<string, string> Headers { get; set; } = new();
 
-        public GetJobsByIdOptions Clone()
+        public DownloadJobResultsOptions Clone()
         {
-            var copy = (GetJobsByIdOptions)MemberwiseClone();
+            var copy = (DownloadJobResultsOptions)MemberwiseClone();
             copy.Headers = new Dictionary<string, string>(Headers);
             return copy;
         }
@@ -171,29 +196,114 @@ public sealed class ComplianceClient
 
 
 
-    public sealed class DeleteJobsByIdOptions
+
+
+
+
+
+
+
+
+    
+    public Task<GetComplianceJobsByIdResponse> GetJobsByIdAsync(string id, GetJobsByIdOptions? options = null, CancellationToken cancellationToken = default)
     {
         
+        var opts = options ?? new GetJobsByIdOptions();
         
-        public List<string>? ComplianceJobFields { get; set; }
+        var path = "/2/compliance/jobs/{id}";
         
         
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
         
         
-        public Dictionary<string, string> Headers { get; set; } = new();
 
-        public DeleteJobsByIdOptions Clone()
-        {
-            var copy = (DeleteJobsByIdOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "compliance_job.fields", opts.ComplianceJobFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetComplianceJobsByIdResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
     }
+    
+
+    
+    
 
 
 
 
 
+
+
+
+
+
+    
+    public Task<DeleteComplianceJobsByIdResponse> DeleteJobsByIdAsync(string id, DeleteJobsByIdOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new DeleteJobsByIdOptions();
+        
+        var path = "/2/compliance/jobs/{id}";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "compliance_job.fields", opts.ComplianceJobFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<DeleteComplianceJobsByIdResponse>(
+            new HttpMethod("DELETE"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
 
 
 
@@ -242,67 +352,6 @@ public sealed class ComplianceClient
         
         return _client.SendJsonAsync<UploadComplianceJobSubmissionResponse>(
             new HttpMethod("PUT"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<byte[]> DownloadJobResultsAsync(string id, string token, DownloadJobResultsOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new DownloadJobResultsOptions();
-        
-        var path = "/2/compliance/jobs/{id}/download";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "token", token);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "compliance_job.fields", opts.ComplianceJobFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendBytesAsync(
-            new HttpMethod("GET"),
             path,
             queryParams,
             extraHeaders,
@@ -441,12 +490,12 @@ public sealed class ComplianceClient
 
 
     
-    public Task<GetComplianceJobsByIdResponse> GetJobsByIdAsync(string id, GetJobsByIdOptions? options = null, CancellationToken cancellationToken = default)
+    public Task<byte[]> DownloadJobResultsAsync(string id, string token, DownloadJobResultsOptions? options = null, CancellationToken cancellationToken = default)
     {
         
-        var opts = options ?? new GetJobsByIdOptions();
+        var opts = options ?? new DownloadJobResultsOptions();
         
-        var path = "/2/compliance/jobs/{id}";
+        var path = "/2/compliance/jobs/{id}/download";
         
         
         path = path.Replace("{id}", XClient.EncodePathSegment(id));
@@ -454,6 +503,12 @@ public sealed class ComplianceClient
         
 
         var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "token", token);
+        
+        
         
         
         
@@ -470,63 +525,8 @@ public sealed class ComplianceClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<GetComplianceJobsByIdResponse>(
+        return _client.SendBytesAsync(
             new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<DeleteComplianceJobsByIdResponse> DeleteJobsByIdAsync(string id, DeleteJobsByIdOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new DeleteJobsByIdOptions();
-        
-        var path = "/2/compliance/jobs/{id}";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "compliance_job.fields", opts.ComplianceJobFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<DeleteComplianceJobsByIdResponse>(
-            new HttpMethod("DELETE"),
             path,
             queryParams,
             extraHeaders,

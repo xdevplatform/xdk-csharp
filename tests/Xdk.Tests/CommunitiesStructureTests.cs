@@ -29,15 +29,15 @@ public class CommunitiesStructureTests
 
         
         Assert.True(
+            methodNames.Contains("GetByIdAsync") || methodNames.Contains("GetByIdStream"),
+            "Expected GetByIdAsync or GetByIdStream on CommunitiesClient");
+        
+        
+        Assert.True(
             methodNames.Contains("SearchAsync") || methodNames.Contains("SearchStream"),
             "Expected SearchAsync or SearchStream on CommunitiesClient");
         
         Assert.Contains("SearchPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("GetByIdAsync") || methodNames.Contains("GetByIdStream"),
-            "Expected GetByIdAsync or GetByIdStream on CommunitiesClient");
         
         
     }

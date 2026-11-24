@@ -29,6 +29,16 @@ public class ActivityStructureTests
 
         
         Assert.True(
+            methodNames.Contains("UpdateSubscriptionAsync") || methodNames.Contains("UpdateSubscriptionStream"),
+            "Expected UpdateSubscriptionAsync or UpdateSubscriptionStream on ActivityClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("DeleteSubscriptionAsync") || methodNames.Contains("DeleteSubscriptionStream"),
+            "Expected DeleteSubscriptionAsync or DeleteSubscriptionStream on ActivityClient");
+        
+        
+        Assert.True(
             methodNames.Contains("GetSubscriptionsAsync") || methodNames.Contains("GetSubscriptionsStream"),
             "Expected GetSubscriptionsAsync or GetSubscriptionsStream on ActivityClient");
         
@@ -43,16 +53,6 @@ public class ActivityStructureTests
         Assert.True(
             methodNames.Contains("DeleteSubscriptionsByIdsAsync") || methodNames.Contains("DeleteSubscriptionsByIdsStream"),
             "Expected DeleteSubscriptionsByIdsAsync or DeleteSubscriptionsByIdsStream on ActivityClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("UpdateSubscriptionAsync") || methodNames.Contains("UpdateSubscriptionStream"),
-            "Expected UpdateSubscriptionAsync or UpdateSubscriptionStream on ActivityClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("DeleteSubscriptionAsync") || methodNames.Contains("DeleteSubscriptionStream"),
-            "Expected DeleteSubscriptionAsync or DeleteSubscriptionStream on ActivityClient");
         
         
     }

@@ -178,6 +178,218 @@ public class CallsContractsTests : IClassFixture<CallsLoopbackFixture>
     }
     
     [Fact]
+    public async Task Contract_JoinCall()
+    {
+        
+        var mockJson = "{\"data\":{\"admission\":\"test_value\",\"call\":{\"conversation_id\":\"test_value\",\"created_at\":\"test_value\",\"host_id\":\"test_value\",\"id\":\"1234567890\",\"join_policy\":\"test_value\",\"join_url\":\"test_value\",\"participant_count\":1,\"title\":\"test_value\",\"viewer_may_join\":true},\"expires_at\":\"test_value\",\"media_token\":\"test_value\",\"media_type\":\"test_value\",\"media_url\":\"test_value\",\"session_id\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"media\":{\"audio\":{\"encoding\":\"pcm16\",\"sample_rate\":1},\"type\":\"websocket\"}}";
+        var reqBody = JsonSerializer.Deserialize<JoinCallRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Calls.JoinCallAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/calls/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_RespondToScheduledCall()
+    {
+        
+        var mockJson = "{\"data\":{\"response\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"occurrence_start_time\":\"test_value\",\"response\":\"accepted\",\"scope\":\"all\"}";
+        var reqBody = JsonSerializer.Deserialize<RespondToScheduledCallRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Calls.RespondToScheduledCallAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/calls/scheduled/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_LeaveCall()
+    {
+        
+        var mockJson = "{\"data\":{\"left\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Calls.LeaveCallAsync("test_id");
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/calls/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_CreateCall()
+    {
+        
+        var mockJson = "{\"data\":{\"conversation_id\":\"test_value\",\"created_at\":\"test_value\",\"host_id\":\"test_value\",\"id\":\"1234567890\",\"join_policy\":\"test_value\",\"join_url\":\"test_value\",\"participant_count\":1,\"title\":\"test_value\",\"viewer_may_join\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            201,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"audio_only\":true,\"conversation_id\":\"test_value\",\"join_policy\":\"open\",\"title\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<CreateCallRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Calls.CreateCallAsync(reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/calls", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
     public async Task Contract_GetCall()
     {
         
@@ -434,218 +646,6 @@ public class CallsContractsTests : IClassFixture<CallsLoopbackFixture>
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_JoinCall()
-    {
-        
-        var mockJson = "{\"data\":{\"admission\":\"test_value\",\"call\":{\"conversation_id\":\"test_value\",\"created_at\":\"test_value\",\"host_id\":\"test_value\",\"id\":\"1234567890\",\"join_policy\":\"test_value\",\"join_url\":\"test_value\",\"participant_count\":1,\"title\":\"test_value\",\"viewer_may_join\":true},\"expires_at\":\"test_value\",\"media_token\":\"test_value\",\"media_type\":\"test_value\",\"media_url\":\"test_value\",\"session_id\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"media\":{\"audio\":{\"encoding\":\"pcm16\",\"sample_rate\":1},\"type\":\"websocket\"}}";
-        var reqBody = JsonSerializer.Deserialize<JoinCallRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Calls.JoinCallAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/calls/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_LeaveCall()
-    {
-        
-        var mockJson = "{\"data\":{\"left\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Calls.LeaveCallAsync("test_id");
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/calls/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_CreateCall()
-    {
-        
-        var mockJson = "{\"data\":{\"conversation_id\":\"test_value\",\"created_at\":\"test_value\",\"host_id\":\"test_value\",\"id\":\"1234567890\",\"join_policy\":\"test_value\",\"join_url\":\"test_value\",\"participant_count\":1,\"title\":\"test_value\",\"viewer_may_join\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            201,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"audio_only\":true,\"conversation_id\":\"test_value\",\"join_policy\":\"open\",\"title\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<CreateCallRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Calls.CreateCallAsync(reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/calls", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_RespondToScheduledCall()
-    {
-        
-        var mockJson = "{\"data\":{\"response\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"occurrence_start_time\":\"test_value\",\"response\":\"accepted\",\"scope\":\"all\"}";
-        var reqBody = JsonSerializer.Deserialize<RespondToScheduledCallRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Calls.RespondToScheduledCallAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/calls/scheduled/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
         
         
     }

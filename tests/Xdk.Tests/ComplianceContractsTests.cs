@@ -55,6 +55,126 @@ public class ComplianceContractsTests : IClassFixture<ComplianceLoopbackFixture>
 
     
     [Fact]
+    public async Task Contract_GetJobsById()
+    {
+        
+        var mockJson = "{\"data\":{\"created_at\":\"test_value\",\"download_expires_at\":\"test_value\",\"download_url\":\"test_value\",\"id\":\"1234567890\",\"name\":\"test_value\",\"resumable\":true,\"status\":\"test_value\",\"type\":\"test_value\",\"upload_expires_at\":\"test_value\",\"upload_url\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new ComplianceClient.GetJobsByIdOptions();
+        options.Headers["X-Contract-Operation"] = "GetJobsById";
+        
+        
+        
+        options.ComplianceJobFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Compliance.GetJobsByIdAsync("test_id", options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/compliance/jobs/", captured.Path);
+        
+        Assert.Equal("GetJobsById", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_DeleteJobsById()
+    {
+        
+        var mockJson = "{\"data\":{\"created_at\":\"test_value\",\"download_expires_at\":\"test_value\",\"download_url\":\"test_value\",\"id\":\"1234567890\",\"name\":\"test_value\",\"resumable\":true,\"status\":\"test_value\",\"type\":\"test_value\",\"upload_expires_at\":\"test_value\",\"upload_url\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new ComplianceClient.DeleteJobsByIdOptions();
+        options.Headers["X-Contract-Operation"] = "DeleteJobsById";
+        
+        
+        
+        options.ComplianceJobFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Compliance.DeleteJobsByIdAsync("test_id", options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("DELETE", captured!.Method);
+        Assert.Contains("/2/compliance/jobs/", captured.Path);
+        
+        Assert.Equal("DeleteJobsById", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
     public async Task Contract_UploadJobSubmission()
     {
         
@@ -126,69 +246,6 @@ public class ComplianceContractsTests : IClassFixture<ComplianceLoopbackFixture>
         
         
         Assert.NotEmpty(captured.BodyBytes);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_DownloadJobResults()
-    {
-        
-        var expectedBinary = new byte[] { 0x00, 0x01, 0x58, 0x44, 0x4B, 0xFF };
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Bytes(
-            200,
-            "application/octet-stream",
-            expectedBinary));
-        
-
-        
-
-        
-        
-        var options = new ComplianceClient.DownloadJobResultsOptions();
-        options.Headers["X-Contract-Operation"] = "DownloadJobResults";
-        
-        
-        
-        options.ComplianceJobFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Compliance.DownloadJobResultsAsync("test_id", "test_token", options);
-        Assert.Equal(expectedBinary, result);
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/compliance/jobs/", captured.Path);
-        
-        Assert.Equal("DownloadJobResults", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
         
         
     }
@@ -329,21 +386,22 @@ public class ComplianceContractsTests : IClassFixture<ComplianceLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_GetJobsById()
+    public async Task Contract_DownloadJobResults()
     {
         
-        var mockJson = "{\"data\":{\"created_at\":\"test_value\",\"download_expires_at\":\"test_value\",\"download_url\":\"test_value\",\"id\":\"1234567890\",\"name\":\"test_value\",\"resumable\":true,\"status\":\"test_value\",\"type\":\"test_value\",\"upload_expires_at\":\"test_value\",\"upload_url\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+        var expectedBinary = new byte[] { 0x00, 0x01, 0x58, 0x44, 0x4B, 0xFF };
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Bytes(
             200,
-            mockJson));
+            "application/octet-stream",
+            expectedBinary));
         
 
         
 
         
         
-        var options = new ComplianceClient.GetJobsByIdOptions();
-        options.Headers["X-Contract-Operation"] = "GetJobsById";
+        var options = new ComplianceClient.DownloadJobResultsOptions();
+        options.Headers["X-Contract-Operation"] = "DownloadJobResults";
         
         
         
@@ -366,13 +424,15 @@ public class ComplianceContractsTests : IClassFixture<ComplianceLoopbackFixture>
         
         
         
+        
+        
+        
+        
+        
 
         
-        var result = await _client.Compliance.GetJobsByIdAsync("test_id", options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        var result = await _client.Compliance.DownloadJobResultsAsync("test_id", "test_token", options);
+        Assert.Equal(expectedBinary, result);
         
 
         var captured = _server.LastRequest;
@@ -380,67 +440,7 @@ public class ComplianceContractsTests : IClassFixture<ComplianceLoopbackFixture>
         Assert.Equal("GET", captured!.Method);
         Assert.Contains("/2/compliance/jobs/", captured.Path);
         
-        Assert.Equal("GetJobsById", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_DeleteJobsById()
-    {
-        
-        var mockJson = "{\"data\":{\"created_at\":\"test_value\",\"download_expires_at\":\"test_value\",\"download_url\":\"test_value\",\"id\":\"1234567890\",\"name\":\"test_value\",\"resumable\":true,\"status\":\"test_value\",\"type\":\"test_value\",\"upload_expires_at\":\"test_value\",\"upload_url\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new ComplianceClient.DeleteJobsByIdOptions();
-        options.Headers["X-Contract-Operation"] = "DeleteJobsById";
-        
-        
-        
-        options.ComplianceJobFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Compliance.DeleteJobsByIdAsync("test_id", options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("DELETE", captured!.Method);
-        Assert.Contains("/2/compliance/jobs/", captured.Path);
-        
-        Assert.Equal("DeleteJobsById", captured.FirstHeader("X-Contract-Operation"));
+        Assert.Equal("DownloadJobResults", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));

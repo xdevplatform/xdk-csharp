@@ -29,23 +29,6 @@ public class ListsStructureTests
 
         
         Assert.True(
-            methodNames.Contains("GetFollowersAsync") || methodNames.Contains("GetFollowersStream"),
-            "Expected GetFollowersAsync or GetFollowersStream on ListsClient");
-        
-        Assert.Contains("GetFollowersPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("CreateAsync") || methodNames.Contains("CreateStream"),
-            "Expected CreateAsync or CreateStream on ListsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("RemoveMemberByUserIdAsync") || methodNames.Contains("RemoveMemberByUserIdStream"),
-            "Expected RemoveMemberByUserIdAsync or RemoveMemberByUserIdStream on ListsClient");
-        
-        
-        Assert.True(
             methodNames.Contains("GetByIdAsync") || methodNames.Contains("GetByIdStream"),
             "Expected GetByIdAsync or GetByIdStream on ListsClient");
         
@@ -61,6 +44,11 @@ public class ListsStructureTests
         
         
         Assert.True(
+            methodNames.Contains("RemoveMemberByUserIdAsync") || methodNames.Contains("RemoveMemberByUserIdStream"),
+            "Expected RemoveMemberByUserIdAsync or RemoveMemberByUserIdStream on ListsClient");
+        
+        
+        Assert.True(
             methodNames.Contains("GetMembersAsync") || methodNames.Contains("GetMembersStream"),
             "Expected GetMembersAsync or GetMembersStream on ListsClient");
         
@@ -70,6 +58,18 @@ public class ListsStructureTests
         Assert.True(
             methodNames.Contains("AddMemberAsync") || methodNames.Contains("AddMemberStream"),
             "Expected AddMemberAsync or AddMemberStream on ListsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetFollowersAsync") || methodNames.Contains("GetFollowersStream"),
+            "Expected GetFollowersAsync or GetFollowersStream on ListsClient");
+        
+        Assert.Contains("GetFollowersPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("CreateAsync") || methodNames.Contains("CreateStream"),
+            "Expected CreateAsync or CreateStream on ListsClient");
         
         
         Assert.True(

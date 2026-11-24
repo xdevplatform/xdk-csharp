@@ -29,8 +29,13 @@ public class WebhooksStructureTests
 
         
         Assert.True(
-            methodNames.Contains("CreateWebhookReplayJobAsync") || methodNames.Contains("CreateWebhookReplayJobStream"),
-            "Expected CreateWebhookReplayJobAsync or CreateWebhookReplayJobStream on WebhooksClient");
+            methodNames.Contains("ValidateAsync") || methodNames.Contains("ValidateStream"),
+            "Expected ValidateAsync or ValidateStream on WebhooksClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("DeleteAsync") || methodNames.Contains("DeleteStream"),
+            "Expected DeleteAsync or DeleteStream on WebhooksClient");
         
         
         Assert.True(
@@ -49,6 +54,11 @@ public class WebhooksStructureTests
         
         
         Assert.True(
+            methodNames.Contains("CreateWebhookReplayJobAsync") || methodNames.Contains("CreateWebhookReplayJobStream"),
+            "Expected CreateWebhookReplayJobAsync or CreateWebhookReplayJobStream on WebhooksClient");
+        
+        
+        Assert.True(
             methodNames.Contains("CreateStreamLinkAsync") || methodNames.Contains("CreateStreamLinkStream"),
             "Expected CreateStreamLinkAsync or CreateStreamLinkStream on WebhooksClient");
         
@@ -56,16 +66,6 @@ public class WebhooksStructureTests
         Assert.True(
             methodNames.Contains("DeleteStreamLinkAsync") || methodNames.Contains("DeleteStreamLinkStream"),
             "Expected DeleteStreamLinkAsync or DeleteStreamLinkStream on WebhooksClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("ValidateAsync") || methodNames.Contains("ValidateStream"),
-            "Expected ValidateAsync or ValidateStream on WebhooksClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("DeleteAsync") || methodNames.Contains("DeleteStream"),
-            "Expected DeleteAsync or DeleteStream on WebhooksClient");
         
         
     }

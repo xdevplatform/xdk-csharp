@@ -42,39 +42,19 @@ public sealed class BroadcastsClient
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public sealed class GetChatModeratorsOptions
+    public sealed class GetChatMutedUsersOptions
     {
         
         
-        public List<string>? UserFields { get; set; }
+        public int? MaxResults { get; set; }
+        
+        
+        
+        public string? PaginationToken { get; set; }
+        
+        
+        
+        public List<string>? BroadcastChatMuteFields { get; set; }
         
         
         
@@ -82,16 +62,16 @@ public sealed class BroadcastsClient
         
         
         
-        public List<string>? PostFields { get; set; }
+        public List<string>? UserFields { get; set; }
         
         
         
         
         public Dictionary<string, string> Headers { get; set; } = new();
 
-        public GetChatModeratorsOptions Clone()
+        public GetChatMutedUsersOptions Clone()
         {
-            var copy = (GetChatModeratorsOptions)MemberwiseClone();
+            var copy = (GetChatMutedUsersOptions)MemberwiseClone();
             copy.Headers = new Dictionary<string, string>(Headers);
             return copy;
         }
@@ -107,24 +87,49 @@ public sealed class BroadcastsClient
 
 
 
-
-
-
-
-    public sealed class ListOptions
+    public sealed class ListScheduledOptions
     {
-        
-        
-        public List<string>? Ids { get; set; }
-        
         
         
         public int? MaxResults { get; set; }
         
         
         
+        public string? OldestStartTime { get; set; }
+        
+        
+        
+        public string? NewestStartTime { get; set; }
+        
+        
+        
         public string? PaginationToken { get; set; }
         
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public ListScheduledOptions Clone()
+        {
+            var copy = (ListScheduledOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public sealed class GetBroadcastOptions
+    {
         
         
         public List<string>? BroadcastFields { get; set; }
@@ -134,83 +139,9 @@ public sealed class BroadcastsClient
         
         public Dictionary<string, string> Headers { get; set; } = new();
 
-        public ListOptions Clone()
+        public GetBroadcastOptions Clone()
         {
-            var copy = (ListOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-    public sealed class UnmuteChatUserOptions
-    {
-        
-        
-        public string? BroadcastId { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public UnmuteChatUserOptions Clone()
-        {
-            var copy = (UnmuteChatUserOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-    public sealed class GetBroadcastChatOptions
-    {
-        
-        
-        public int? MaxResults { get; set; }
-        
-        
-        
-        public string? PaginationToken { get; set; }
-        
-        
-        
-        public List<string>? BroadcastChatMessageFields { get; set; }
-        
-        
-        
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public GetBroadcastChatOptions Clone()
-        {
-            var copy = (GetBroadcastChatOptions)MemberwiseClone();
+            var copy = (GetBroadcastOptions)MemberwiseClone();
             copy.Headers = new Dictionary<string, string>(Headers);
             return copy;
         }
@@ -279,16 +210,138 @@ public sealed class BroadcastsClient
 
 
 
-
-
-
-
-
-
-
-
-    public sealed class GetBroadcastOptions
+    public sealed class GetChatModeratorsOptions
     {
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? PostFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetChatModeratorsOptions Clone()
+        {
+            var copy = (GetChatModeratorsOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public sealed class GetBroadcastChatOptions
+    {
+        
+        
+        public int? MaxResults { get; set; }
+        
+        
+        
+        public string? PaginationToken { get; set; }
+        
+        
+        
+        public List<string>? BroadcastChatMessageFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetBroadcastChatOptions Clone()
+        {
+            var copy = (GetBroadcastChatOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public sealed class ListOptions
+    {
+        
+        
+        public List<string>? Ids { get; set; }
+        
+        
+        
+        public int? MaxResults { get; set; }
+        
+        
+        
+        public string? PaginationToken { get; set; }
+        
         
         
         public List<string>? BroadcastFields { get; set; }
@@ -298,66 +351,13 @@ public sealed class BroadcastsClient
         
         public Dictionary<string, string> Headers { get; set; } = new();
 
-        public GetBroadcastOptions Clone()
+        public ListOptions Clone()
         {
-            var copy = (GetBroadcastOptions)MemberwiseClone();
+            var copy = (ListOptions)MemberwiseClone();
             copy.Headers = new Dictionary<string, string>(Headers);
             return copy;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public sealed class ListScheduledOptions
-    {
-        
-        
-        public int? MaxResults { get; set; }
-        
-        
-        
-        public string? OldestStartTime { get; set; }
-        
-        
-        
-        public string? NewestStartTime { get; set; }
-        
-        
-        
-        public string? PaginationToken { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public ListScheduledOptions Clone()
-        {
-            var copy = (ListScheduledOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-
 
 
 
@@ -406,36 +406,36 @@ public sealed class BroadcastsClient
 
 
 
-    public sealed class GetChatMutedUsersOptions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public sealed class UnmuteChatUserOptions
     {
         
         
-        public int? MaxResults { get; set; }
-        
-        
-        
-        public string? PaginationToken { get; set; }
-        
-        
-        
-        public List<string>? BroadcastChatMuteFields { get; set; }
-        
-        
-        
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
+        public string? BroadcastId { get; set; }
         
         
         
         
         public Dictionary<string, string> Headers { get; set; } = new();
 
-        public GetChatMutedUsersOptions Clone()
+        public UnmuteChatUserOptions Clone()
         {
-            var copy = (GetChatMutedUsersOptions)MemberwiseClone();
+            var copy = (UnmuteChatUserOptions)MemberwiseClone();
             copy.Headers = new Dictionary<string, string>(Headers);
             return copy;
         }
@@ -468,726 +468,12 @@ public sealed class BroadcastsClient
 
 
     
-    public Task<GoLiveScheduledBroadcastResponse> GoLiveScheduledBroadcastAsync(string id, CancellationToken cancellationToken = default)
+    public Task<GetChatMutedUsersResponse> GetChatMutedUsersAsync(GetChatMutedUsersOptions? options = null, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/broadcasts/scheduled/{id}/live";
+        var opts = options ?? new GetChatMutedUsersOptions();
         
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GoLiveScheduledBroadcastResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<ListUserSourcesResponse> ListUserSourcesAsync(string id, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/users/{id}/sources";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<ListUserSourcesResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<CreateUserSourceResponse> CreateUserSourceAsync(string id, CreateUserSourceRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/users/{id}/sources";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<CreateUserSourceResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<ListLiveCategoriesResponse> ListLiveCategoriesAsync(CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/broadcasts/categories";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<ListLiveCategoriesResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetSourceResponse> GetSourceAsync(string id, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/sources/{id}";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetSourceResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<UpdateSourceResponse> UpdateSourceAsync(string id, UpdateSourceRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/sources/{id}";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<UpdateSourceResponse>(
-            new HttpMethod("PUT"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<DeleteSourceResponse> DeleteSourceAsync(string id, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/sources/{id}";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<DeleteSourceResponse>(
-            new HttpMethod("DELETE"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetChatModeratorsResponse> GetChatModeratorsAsync(GetChatModeratorsOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetChatModeratorsOptions();
-        
-        var path = "/2/broadcasts/chat/moderators";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetChatModeratorsResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<AddChatModeratorResponse> AddChatModeratorAsync(AddChatModeratorRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/broadcasts/chat/moderators";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<AddChatModeratorResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetRegionResponse> GetRegionAsync(CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/region";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetRegionResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<ListBroadcastsResponse> ListAsync(ListOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new ListOptions();
-        
-        var path = "/2/broadcasts";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "ids", opts.Ids);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "broadcast.fields", opts.BroadcastFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<ListBroadcastsResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-    
-    
-    
-
-    public Paginator<ListBroadcastsResponse> ListPages(ListOptions? options = null)
-    {
-        var baseOpts = options?.Clone() ?? new ListOptions();
-        var initialToken = baseOpts.PaginationToken;
-        return new Paginator<ListBroadcastsResponse>(
-            (token, ct) =>
-            {
-                var pageOpts = baseOpts.Clone();
-                pageOpts.PaginationToken = token;
-                return ListAsync(pageOpts, ct);
-            },
-            initialToken);
-    }
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<CreateBroadcastResponse> CreateBroadcastAsync(CreateBroadcastRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/broadcasts";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<CreateBroadcastResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<UnmuteChatUserResponse> UnmuteChatUserAsync(string userId, UnmuteChatUserOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new UnmuteChatUserOptions();
-        
-        var path = "/2/broadcasts/chat/mutes/{user_id}";
-        
-        
-        path = path.Replace("{user_id}", XClient.EncodePathSegment(userId));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "broadcast_id", opts.BroadcastId);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<UnmuteChatUserResponse>(
-            new HttpMethod("DELETE"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<UnmuteBroadcastChatUserResponse> UnmuteBroadcastChatUserAsync(string id, string userId, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/broadcasts/{id}/chat/mutes/{user_id}";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-        
-        path = path.Replace("{user_id}", XClient.EncodePathSegment(userId));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<UnmuteBroadcastChatUserResponse>(
-            new HttpMethod("DELETE"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetBroadcastChatResponse> GetBroadcastChatAsync(string id, GetBroadcastChatOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetBroadcastChatOptions();
-        
-        var path = "/2/broadcasts/{id}/chat";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
+        var path = "/2/broadcasts/chat/mutes";
         
 
         var queryParams = new Dictionary<string, string>();
@@ -1206,7 +492,7 @@ public sealed class BroadcastsClient
         
         
         
-        XClient.AddQueryParam(queryParams, "broadcast_chat_message.fields", opts.BroadcastChatMessageFields);
+        XClient.AddQueryParam(queryParams, "broadcast_chat_mute.fields", opts.BroadcastChatMuteFields);
         
         
         
@@ -1231,7 +517,7 @@ public sealed class BroadcastsClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<GetBroadcastChatResponse>(
+        return _client.SendJsonAsync<GetChatMutedUsersResponse>(
             new HttpMethod("GET"),
             path,
             queryParams,
@@ -1250,16 +536,16 @@ public sealed class BroadcastsClient
     
     
 
-    public Paginator<GetBroadcastChatResponse> GetBroadcastChatPages(string id, GetBroadcastChatOptions? options = null)
+    public Paginator<GetChatMutedUsersResponse> GetChatMutedUsersPages(GetChatMutedUsersOptions? options = null)
     {
-        var baseOpts = options?.Clone() ?? new GetBroadcastChatOptions();
+        var baseOpts = options?.Clone() ?? new GetChatMutedUsersOptions();
         var initialToken = baseOpts.PaginationToken;
-        return new Paginator<GetBroadcastChatResponse>(
+        return new Paginator<GetChatMutedUsersResponse>(
             (token, ct) =>
             {
                 var pageOpts = baseOpts.Clone();
                 pageOpts.PaginationToken = token;
-                return GetBroadcastChatAsync(id, pageOpts, ct);
+                return GetChatMutedUsersAsync(pageOpts, ct);
             },
             initialToken);
     }
@@ -1275,14 +561,10 @@ public sealed class BroadcastsClient
 
 
     
-    public Task<SendBroadcastChatResponse> SendBroadcastChatAsync(string id, SendBroadcastChatRequest body, CancellationToken cancellationToken = default)
+    public Task<MuteChatUserResponse> MuteChatUserAsync(MuteChatUserRequest body, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/broadcasts/{id}/chat";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
+        var path = "/2/broadcasts/chat/mutes";
         
 
         var queryParams = new Dictionary<string, string>();
@@ -1296,7 +578,7 @@ public sealed class BroadcastsClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<SendBroadcastChatResponse>(
+        return _client.SendJsonAsync<MuteChatUserResponse>(
             new HttpMethod("POST"),
             path,
             queryParams,
@@ -1322,117 +604,33 @@ public sealed class BroadcastsClient
 
 
     
-    public Task<DeleteBroadcastChatMessageResponse> DeleteBroadcastChatMessageAsync(string id, string messageId, CancellationToken cancellationToken = default)
+    public Task<ListScheduledBroadcastsResponse> ListScheduledAsync(ListScheduledOptions? options = null, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/broadcasts/{id}/chat/{message_id}";
+        var opts = options ?? new ListScheduledOptions();
         
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-        
-        path = path.Replace("{message_id}", XClient.EncodePathSegment(messageId));
-        
+        var path = "/2/broadcasts/scheduled";
         
 
         var queryParams = new Dictionary<string, string>();
         
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<DeleteBroadcastChatMessageResponse>(
-            new HttpMethod("DELETE"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<UpdateBroadcastStateResponse> UpdateBroadcastStateAsync(string id, UpdateBroadcastStateRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/broadcasts/{id}/state";
         
         
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
         
         
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<UpdateBroadcastStateResponse>(
-            new HttpMethod("PUT"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<ListUserBroadcastsResponse> ListUserAsync(string id, ListUserOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new ListUserOptions();
-        
-        var path = "/2/users/{id}/broadcasts";
         
         
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        XClient.AddQueryParam(queryParams, "oldest_start_time", opts.OldestStartTime);
         
         
-
-        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "newest_start_time", opts.NewestStartTime);
+        
+        
         
         
         
@@ -1449,7 +647,7 @@ public sealed class BroadcastsClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<ListUserBroadcastsResponse>(
+        return _client.SendJsonAsync<ListScheduledBroadcastsResponse>(
             new HttpMethod("GET"),
             path,
             queryParams,
@@ -1468,16 +666,16 @@ public sealed class BroadcastsClient
     
     
 
-    public Paginator<ListUserBroadcastsResponse> ListUserPages(string id, ListUserOptions? options = null)
+    public Paginator<ListScheduledBroadcastsResponse> ListScheduledPages(ListScheduledOptions? options = null)
     {
-        var baseOpts = options?.Clone() ?? new ListUserOptions();
+        var baseOpts = options?.Clone() ?? new ListScheduledOptions();
         var initialToken = baseOpts.PaginationToken;
-        return new Paginator<ListUserBroadcastsResponse>(
+        return new Paginator<ListScheduledBroadcastsResponse>(
             (token, ct) =>
             {
                 var pageOpts = baseOpts.Clone();
                 pageOpts.PaginationToken = token;
-                return ListUserAsync(id, pageOpts, ct);
+                return ListScheduledAsync(pageOpts, ct);
             },
             initialToken);
     }
@@ -1493,14 +691,10 @@ public sealed class BroadcastsClient
 
 
     
-    public Task<CreateUserBroadcastResponse> CreateUserBroadcastAsync(string id, CreateUserBroadcastRequest body, CancellationToken cancellationToken = default)
+    public Task<CreateScheduledBroadcastResponse> CreateScheduledBroadcastAsync(CreateScheduledBroadcastRequest body, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/users/{id}/broadcasts";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
+        var path = "/2/broadcasts/scheduled";
         
 
         var queryParams = new Dictionary<string, string>();
@@ -1514,306 +708,8 @@ public sealed class BroadcastsClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<CreateUserBroadcastResponse>(
+        return _client.SendJsonAsync<CreateScheduledBroadcastResponse>(
             new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetUserSourceResponse> GetUserSourceAsync(string id, string sourceId, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/users/{id}/sources/{source_id}";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-        
-        path = path.Replace("{source_id}", XClient.EncodePathSegment(sourceId));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetUserSourceResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<UpdateUserSourceResponse> UpdateUserSourceAsync(string id, string sourceId, UpdateUserSourceRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/users/{id}/sources/{source_id}";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-        
-        path = path.Replace("{source_id}", XClient.EncodePathSegment(sourceId));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<UpdateUserSourceResponse>(
-            new HttpMethod("PUT"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<DeleteUserSourceResponse> DeleteUserSourceAsync(string id, string sourceId, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/users/{id}/sources/{source_id}";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-        
-        path = path.Replace("{source_id}", XClient.EncodePathSegment(sourceId));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<DeleteUserSourceResponse>(
-            new HttpMethod("DELETE"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<UpdateUserBroadcastStateResponse> UpdateUserBroadcastStateAsync(string id, string broadcastId, UpdateUserBroadcastStateRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/users/{id}/broadcasts/{broadcast_id}/state";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-        
-        path = path.Replace("{broadcast_id}", XClient.EncodePathSegment(broadcastId));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<UpdateUserBroadcastStateResponse>(
-            new HttpMethod("PUT"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetSourceStreamKeyResponse> GetSourceStreamKeyAsync(string id, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/sources/{id}/stream_key";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetSourceStreamKeyResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<RemoveChatModeratorResponse> RemoveChatModeratorAsync(string userId, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/broadcasts/chat/moderators/{user_id}";
-        
-        
-        path = path.Replace("{user_id}", XClient.EncodePathSegment(userId));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<RemoveChatModeratorResponse>(
-            new HttpMethod("DELETE"),
             path,
             queryParams,
             extraHeaders,
@@ -1987,33 +883,66 @@ public sealed class BroadcastsClient
 
 
     
-    public Task<ListScheduledBroadcastsResponse> ListScheduledAsync(ListScheduledOptions? options = null, CancellationToken cancellationToken = default)
+    public Task<GetSourceStreamKeyResponse> GetSourceStreamKeyAsync(string id, CancellationToken cancellationToken = default)
     {
         
-        var opts = options ?? new ListScheduledOptions();
+        var path = "/2/sources/{id}/stream_key";
         
-        var path = "/2/broadcasts/scheduled";
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
         
 
         var queryParams = new Dictionary<string, string>();
         
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetSourceStreamKeyResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<ListUserBroadcastsResponse> ListUserAsync(string id, ListUserOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new ListUserOptions();
+        
+        var path = "/2/users/{id}/broadcasts";
         
         
-        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
         
         
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "oldest_start_time", opts.OldestStartTime);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "newest_start_time", opts.NewestStartTime);
-        
-        
+
+        var queryParams = new Dictionary<string, string>();
         
         
         
@@ -2030,7 +959,7 @@ public sealed class BroadcastsClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<ListScheduledBroadcastsResponse>(
+        return _client.SendJsonAsync<ListUserBroadcastsResponse>(
             new HttpMethod("GET"),
             path,
             queryParams,
@@ -2049,16 +978,16 @@ public sealed class BroadcastsClient
     
     
 
-    public Paginator<ListScheduledBroadcastsResponse> ListScheduledPages(ListScheduledOptions? options = null)
+    public Paginator<ListUserBroadcastsResponse> ListUserPages(string id, ListUserOptions? options = null)
     {
-        var baseOpts = options?.Clone() ?? new ListScheduledOptions();
+        var baseOpts = options?.Clone() ?? new ListUserOptions();
         var initialToken = baseOpts.PaginationToken;
-        return new Paginator<ListScheduledBroadcastsResponse>(
+        return new Paginator<ListUserBroadcastsResponse>(
             (token, ct) =>
             {
                 var pageOpts = baseOpts.Clone();
                 pageOpts.PaginationToken = token;
-                return ListScheduledAsync(pageOpts, ct);
+                return ListUserAsync(id, pageOpts, ct);
             },
             initialToken);
     }
@@ -2074,10 +1003,14 @@ public sealed class BroadcastsClient
 
 
     
-    public Task<CreateScheduledBroadcastResponse> CreateScheduledBroadcastAsync(CreateScheduledBroadcastRequest body, CancellationToken cancellationToken = default)
+    public Task<CreateUserBroadcastResponse> CreateUserBroadcastAsync(string id, CreateUserBroadcastRequest body, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/broadcasts/scheduled";
+        var path = "/2/users/{id}/broadcasts";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
         
 
         var queryParams = new Dictionary<string, string>();
@@ -2091,7 +1024,7 @@ public sealed class BroadcastsClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<CreateScheduledBroadcastResponse>(
+        return _client.SendJsonAsync<CreateUserBroadcastResponse>(
             new HttpMethod("POST"),
             path,
             queryParams,
@@ -2139,6 +1072,397 @@ public sealed class BroadcastsClient
 
         
         return _client.SendJsonAsync<MuteBroadcastChatUserResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetRegionResponse> GetRegionAsync(CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/region";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetRegionResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<RemoveChatModeratorResponse> RemoveChatModeratorAsync(string userId, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/broadcasts/chat/moderators/{user_id}";
+        
+        
+        path = path.Replace("{user_id}", XClient.EncodePathSegment(userId));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<RemoveChatModeratorResponse>(
+            new HttpMethod("DELETE"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<DeleteBroadcastChatMessageResponse> DeleteBroadcastChatMessageAsync(string id, string messageId, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/broadcasts/{id}/chat/{message_id}";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+        
+        path = path.Replace("{message_id}", XClient.EncodePathSegment(messageId));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<DeleteBroadcastChatMessageResponse>(
+            new HttpMethod("DELETE"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetChatModeratorsResponse> GetChatModeratorsAsync(GetChatModeratorsOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetChatModeratorsOptions();
+        
+        var path = "/2/broadcasts/chat/moderators";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetChatModeratorsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<AddChatModeratorResponse> AddChatModeratorAsync(AddChatModeratorRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/broadcasts/chat/moderators";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<AddChatModeratorResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetBroadcastChatResponse> GetBroadcastChatAsync(string id, GetBroadcastChatOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetBroadcastChatOptions();
+        
+        var path = "/2/broadcasts/{id}/chat";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "broadcast_chat_message.fields", opts.BroadcastChatMessageFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetBroadcastChatResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+    
+    
+    
+
+    public Paginator<GetBroadcastChatResponse> GetBroadcastChatPages(string id, GetBroadcastChatOptions? options = null)
+    {
+        var baseOpts = options?.Clone() ?? new GetBroadcastChatOptions();
+        var initialToken = baseOpts.PaginationToken;
+        return new Paginator<GetBroadcastChatResponse>(
+            (token, ct) =>
+            {
+                var pageOpts = baseOpts.Clone();
+                pageOpts.PaginationToken = token;
+                return GetBroadcastChatAsync(id, pageOpts, ct);
+            },
+            initialToken);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<SendBroadcastChatResponse> SendBroadcastChatAsync(string id, SendBroadcastChatRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/broadcasts/{id}/chat";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<SendBroadcastChatResponse>(
             new HttpMethod("POST"),
             path,
             queryParams,
@@ -2226,6 +1550,520 @@ public sealed class BroadcastsClient
         
         return _client.SendJsonAsync<CreateSourceResponse>(
             new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetSourceResponse> GetSourceAsync(string id, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/sources/{id}";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetSourceResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<UpdateSourceResponse> UpdateSourceAsync(string id, UpdateSourceRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/sources/{id}";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<UpdateSourceResponse>(
+            new HttpMethod("PUT"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<DeleteSourceResponse> DeleteSourceAsync(string id, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/sources/{id}";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<DeleteSourceResponse>(
+            new HttpMethod("DELETE"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<ListUserSourcesResponse> ListUserSourcesAsync(string id, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/users/{id}/sources";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<ListUserSourcesResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<CreateUserSourceResponse> CreateUserSourceAsync(string id, CreateUserSourceRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/users/{id}/sources";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<CreateUserSourceResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetUserBroadcastResponse> GetUserBroadcastAsync(string id, string broadcastId, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/users/{id}/broadcasts/{broadcast_id}";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+        
+        path = path.Replace("{broadcast_id}", XClient.EncodePathSegment(broadcastId));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetUserBroadcastResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<DeleteUserBroadcastResponse> DeleteUserBroadcastAsync(string id, string broadcastId, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/users/{id}/broadcasts/{broadcast_id}";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+        
+        path = path.Replace("{broadcast_id}", XClient.EncodePathSegment(broadcastId));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<DeleteUserBroadcastResponse>(
+            new HttpMethod("DELETE"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<ListBroadcastsResponse> ListAsync(ListOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new ListOptions();
+        
+        var path = "/2/broadcasts";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "ids", opts.Ids);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "broadcast.fields", opts.BroadcastFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<ListBroadcastsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+    
+    
+    
+
+    public Paginator<ListBroadcastsResponse> ListPages(ListOptions? options = null)
+    {
+        var baseOpts = options?.Clone() ?? new ListOptions();
+        var initialToken = baseOpts.PaginationToken;
+        return new Paginator<ListBroadcastsResponse>(
+            (token, ct) =>
+            {
+                var pageOpts = baseOpts.Clone();
+                pageOpts.PaginationToken = token;
+                return ListAsync(pageOpts, ct);
+            },
+            initialToken);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<CreateBroadcastResponse> CreateBroadcastAsync(CreateBroadcastRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/broadcasts";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<CreateBroadcastResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<UpdateBroadcastStateResponse> UpdateBroadcastStateAsync(string id, UpdateBroadcastStateRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/broadcasts/{id}/state";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<UpdateBroadcastStateResponse>(
+            new HttpMethod("PUT"),
             path,
             queryParams,
             extraHeaders,
@@ -2399,48 +2237,24 @@ public sealed class BroadcastsClient
 
 
     
-    public Task<GetChatMutedUsersResponse> GetChatMutedUsersAsync(GetChatMutedUsersOptions? options = null, CancellationToken cancellationToken = default)
+    public Task<UnmuteBroadcastChatUserResponse> UnmuteBroadcastChatUserAsync(string id, string userId, CancellationToken cancellationToken = default)
     {
         
-        var opts = options ?? new GetChatMutedUsersOptions();
+        var path = "/2/broadcasts/{id}/chat/mutes/{user_id}";
         
-        var path = "/2/broadcasts/chat/mutes";
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+        
+        path = path.Replace("{user_id}", XClient.EncodePathSegment(userId));
+        
         
 
         var queryParams = new Dictionary<string, string>();
         
-        
-        
-        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "broadcast_chat_mute.fields", opts.BroadcastChatMuteFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
 
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        var extraHeaders = new Dictionary<string, string>();
         
 
         IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
@@ -2448,7 +2262,50 @@ public sealed class BroadcastsClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<GetChatMutedUsersResponse>(
+        return _client.SendJsonAsync<UnmuteBroadcastChatUserResponse>(
+            new HttpMethod("DELETE"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<ListLiveCategoriesResponse> ListLiveCategoriesAsync(CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/broadcasts/categories";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<ListLiveCategoriesResponse>(
             new HttpMethod("GET"),
             path,
             queryParams,
@@ -2463,24 +2320,6 @@ public sealed class BroadcastsClient
 
     
     
-    
-    
-    
-
-    public Paginator<GetChatMutedUsersResponse> GetChatMutedUsersPages(GetChatMutedUsersOptions? options = null)
-    {
-        var baseOpts = options?.Clone() ?? new GetChatMutedUsersOptions();
-        var initialToken = baseOpts.PaginationToken;
-        return new Paginator<GetChatMutedUsersResponse>(
-            (token, ct) =>
-            {
-                var pageOpts = baseOpts.Clone();
-                pageOpts.PaginationToken = token;
-                return GetChatMutedUsersAsync(pageOpts, ct);
-            },
-            initialToken);
-    }
-    
 
 
 
@@ -2492,10 +2331,18 @@ public sealed class BroadcastsClient
 
 
     
-    public Task<MuteChatUserResponse> MuteChatUserAsync(MuteChatUserRequest body, CancellationToken cancellationToken = default)
+    public Task<UpdateUserBroadcastStateResponse> UpdateUserBroadcastStateAsync(string id, string broadcastId, UpdateUserBroadcastStateRequest body, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/broadcasts/chat/mutes";
+        var path = "/2/users/{id}/broadcasts/{broadcast_id}/state";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+        
+        path = path.Replace("{broadcast_id}", XClient.EncodePathSegment(broadcastId));
+        
         
 
         var queryParams = new Dictionary<string, string>();
@@ -2509,7 +2356,54 @@ public sealed class BroadcastsClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<MuteChatUserResponse>(
+        return _client.SendJsonAsync<UpdateUserBroadcastStateResponse>(
+            new HttpMethod("PUT"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GoLiveScheduledBroadcastResponse> GoLiveScheduledBroadcastAsync(string id, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/broadcasts/scheduled/{id}/live";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GoLiveScheduledBroadcastResponse>(
             new HttpMethod("POST"),
             path,
             queryParams,
@@ -2535,17 +2429,72 @@ public sealed class BroadcastsClient
 
 
     
-    public Task<GetUserBroadcastResponse> GetUserBroadcastAsync(string id, string broadcastId, CancellationToken cancellationToken = default)
+    public Task<UnmuteChatUserResponse> UnmuteChatUserAsync(string userId, UnmuteChatUserOptions? options = null, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/users/{id}/broadcasts/{broadcast_id}";
+        var opts = options ?? new UnmuteChatUserOptions();
+        
+        var path = "/2/broadcasts/chat/mutes/{user_id}";
+        
+        
+        path = path.Replace("{user_id}", XClient.EncodePathSegment(userId));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "broadcast_id", opts.BroadcastId);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<UnmuteChatUserResponse>(
+            new HttpMethod("DELETE"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetUserSourceResponse> GetUserSourceAsync(string id, string sourceId, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/users/{id}/sources/{source_id}";
         
         
         path = path.Replace("{id}", XClient.EncodePathSegment(id));
         
         
         
-        path = path.Replace("{broadcast_id}", XClient.EncodePathSegment(broadcastId));
+        path = path.Replace("{source_id}", XClient.EncodePathSegment(sourceId));
         
         
 
@@ -2560,7 +2509,7 @@ public sealed class BroadcastsClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<GetUserBroadcastResponse>(
+        return _client.SendJsonAsync<GetUserSourceResponse>(
             new HttpMethod("GET"),
             path,
             queryParams,
@@ -2586,17 +2535,68 @@ public sealed class BroadcastsClient
 
 
     
-    public Task<DeleteUserBroadcastResponse> DeleteUserBroadcastAsync(string id, string broadcastId, CancellationToken cancellationToken = default)
+    public Task<UpdateUserSourceResponse> UpdateUserSourceAsync(string id, string sourceId, UpdateUserSourceRequest body, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/users/{id}/broadcasts/{broadcast_id}";
+        var path = "/2/users/{id}/sources/{source_id}";
         
         
         path = path.Replace("{id}", XClient.EncodePathSegment(id));
         
         
         
-        path = path.Replace("{broadcast_id}", XClient.EncodePathSegment(broadcastId));
+        path = path.Replace("{source_id}", XClient.EncodePathSegment(sourceId));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<UpdateUserSourceResponse>(
+            new HttpMethod("PUT"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<DeleteUserSourceResponse> DeleteUserSourceAsync(string id, string sourceId, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/users/{id}/sources/{source_id}";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+        
+        path = path.Replace("{source_id}", XClient.EncodePathSegment(sourceId));
         
         
 
@@ -2611,7 +2611,7 @@ public sealed class BroadcastsClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<DeleteUserBroadcastResponse>(
+        return _client.SendJsonAsync<DeleteUserSourceResponse>(
             new HttpMethod("DELETE"),
             path,
             queryParams,

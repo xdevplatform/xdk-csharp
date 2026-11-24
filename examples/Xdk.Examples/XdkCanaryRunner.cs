@@ -179,7 +179,7 @@ public sealed class XdkCanaryRunner : IDisposable
         sw.Stop();
         var snap = new CanarySnapshot(
             Sdk: "csharp",
-            Version: "0.1.1",
+            Version: "0.1.2",
             Timestamp: DateTimeOffset.UtcNow.ToString("O"),
             Cycle: cycle,
             Healthy: failed == 0,
@@ -410,7 +410,7 @@ public sealed class XdkCanaryRunner : IDisposable
                 var doc = new
                 {
                     sdk = "csharp",
-                    version = "0.1.1",
+                    version = "0.1.2",
                     startedAt = _startedAt.ToString("O"),
                     totalCycles = Interlocked.Read(ref _totalCycles),
                     totalProbeFailures = Interlocked.Read(ref _totalProbeFailures),

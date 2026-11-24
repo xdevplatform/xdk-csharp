@@ -7,7 +7,7 @@
     <AssemblyName>Xdk</AssemblyName>
     <RootNamespace>Xdk</RootNamespace>
     <PackageId>XDevPlatform.Xdk</PackageId>
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
     <Authors>X Corp.</Authors>
     <Description>Official C# / .NET SDK for the X API v2</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

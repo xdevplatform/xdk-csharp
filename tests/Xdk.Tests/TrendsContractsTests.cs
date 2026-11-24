@@ -55,61 +55,6 @@ public class TrendsContractsTests : IClassFixture<TrendsLoopbackFixture>
 
     
     [Fact]
-    public async Task Contract_GetLocations()
-    {
-        
-        var mockJson = "{\"data\":[{\"country\":\"test_value\",\"country_code\":\"test_value\",\"name\":\"test_value\",\"parent_id\":1,\"place_type\":\"test_value\",\"woeid\":1}]}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new TrendsClient.GetLocationsOptions();
-        options.Headers["X-Contract-Operation"] = "GetLocations";
-        
-        
-        
-        options.TrendLocationFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Trends.GetLocationsAsync(options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/trends/locations", captured.Path);
-        
-        Assert.Equal("GetLocations", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
     public async Task Contract_GetByWoeid()
     {
         
@@ -222,6 +167,61 @@ public class TrendsContractsTests : IClassFixture<TrendsLoopbackFixture>
         Assert.Contains("/2/users/personalized_trends", captured.Path);
         
         Assert.Equal("GetPersonalized", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetLocations()
+    {
+        
+        var mockJson = "{\"data\":[{\"country\":\"test_value\",\"country_code\":\"test_value\",\"name\":\"test_value\",\"parent_id\":1,\"place_type\":\"test_value\",\"woeid\":1}]}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new TrendsClient.GetLocationsOptions();
+        options.Headers["X-Contract-Operation"] = "GetLocations";
+        
+        
+        
+        options.TrendLocationFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Trends.GetLocationsAsync(options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/trends/locations", captured.Path);
+        
+        Assert.Equal("GetLocations", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));

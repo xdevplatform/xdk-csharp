@@ -42,6 +42,14 @@ public sealed class ActivityClient
 
 
 
+
+
+
+
+
+
+
+
     public sealed class GetSubscriptionsOptions
     {
         
@@ -89,6 +97,92 @@ public sealed class ActivityClient
 
 
 
+
+
+    
+    public Task<UpdateActivitySubscriptionResponse> UpdateSubscriptionAsync(string subscriptionId, UpdateActivitySubscriptionRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/activity/subscriptions/{subscription_id}";
+        
+        
+        path = path.Replace("{subscription_id}", XClient.EncodePathSegment(subscriptionId));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<UpdateActivitySubscriptionResponse>(
+            new HttpMethod("PUT"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<DeleteActivitySubscriptionResponse> DeleteSubscriptionAsync(string subscriptionId, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/activity/subscriptions/{subscription_id}";
+        
+        
+        path = path.Replace("{subscription_id}", XClient.EncodePathSegment(subscriptionId));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<DeleteActivitySubscriptionResponse>(
+            new HttpMethod("DELETE"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
 
 
 
@@ -248,100 +342,6 @@ public sealed class ActivityClient
 
         
         return _client.SendJsonAsync<DeleteActivitySubscriptionsByIdsResponse>(
-            new HttpMethod("DELETE"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<UpdateActivitySubscriptionResponse> UpdateSubscriptionAsync(string subscriptionId, UpdateActivitySubscriptionRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/activity/subscriptions/{subscription_id}";
-        
-        
-        path = path.Replace("{subscription_id}", XClient.EncodePathSegment(subscriptionId));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<UpdateActivitySubscriptionResponse>(
-            new HttpMethod("PUT"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<DeleteActivitySubscriptionResponse> DeleteSubscriptionAsync(string subscriptionId, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/activity/subscriptions/{subscription_id}";
-        
-        
-        path = path.Replace("{subscription_id}", XClient.EncodePathSegment(subscriptionId));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<DeleteActivitySubscriptionResponse>(
             new HttpMethod("DELETE"),
             path,
             queryParams,

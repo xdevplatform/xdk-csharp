@@ -55,49 +55,6 @@ public class ArticlesContractsTests : IClassFixture<ArticlesLoopbackFixture>
 
     
     [Fact]
-    public async Task Contract_ArticlePublish()
-    {
-        
-        var mockJson = "{\"data\":{\"post_id\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Articles.ArticlePublishAsync("test_articleId");
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/articles/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
     public async Task Contract_ArticleCreateDraft()
     {
         
@@ -146,6 +103,49 @@ public class ArticlesContractsTests : IClassFixture<ArticlesLoopbackFixture>
         
         using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
         Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_ArticlePublish()
+    {
+        
+        var mockJson = "{\"data\":{\"post_id\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Articles.ArticlePublishAsync("test_articleId");
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/articles/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
         
         
     }

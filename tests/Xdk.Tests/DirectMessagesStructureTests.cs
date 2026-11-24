@@ -39,20 +39,10 @@ public class DirectMessagesStructureTests
         
         
         Assert.True(
-            methodNames.Contains("CreateByParticipantIdAsync") || methodNames.Contains("CreateByParticipantIdStream"),
-            "Expected CreateByParticipantIdAsync or CreateByParticipantIdStream on DirectMessagesClient");
+            methodNames.Contains("GetEventsAsync") || methodNames.Contains("GetEventsStream"),
+            "Expected GetEventsAsync or GetEventsStream on DirectMessagesClient");
         
-        
-        Assert.True(
-            methodNames.Contains("GetEventsByConversationIdAsync") || methodNames.Contains("GetEventsByConversationIdStream"),
-            "Expected GetEventsByConversationIdAsync or GetEventsByConversationIdStream on DirectMessagesClient");
-        
-        Assert.Contains("GetEventsByConversationIdPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("CreateByConversationIdAsync") || methodNames.Contains("CreateByConversationIdStream"),
-            "Expected CreateByConversationIdAsync or CreateByConversationIdStream on DirectMessagesClient");
+        Assert.Contains("GetEventsPages", methodNames);
         
         
         Assert.True(
@@ -63,8 +53,15 @@ public class DirectMessagesStructureTests
         
         
         Assert.True(
-            methodNames.Contains("DmConversationsMediaDownloadAsync") || methodNames.Contains("DmConversationsMediaDownloadStream"),
-            "Expected DmConversationsMediaDownloadAsync or DmConversationsMediaDownloadStream on DirectMessagesClient");
+            methodNames.Contains("GetEventsByConversationIdAsync") || methodNames.Contains("GetEventsByConversationIdStream"),
+            "Expected GetEventsByConversationIdAsync or GetEventsByConversationIdStream on DirectMessagesClient");
+        
+        Assert.Contains("GetEventsByConversationIdPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("CreateByParticipantIdAsync") || methodNames.Contains("CreateByParticipantIdStream"),
+            "Expected CreateByParticipantIdAsync or CreateByParticipantIdStream on DirectMessagesClient");
         
         
         Assert.True(
@@ -73,10 +70,13 @@ public class DirectMessagesStructureTests
         
         
         Assert.True(
-            methodNames.Contains("GetEventsAsync") || methodNames.Contains("GetEventsStream"),
-            "Expected GetEventsAsync or GetEventsStream on DirectMessagesClient");
+            methodNames.Contains("CreateByConversationIdAsync") || methodNames.Contains("CreateByConversationIdStream"),
+            "Expected CreateByConversationIdAsync or CreateByConversationIdStream on DirectMessagesClient");
         
-        Assert.Contains("GetEventsPages", methodNames);
+        
+        Assert.True(
+            methodNames.Contains("DmConversationsMediaDownloadAsync") || methodNames.Contains("DmConversationsMediaDownloadStream"),
+            "Expected DmConversationsMediaDownloadAsync or DmConversationsMediaDownloadStream on DirectMessagesClient");
         
         
     }

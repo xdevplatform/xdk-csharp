@@ -42,6 +42,22 @@ public sealed class BotsClient
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public sealed class GetOptions
     {
         
@@ -77,128 +93,6 @@ public sealed class BotsClient
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetBotsResponse> GetAsync(GetOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetOptions();
-        
-        var path = "/2/bots";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetBotsResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<CreateBotResponse> CreateBotAsync(CreateBotRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/bots";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "BearerToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<CreateBotResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
 
 
 
@@ -374,6 +268,112 @@ public sealed class BotsClient
         
         return _client.SendJsonAsync<DeleteBotResponse>(
             new HttpMethod("DELETE"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetBotsResponse> GetAsync(GetOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetOptions();
+        
+        var path = "/2/bots";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetBotsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<CreateBotResponse> CreateBotAsync(CreateBotRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/bots";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "BearerToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<CreateBotResponse>(
+            new HttpMethod("POST"),
             path,
             queryParams,
             extraHeaders,

@@ -29,11 +29,6 @@ public class TrendsStructureTests
 
         
         Assert.True(
-            methodNames.Contains("GetLocationsAsync") || methodNames.Contains("GetLocationsStream"),
-            "Expected GetLocationsAsync or GetLocationsStream on TrendsClient");
-        
-        
-        Assert.True(
             methodNames.Contains("GetByWoeidAsync") || methodNames.Contains("GetByWoeidStream"),
             "Expected GetByWoeidAsync or GetByWoeidStream on TrendsClient");
         
@@ -41,6 +36,11 @@ public class TrendsStructureTests
         Assert.True(
             methodNames.Contains("GetPersonalizedAsync") || methodNames.Contains("GetPersonalizedStream"),
             "Expected GetPersonalizedAsync or GetPersonalizedStream on TrendsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetLocationsAsync") || methodNames.Contains("GetLocationsStream"),
+            "Expected GetLocationsAsync or GetLocationsStream on TrendsClient");
         
         
     }

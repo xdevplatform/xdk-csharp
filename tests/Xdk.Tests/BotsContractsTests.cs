@@ -55,121 +55,6 @@ public class BotsContractsTests : IClassFixture<BotsLoopbackFixture>
 
     
     [Fact]
-    public async Task Contract_Get()
-    {
-        
-        var mockJson = "{\"data\":[{\"active_follower_count\":1,\"affiliation\":{},\"confirmed_email\":\"test_value\",\"connection_status\":[\"blocking\"],\"created_at\":\"2025-01-15T12:00:00.000Z\",\"description\":\"test_value\",\"entities\":{},\"id\":\"1234567890\",\"is_identity_verified\":true,\"location\":\"test_value\",\"most_recent_post_id\":\"test_value\",\"name\":\"test_value\",\"org_only\":true,\"parody\":true,\"pinned_post_id\":\"test_value\",\"profile_banner_url\":\"test_value\",\"profile_image_url\":\"test_value\",\"protected\":true,\"public_metrics\":{\"followers_count\":1,\"following_count\":1,\"listed_count\":1,\"post_count\":1},\"receives_your_chat\":\"test_value\",\"receives_your_dm\":true,\"subscriber_count\":1,\"subscribes_to_you\":true,\"subscription\":{\"subscribes_to_you\":true},\"subscription_type\":\"test_value\",\"url\":\"test_value\",\"username\":\"XDevelopers\",\"verified\":true,\"verified_followers_count\":1,\"verified_type\":\"test_value\",\"withheld\":{}}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"max_bots\":1,\"result_count\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new BotsClient.GetOptions();
-        options.Headers["X-Contract-Operation"] = "Get";
-        
-        
-        
-        options.UserFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-        options.Expansions = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Bots.GetAsync(options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/bots", captured.Path);
-        
-        Assert.Equal("Get", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_CreateBot()
-    {
-        
-        var mockJson = "{\"data\":{\"id\":\"1234567890\",\"name\":\"test_value\",\"org_only\":true,\"scopes\":[\"test_value\"],\"token\":\"test_value\",\"token_expires_at_ms\":5000000000,\"username\":\"XDevelopers\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            201,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"display_name\":\"test_value\",\"handle\":\"test_value\",\"org_only\":true,\"scopes\":[\"test_value\"]}";
-        var reqBody = JsonSerializer.Deserialize<CreateBotRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Bots.CreateBotAsync(reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/bots", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
     public async Task Contract_RotateBotToken()
     {
         
@@ -367,6 +252,121 @@ public class BotsContractsTests : IClassFixture<BotsLoopbackFixture>
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_Get()
+    {
+        
+        var mockJson = "{\"data\":[{\"active_follower_count\":1,\"affiliation\":{},\"confirmed_email\":\"test_value\",\"connection_status\":[\"blocking\"],\"created_at\":\"2025-01-15T12:00:00.000Z\",\"description\":\"test_value\",\"entities\":{},\"id\":\"1234567890\",\"is_identity_verified\":true,\"location\":\"test_value\",\"most_recent_post_id\":\"test_value\",\"name\":\"test_value\",\"org_only\":true,\"parody\":true,\"pinned_post_id\":\"test_value\",\"profile_banner_url\":\"test_value\",\"profile_image_url\":\"test_value\",\"protected\":true,\"public_metrics\":{\"followers_count\":1,\"following_count\":1,\"listed_count\":1,\"post_count\":1},\"receives_your_chat\":\"test_value\",\"receives_your_dm\":true,\"subscriber_count\":1,\"subscribes_to_you\":true,\"subscription\":{\"subscribes_to_you\":true},\"subscription_type\":\"test_value\",\"url\":\"test_value\",\"username\":\"XDevelopers\",\"verified\":true,\"verified_followers_count\":1,\"verified_type\":\"test_value\",\"withheld\":{}}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"max_bots\":1,\"result_count\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new BotsClient.GetOptions();
+        options.Headers["X-Contract-Operation"] = "Get";
+        
+        
+        
+        options.UserFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+        options.Expansions = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Bots.GetAsync(options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/bots", captured.Path);
+        
+        Assert.Equal("Get", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_CreateBot()
+    {
+        
+        var mockJson = "{\"data\":{\"id\":\"1234567890\",\"name\":\"test_value\",\"org_only\":true,\"scopes\":[\"test_value\"],\"token\":\"test_value\",\"token_expires_at_ms\":5000000000,\"username\":\"XDevelopers\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            201,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"display_name\":\"test_value\",\"handle\":\"test_value\",\"org_only\":true,\"scopes\":[\"test_value\"]}";
+        var reqBody = JsonSerializer.Deserialize<CreateBotRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Bots.CreateBotAsync(reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/bots", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
         
         
     }

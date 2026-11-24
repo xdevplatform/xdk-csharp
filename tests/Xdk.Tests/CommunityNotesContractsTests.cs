@@ -98,73 +98,6 @@ public class CommunityNotesContractsTests : IClassFixture<CommunityNotesLoopback
     }
     
     [Fact]
-    public async Task Contract_SearchWritten()
-    {
-        
-        var mockJson = "{\"data\":[{\"id\":\"1234567890\",\"info\":{\"text\":\"Hello from XDK!\"},\"scoring_status\":{},\"status\":\"test_value\",\"test_result\":{}}],\"meta\":{\"result_count\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new CommunityNotesClient.SearchWrittenOptions();
-        options.Headers["X-Contract-Operation"] = "SearchWritten";
-        
-        
-        
-        options.MaxResults = 10;
-        
-        
-        
-        
-        options.PaginationToken = "opt_paginationToken";
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.CommunityNotes.SearchWrittenAsync(true, options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/notes/search/notes_written", captured.Path);
-        
-        Assert.Equal("SearchWritten", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
     public async Task Contract_Evaluate()
     {
         
@@ -342,6 +275,73 @@ public class CommunityNotesContractsTests : IClassFixture<CommunityNotesLoopback
         Assert.Contains("/2/notes/search/posts_eligible_for_notes", captured.Path);
         
         Assert.Equal("SearchEligiblePosts", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_SearchWritten()
+    {
+        
+        var mockJson = "{\"data\":[{\"id\":\"1234567890\",\"info\":{\"text\":\"Hello from XDK!\"},\"scoring_status\":{},\"status\":\"test_value\",\"test_result\":{}}],\"meta\":{\"result_count\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new CommunityNotesClient.SearchWrittenOptions();
+        options.Headers["X-Contract-Operation"] = "SearchWritten";
+        
+        
+        
+        options.MaxResults = 10;
+        
+        
+        
+        
+        options.PaginationToken = "opt_paginationToken";
+        
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.CommunityNotes.SearchWrittenAsync(true, options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/notes/search/notes_written", captured.Path);
+        
+        Assert.Equal("SearchWritten", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));

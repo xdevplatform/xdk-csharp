@@ -95,6 +95,22 @@ public sealed class CallsClient
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public sealed class GetCallOptions
     {
         
@@ -195,22 +211,6 @@ public sealed class CallsClient
             return copy;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -332,6 +332,190 @@ public sealed class CallsClient
 
         
         return _client.SendJsonAsync<ScheduleCallResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<JoinCallResponse> JoinCallAsync(string id, JoinCallRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/calls/{id}/join";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<JoinCallResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<RespondToScheduledCallResponse> RespondToScheduledCallAsync(string id, RespondToScheduledCallRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/calls/scheduled/{id}/rsvp";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<RespondToScheduledCallResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<LeaveCallResponse> LeaveCallAsync(string id, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/calls/{id}/leave";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<LeaveCallResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<CreateCallResponse> CreateCallAsync(CreateCallRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/calls";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<CreateCallResponse>(
             new HttpMethod("POST"),
             path,
             queryParams,
@@ -587,190 +771,6 @@ public sealed class CallsClient
         
         return _client.SendJsonAsync<CancelScheduledCallResponse>(
             new HttpMethod("DELETE"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<JoinCallResponse> JoinCallAsync(string id, JoinCallRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/calls/{id}/join";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<JoinCallResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<LeaveCallResponse> LeaveCallAsync(string id, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/calls/{id}/leave";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<LeaveCallResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<CreateCallResponse> CreateCallAsync(CreateCallRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/calls";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<CreateCallResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<RespondToScheduledCallResponse> RespondToScheduledCallAsync(string id, RespondToScheduledCallRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/calls/scheduled/{id}/rsvp";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<RespondToScheduledCallResponse>(
-            new HttpMethod("POST"),
             path,
             queryParams,
             extraHeaders,

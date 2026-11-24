@@ -55,10 +55,10 @@ public class AccountActivityContractsTests : IClassFixture<AccountActivityLoopba
 
     
     [Fact]
-    public async Task Contract_DeleteSubscription()
+    public async Task Contract_GetSubscriptions()
     {
         
-        var mockJson = "{\"data\":{\"subscribed\":true}}";
+        var mockJson = "{\"data\":{\"application_id\":\"test_value\",\"subscriptions\":[{}],\"webhook_id\":\"test_value\",\"webhook_url\":\"test_value\"}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
@@ -77,14 +77,9 @@ public class AccountActivityContractsTests : IClassFixture<AccountActivityLoopba
         
         
         
-        
-        
-        
-        
-        
 
         
-        var result = await _client.AccountActivity.DeleteSubscriptionAsync("test_webhookId", "test_userId");
+        var result = await _client.AccountActivity.GetSubscriptionsAsync("test_webhookId");
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -93,7 +88,7 @@ public class AccountActivityContractsTests : IClassFixture<AccountActivityLoopba
 
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
-        Assert.Equal("DELETE", captured!.Method);
+        Assert.Equal("GET", captured!.Method);
         Assert.Contains("/2/account_activity/webhooks/", captured.Path);
         
         
@@ -242,10 +237,10 @@ public class AccountActivityContractsTests : IClassFixture<AccountActivityLoopba
     }
     
     [Fact]
-    public async Task Contract_GetSubscriptions()
+    public async Task Contract_DeleteSubscription()
     {
         
-        var mockJson = "{\"data\":{\"application_id\":\"test_value\",\"subscriptions\":[{}],\"webhook_id\":\"test_value\",\"webhook_url\":\"test_value\"}}";
+        var mockJson = "{\"data\":{\"subscribed\":true}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
@@ -264,9 +259,14 @@ public class AccountActivityContractsTests : IClassFixture<AccountActivityLoopba
         
         
         
+        
+        
+        
+        
+        
 
         
-        var result = await _client.AccountActivity.GetSubscriptionsAsync("test_webhookId");
+        var result = await _client.AccountActivity.DeleteSubscriptionAsync("test_webhookId", "test_userId");
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -275,7 +275,7 @@ public class AccountActivityContractsTests : IClassFixture<AccountActivityLoopba
 
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
+        Assert.Equal("DELETE", captured!.Method);
         Assert.Contains("/2/account_activity/webhooks/", captured.Path);
         
         

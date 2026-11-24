@@ -42,6 +42,159 @@ public sealed class StreamClient
 
 
 
+    public sealed class PostsOptions
+    {
+        
+        
+        public int? BackfillMinutes { get; set; }
+        
+        
+        
+        public string? StartTime { get; set; }
+        
+        
+        
+        public string? EndTime { get; set; }
+        
+        
+        
+        public List<string>? TweetFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? MediaFields { get; set; }
+        
+        
+        
+        public List<string>? PollFields { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? PlaceFields { get; set; }
+        
+        
+        
+        
+        public StreamOptions? StreamOptions { get; set; }
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public PostsOptions Clone()
+        {
+            var copy = (PostsOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+    public sealed class LabelsComplianceOptions
+    {
+        
+        
+        public int? BackfillMinutes { get; set; }
+        
+        
+        
+        public string? StartTime { get; set; }
+        
+        
+        
+        public string? EndTime { get; set; }
+        
+        
+        
+        
+        public StreamOptions? StreamOptions { get; set; }
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public LabelsComplianceOptions Clone()
+        {
+            var copy = (LabelsComplianceOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+    public sealed class PostsFirehoseKoOptions
+    {
+        
+        
+        public int? BackfillMinutes { get; set; }
+        
+        
+        
+        public List<string>? TweetFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? MediaFields { get; set; }
+        
+        
+        
+        public List<string>? PollFields { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? PlaceFields { get; set; }
+        
+        
+        
+        public string? StartTime { get; set; }
+        
+        
+        
+        public string? EndTime { get; set; }
+        
+        
+        
+        
+        public StreamOptions? StreamOptions { get; set; }
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public PostsFirehoseKoOptions Clone()
+        {
+            var copy = (PostsFirehoseKoOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
     public sealed class PostsFirehosePtOptions
     {
         
@@ -101,32 +254,7 @@ public sealed class StreamClient
 
 
 
-    public sealed class GetRuleCountsOptions
-    {
-        
-        
-        public string? RulesCountFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public GetRuleCountsOptions Clone()
-        {
-            var copy = (GetRuleCountsOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-    public sealed class PostsSampleOptions
+    public sealed class LikesComplianceOptions
     {
         
         
@@ -134,27 +262,11 @@ public sealed class StreamClient
         
         
         
-        public List<string>? TweetFields { get; set; }
+        public string? StartTime { get; set; }
         
         
         
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? MediaFields { get; set; }
-        
-        
-        
-        public List<string>? PollFields { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        public List<string>? PlaceFields { get; set; }
+        public string? EndTime { get; set; }
         
         
         
@@ -163,9 +275,9 @@ public sealed class StreamClient
         
         public Dictionary<string, string> Headers { get; set; } = new();
 
-        public PostsSampleOptions Clone()
+        public LikesComplianceOptions Clone()
         {
-            var copy = (PostsSampleOptions)MemberwiseClone();
+            var copy = (LikesComplianceOptions)MemberwiseClone();
             copy.Headers = new Dictionary<string, string>(Headers);
             return copy;
         }
@@ -232,101 +344,7 @@ public sealed class StreamClient
 
 
 
-    public sealed class LabelsComplianceOptions
-    {
-        
-        
-        public int? BackfillMinutes { get; set; }
-        
-        
-        
-        public string? StartTime { get; set; }
-        
-        
-        
-        public string? EndTime { get; set; }
-        
-        
-        
-        
-        public StreamOptions? StreamOptions { get; set; }
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public LabelsComplianceOptions Clone()
-        {
-            var copy = (LabelsComplianceOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-    public sealed class PostsOptions
-    {
-        
-        
-        public int? BackfillMinutes { get; set; }
-        
-        
-        
-        public string? StartTime { get; set; }
-        
-        
-        
-        public string? EndTime { get; set; }
-        
-        
-        
-        public List<string>? TweetFields { get; set; }
-        
-        
-        
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? MediaFields { get; set; }
-        
-        
-        
-        public List<string>? PollFields { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        public List<string>? PlaceFields { get; set; }
-        
-        
-        
-        
-        public StreamOptions? StreamOptions { get; set; }
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public PostsOptions Clone()
-        {
-            var copy = (PostsOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-    public sealed class PostsSample10Options
+    public sealed class PostsSampleOptions
     {
         
         
@@ -358,6 +376,82 @@ public sealed class StreamClient
         
         
         
+        
+        public StreamOptions? StreamOptions { get; set; }
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public PostsSampleOptions Clone()
+        {
+            var copy = (PostsSampleOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+    public sealed class GetRuleCountsOptions
+    {
+        
+        
+        public string? RulesCountFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetRuleCountsOptions Clone()
+        {
+            var copy = (GetRuleCountsOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+    public sealed class PostsFirehoseOptions
+    {
+        
+        
+        public int? BackfillMinutes { get; set; }
+        
+        
+        
+        public List<string>? TweetFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? MediaFields { get; set; }
+        
+        
+        
+        public List<string>? PollFields { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? PlaceFields { get; set; }
+        
+        
+        
         public string? StartTime { get; set; }
         
         
@@ -371,9 +465,232 @@ public sealed class StreamClient
         
         public Dictionary<string, string> Headers { get; set; } = new();
 
-        public PostsSample10Options Clone()
+        public PostsFirehoseOptions Clone()
         {
-            var copy = (PostsSample10Options)MemberwiseClone();
+            var copy = (PostsFirehoseOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+    public sealed class ActivityOptions
+    {
+        
+        
+        public int? BackfillMinutes { get; set; }
+        
+        
+        
+        public string? StartTime { get; set; }
+        
+        
+        
+        public string? EndTime { get; set; }
+        
+        
+        
+        
+        public StreamOptions? StreamOptions { get; set; }
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public ActivityOptions Clone()
+        {
+            var copy = (ActivityOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+    public sealed class PostsFirehoseJaOptions
+    {
+        
+        
+        public int? BackfillMinutes { get; set; }
+        
+        
+        
+        public List<string>? TweetFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? MediaFields { get; set; }
+        
+        
+        
+        public List<string>? PollFields { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? PlaceFields { get; set; }
+        
+        
+        
+        public string? StartTime { get; set; }
+        
+        
+        
+        public string? EndTime { get; set; }
+        
+        
+        
+        
+        public StreamOptions? StreamOptions { get; set; }
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public PostsFirehoseJaOptions Clone()
+        {
+            var copy = (PostsFirehoseJaOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+    public sealed class UsersComplianceOptions
+    {
+        
+        
+        public int? BackfillMinutes { get; set; }
+        
+        
+        
+        public string? StartTime { get; set; }
+        
+        
+        
+        public string? EndTime { get; set; }
+        
+        
+        
+        
+        public StreamOptions? StreamOptions { get; set; }
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public UsersComplianceOptions Clone()
+        {
+            var copy = (UsersComplianceOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+    public sealed class PostsComplianceOptions
+    {
+        
+        
+        public int? BackfillMinutes { get; set; }
+        
+        
+        
+        public string? StartTime { get; set; }
+        
+        
+        
+        public string? EndTime { get; set; }
+        
+        
+        
+        
+        public StreamOptions? StreamOptions { get; set; }
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public PostsComplianceOptions Clone()
+        {
+            var copy = (PostsComplianceOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+    public sealed class PostsFirehoseEnOptions
+    {
+        
+        
+        public int? BackfillMinutes { get; set; }
+        
+        
+        
+        public List<string>? TweetFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? MediaFields { get; set; }
+        
+        
+        
+        public List<string>? PollFields { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? PlaceFields { get; set; }
+        
+        
+        
+        public string? StartTime { get; set; }
+        
+        
+        
+        public string? EndTime { get; set; }
+        
+        
+        
+        
+        public StreamOptions? StreamOptions { get; set; }
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public PostsFirehoseEnOptions Clone()
+        {
+            var copy = (PostsFirehoseEnOptions)MemberwiseClone();
             copy.Headers = new Dictionary<string, string>(Headers);
             return copy;
         }
@@ -447,288 +764,6 @@ public sealed class StreamClient
 
 
 
-    public sealed class PostsFirehoseOptions
-    {
-        
-        
-        public int? BackfillMinutes { get; set; }
-        
-        
-        
-        public List<string>? TweetFields { get; set; }
-        
-        
-        
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? MediaFields { get; set; }
-        
-        
-        
-        public List<string>? PollFields { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        public List<string>? PlaceFields { get; set; }
-        
-        
-        
-        public string? StartTime { get; set; }
-        
-        
-        
-        public string? EndTime { get; set; }
-        
-        
-        
-        
-        public StreamOptions? StreamOptions { get; set; }
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public PostsFirehoseOptions Clone()
-        {
-            var copy = (PostsFirehoseOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-    public sealed class PostsFirehoseJaOptions
-    {
-        
-        
-        public int? BackfillMinutes { get; set; }
-        
-        
-        
-        public List<string>? TweetFields { get; set; }
-        
-        
-        
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? MediaFields { get; set; }
-        
-        
-        
-        public List<string>? PollFields { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        public List<string>? PlaceFields { get; set; }
-        
-        
-        
-        public string? StartTime { get; set; }
-        
-        
-        
-        public string? EndTime { get; set; }
-        
-        
-        
-        
-        public StreamOptions? StreamOptions { get; set; }
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public PostsFirehoseJaOptions Clone()
-        {
-            var copy = (PostsFirehoseJaOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-    public sealed class PostsFirehoseEnOptions
-    {
-        
-        
-        public int? BackfillMinutes { get; set; }
-        
-        
-        
-        public List<string>? TweetFields { get; set; }
-        
-        
-        
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? MediaFields { get; set; }
-        
-        
-        
-        public List<string>? PollFields { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        public List<string>? PlaceFields { get; set; }
-        
-        
-        
-        public string? StartTime { get; set; }
-        
-        
-        
-        public string? EndTime { get; set; }
-        
-        
-        
-        
-        public StreamOptions? StreamOptions { get; set; }
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public PostsFirehoseEnOptions Clone()
-        {
-            var copy = (PostsFirehoseEnOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-    public sealed class ActivityOptions
-    {
-        
-        
-        public int? BackfillMinutes { get; set; }
-        
-        
-        
-        public string? StartTime { get; set; }
-        
-        
-        
-        public string? EndTime { get; set; }
-        
-        
-        
-        
-        public StreamOptions? StreamOptions { get; set; }
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public ActivityOptions Clone()
-        {
-            var copy = (ActivityOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-    public sealed class PostsComplianceOptions
-    {
-        
-        
-        public int? BackfillMinutes { get; set; }
-        
-        
-        
-        public string? StartTime { get; set; }
-        
-        
-        
-        public string? EndTime { get; set; }
-        
-        
-        
-        
-        public StreamOptions? StreamOptions { get; set; }
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public PostsComplianceOptions Clone()
-        {
-            var copy = (PostsComplianceOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-    public sealed class LikesComplianceOptions
-    {
-        
-        
-        public int? BackfillMinutes { get; set; }
-        
-        
-        
-        public string? StartTime { get; set; }
-        
-        
-        
-        public string? EndTime { get; set; }
-        
-        
-        
-        
-        public StreamOptions? StreamOptions { get; set; }
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public LikesComplianceOptions Clone()
-        {
-            var copy = (LikesComplianceOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
     public sealed class LikesFirehoseOptions
     {
         
@@ -784,42 +819,7 @@ public sealed class StreamClient
 
 
 
-    public sealed class UsersComplianceOptions
-    {
-        
-        
-        public int? BackfillMinutes { get; set; }
-        
-        
-        
-        public string? StartTime { get; set; }
-        
-        
-        
-        public string? EndTime { get; set; }
-        
-        
-        
-        
-        public StreamOptions? StreamOptions { get; set; }
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public UsersComplianceOptions Clone()
-        {
-            var copy = (UsersComplianceOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-    public sealed class PostsFirehoseKoOptions
+    public sealed class PostsSample10Options
     {
         
         
@@ -864,9 +864,9 @@ public sealed class StreamClient
         
         public Dictionary<string, string> Headers { get; set; } = new();
 
-        public PostsFirehoseKoOptions Clone()
+        public PostsSample10Options Clone()
         {
-            var copy = (PostsFirehoseKoOptions)MemberwiseClone();
+            var copy = (PostsSample10Options)MemberwiseClone();
             copy.Headers = new Dictionary<string, string>(Headers);
             return copy;
         }
@@ -876,6 +876,261 @@ public sealed class StreamClient
 
 
 
+
+
+
+
+
+
+
+
+
+
+    
+    public EventStream<StreamPostsResponse> PostsStream(PostsOptions? options = null)
+    {
+        
+        var opts = options ?? new PostsOptions();
+        
+        var path = "/2/tweets/search/stream";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "tweet.fields", opts.TweetFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "poll.fields", opts.PollFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "place.fields", opts.PlaceFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = null;
+
+        return _client.OpenStream<StreamPostsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            securitySchemes,
+            opts.StreamOptions);
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public EventStream<JsonElement> LabelsComplianceStream(LabelsComplianceOptions? options = null)
+    {
+        
+        var opts = options ?? new LabelsComplianceOptions();
+        
+        var path = "/2/tweets/label/stream";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = null;
+
+        return _client.OpenStream<JsonElement>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            securitySchemes,
+            opts.StreamOptions);
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public EventStream<StreamPostsFirehoseKoResponse> PostsFirehoseKoStream(int partition, PostsFirehoseKoOptions? options = null)
+    {
+        
+        var opts = options ?? new PostsFirehoseKoOptions();
+        
+        var path = "/2/tweets/firehose/stream/lang/ko";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "tweet.fields", opts.TweetFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "poll.fields", opts.PollFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "place.fields", opts.PlaceFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "partition", partition);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = null;
+
+        return _client.OpenStream<StreamPostsFirehoseKoResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            securitySchemes,
+            opts.StreamOptions);
+    }
+    
+
+    
+    
 
 
 
@@ -988,63 +1243,12 @@ public sealed class StreamClient
 
 
     
-    public Task<GetRuleCountsResponse> GetRuleCountsAsync(GetRuleCountsOptions? options = null, CancellationToken cancellationToken = default)
+    public EventStream<JsonElement> LikesComplianceStream(LikesComplianceOptions? options = null)
     {
         
-        var opts = options ?? new GetRuleCountsOptions();
+        var opts = options ?? new LikesComplianceOptions();
         
-        var path = "/2/tweets/search/stream/rules/counts";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "rules_count.fields", opts.RulesCountFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetRuleCountsResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public EventStream<StreamPostsSampleResponse> PostsSampleStream(PostsSampleOptions? options = null)
-    {
-        
-        var opts = options ?? new PostsSampleOptions();
-        
-        var path = "/2/tweets/sample/stream";
+        var path = "/2/likes/compliance/stream";
         
 
         var queryParams = new Dictionary<string, string>();
@@ -1057,37 +1261,13 @@ public sealed class StreamClient
         
         
         
-        XClient.AddQueryParam(queryParams, "tweet.fields", opts.TweetFields);
+        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
         
         
         
         
         
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "poll.fields", opts.PollFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "place.fields", opts.PlaceFields);
+        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
         
         
         
@@ -1098,7 +1278,7 @@ public sealed class StreamClient
         IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
         object? requestBody = null;
 
-        return _client.OpenStream<StreamPostsSampleResponse>(
+        return _client.OpenStream<JsonElement>(
             new HttpMethod("GET"),
             path,
             queryParams,
@@ -1217,12 +1397,12 @@ public sealed class StreamClient
 
 
     
-    public EventStream<JsonElement> LabelsComplianceStream(LabelsComplianceOptions? options = null)
+    public EventStream<StreamPostsSampleResponse> PostsSampleStream(PostsSampleOptions? options = null)
     {
         
-        var opts = options ?? new LabelsComplianceOptions();
+        var opts = options ?? new PostsSampleOptions();
         
-        var path = "/2/tweets/label/stream";
+        var path = "/2/tweets/sample/stream";
         
 
         var queryParams = new Dictionary<string, string>();
@@ -1230,77 +1410,6 @@ public sealed class StreamClient
         
         
         XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = null;
-
-        return _client.OpenStream<JsonElement>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            securitySchemes,
-            opts.StreamOptions);
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public EventStream<StreamPostsResponse> PostsStream(PostsOptions? options = null)
-    {
-        
-        var opts = options ?? new PostsOptions();
-        
-        var path = "/2/tweets/search/stream";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
         
         
         
@@ -1347,7 +1456,7 @@ public sealed class StreamClient
         IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
         object? requestBody = null;
 
-        return _client.OpenStream<StreamPostsResponse>(
+        return _client.OpenStream<StreamPostsSampleResponse>(
             new HttpMethod("GET"),
             path,
             queryParams,
@@ -1371,12 +1480,63 @@ public sealed class StreamClient
 
 
     
-    public EventStream<StreamPostsSample10Response> PostsSample10Stream(int partition, PostsSample10Options? options = null)
+    public Task<GetRuleCountsResponse> GetRuleCountsAsync(GetRuleCountsOptions? options = null, CancellationToken cancellationToken = default)
     {
         
-        var opts = options ?? new PostsSample10Options();
+        var opts = options ?? new GetRuleCountsOptions();
         
-        var path = "/2/tweets/sample10/stream";
+        var path = "/2/tweets/search/stream/rules/counts";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "rules_count.fields", opts.RulesCountFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetRuleCountsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public EventStream<StreamPostsFirehoseResponse> PostsFirehoseStream(int partition, PostsFirehoseOptions? options = null)
+    {
+        
+        var opts = options ?? new PostsFirehoseOptions();
+        
+        var path = "/2/tweets/firehose/stream";
         
 
         var queryParams = new Dictionary<string, string>();
@@ -1448,7 +1608,398 @@ public sealed class StreamClient
         IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
         object? requestBody = null;
 
-        return _client.OpenStream<StreamPostsSample10Response>(
+        return _client.OpenStream<StreamPostsFirehoseResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            securitySchemes,
+            opts.StreamOptions);
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public EventStream<ActivityStreamResponse> ActivityStream(ActivityOptions? options = null)
+    {
+        
+        var opts = options ?? new ActivityOptions();
+        
+        var path = "/2/activity/stream";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = null;
+
+        return _client.OpenStream<ActivityStreamResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            securitySchemes,
+            opts.StreamOptions);
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public EventStream<StreamPostsFirehoseJaResponse> PostsFirehoseJaStream(int partition, PostsFirehoseJaOptions? options = null)
+    {
+        
+        var opts = options ?? new PostsFirehoseJaOptions();
+        
+        var path = "/2/tweets/firehose/stream/lang/ja";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "tweet.fields", opts.TweetFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "poll.fields", opts.PollFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "place.fields", opts.PlaceFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "partition", partition);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = null;
+
+        return _client.OpenStream<StreamPostsFirehoseJaResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            securitySchemes,
+            opts.StreamOptions);
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public EventStream<JsonElement> UsersComplianceStream(int partition, UsersComplianceOptions? options = null)
+    {
+        
+        var opts = options ?? new UsersComplianceOptions();
+        
+        var path = "/2/users/compliance/stream";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "partition", partition);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = null;
+
+        return _client.OpenStream<JsonElement>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            securitySchemes,
+            opts.StreamOptions);
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public EventStream<JsonElement> PostsComplianceStream(int partition, PostsComplianceOptions? options = null)
+    {
+        
+        var opts = options ?? new PostsComplianceOptions();
+        
+        var path = "/2/tweets/compliance/stream";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "partition", partition);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = null;
+
+        return _client.OpenStream<JsonElement>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            securitySchemes,
+            opts.StreamOptions);
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public EventStream<StreamPostsFirehoseEnResponse> PostsFirehoseEnStream(int partition, PostsFirehoseEnOptions? options = null)
+    {
+        
+        var opts = options ?? new PostsFirehoseEnOptions();
+        
+        var path = "/2/tweets/firehose/stream/lang/en";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "tweet.fields", opts.TweetFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "poll.fields", opts.PollFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "place.fields", opts.PlaceFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "partition", partition);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = null;
+
+        return _client.OpenStream<StreamPostsFirehoseEnResponse>(
             new HttpMethod("GET"),
             path,
             queryParams,
@@ -1610,492 +2161,6 @@ public sealed class StreamClient
 
 
     
-    public EventStream<StreamPostsFirehoseResponse> PostsFirehoseStream(int partition, PostsFirehoseOptions? options = null)
-    {
-        
-        var opts = options ?? new PostsFirehoseOptions();
-        
-        var path = "/2/tweets/firehose/stream";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "tweet.fields", opts.TweetFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "poll.fields", opts.PollFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "place.fields", opts.PlaceFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "partition", partition);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = null;
-
-        return _client.OpenStream<StreamPostsFirehoseResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            securitySchemes,
-            opts.StreamOptions);
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public EventStream<StreamPostsFirehoseJaResponse> PostsFirehoseJaStream(int partition, PostsFirehoseJaOptions? options = null)
-    {
-        
-        var opts = options ?? new PostsFirehoseJaOptions();
-        
-        var path = "/2/tweets/firehose/stream/lang/ja";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "tweet.fields", opts.TweetFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "poll.fields", opts.PollFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "place.fields", opts.PlaceFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "partition", partition);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = null;
-
-        return _client.OpenStream<StreamPostsFirehoseJaResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            securitySchemes,
-            opts.StreamOptions);
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public EventStream<StreamPostsFirehoseEnResponse> PostsFirehoseEnStream(int partition, PostsFirehoseEnOptions? options = null)
-    {
-        
-        var opts = options ?? new PostsFirehoseEnOptions();
-        
-        var path = "/2/tweets/firehose/stream/lang/en";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "tweet.fields", opts.TweetFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "poll.fields", opts.PollFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "place.fields", opts.PlaceFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "partition", partition);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = null;
-
-        return _client.OpenStream<StreamPostsFirehoseEnResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            securitySchemes,
-            opts.StreamOptions);
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public EventStream<ActivityStreamResponse> ActivityStream(ActivityOptions? options = null)
-    {
-        
-        var opts = options ?? new ActivityOptions();
-        
-        var path = "/2/activity/stream";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = null;
-
-        return _client.OpenStream<ActivityStreamResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            securitySchemes,
-            opts.StreamOptions);
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public EventStream<JsonElement> PostsComplianceStream(int partition, PostsComplianceOptions? options = null)
-    {
-        
-        var opts = options ?? new PostsComplianceOptions();
-        
-        var path = "/2/tweets/compliance/stream";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "partition", partition);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = null;
-
-        return _client.OpenStream<JsonElement>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            securitySchemes,
-            opts.StreamOptions);
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public EventStream<JsonElement> LikesComplianceStream(LikesComplianceOptions? options = null)
-    {
-        
-        var opts = options ?? new LikesComplianceOptions();
-        
-        var path = "/2/likes/compliance/stream";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = null;
-
-        return _client.OpenStream<JsonElement>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            securitySchemes,
-            opts.StreamOptions);
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
     public EventStream<StreamLikesFirehoseResponse> LikesFirehoseStream(int partition, LikesFirehoseOptions? options = null)
     {
         
@@ -2191,77 +2256,12 @@ public sealed class StreamClient
 
 
     
-    public EventStream<JsonElement> UsersComplianceStream(int partition, UsersComplianceOptions? options = null)
+    public EventStream<StreamPostsSample10Response> PostsSample10Stream(int partition, PostsSample10Options? options = null)
     {
         
-        var opts = options ?? new UsersComplianceOptions();
+        var opts = options ?? new PostsSample10Options();
         
-        var path = "/2/users/compliance/stream";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "backfill_minutes", opts.BackfillMinutes);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "partition", partition);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = null;
-
-        return _client.OpenStream<JsonElement>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            securitySchemes,
-            opts.StreamOptions);
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public EventStream<StreamPostsFirehoseKoResponse> PostsFirehoseKoStream(int partition, PostsFirehoseKoOptions? options = null)
-    {
-        
-        var opts = options ?? new PostsFirehoseKoOptions();
-        
-        var path = "/2/tweets/firehose/stream/lang/ko";
+        var path = "/2/tweets/sample10/stream";
         
 
         var queryParams = new Dictionary<string, string>();
@@ -2333,7 +2333,7 @@ public sealed class StreamClient
         IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
         object? requestBody = null;
 
-        return _client.OpenStream<StreamPostsFirehoseKoResponse>(
+        return _client.OpenStream<StreamPostsSample10Response>(
             new HttpMethod("GET"),
             path,
             queryParams,

@@ -55,6 +55,107 @@ public class ActivityContractsTests : IClassFixture<ActivityLoopbackFixture>
 
     
     [Fact]
+    public async Task Contract_UpdateSubscription()
+    {
+        
+        var mockJson = "{\"data\":{\"subscription\":{\"created_at\":\"test_value\",\"event_type\":\"test_value\",\"expires_at\":\"test_value\",\"filter\":{},\"subscription_id\":\"test_value\",\"tag\":\"test_value\",\"updated_at\":\"test_value\",\"webhook_id\":\"test_value\"},\"total_subscriptions\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"tag\":\"test_value\",\"webhook_id\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<UpdateActivitySubscriptionRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Activity.UpdateSubscriptionAsync("test_subscriptionId", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("PUT", captured!.Method);
+        Assert.Contains("/2/activity/subscriptions/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_DeleteSubscription()
+    {
+        
+        var mockJson = "{\"data\":{\"deleted\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Activity.DeleteSubscriptionAsync("test_subscriptionId");
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("DELETE", captured!.Method);
+        Assert.Contains("/2/activity/subscriptions/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
     public async Task Contract_GetSubscriptions()
     {
         
@@ -205,107 +306,6 @@ public class ActivityContractsTests : IClassFixture<ActivityLoopbackFixture>
         Assert.NotNull(captured);
         Assert.Equal("DELETE", captured!.Method);
         Assert.Contains("/2/activity/subscriptions", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_UpdateSubscription()
-    {
-        
-        var mockJson = "{\"data\":{\"subscription\":{\"created_at\":\"test_value\",\"event_type\":\"test_value\",\"expires_at\":\"test_value\",\"filter\":{},\"subscription_id\":\"test_value\",\"tag\":\"test_value\",\"updated_at\":\"test_value\",\"webhook_id\":\"test_value\"},\"total_subscriptions\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"tag\":\"test_value\",\"webhook_id\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<UpdateActivitySubscriptionRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Activity.UpdateSubscriptionAsync("test_subscriptionId", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("PUT", captured!.Method);
-        Assert.Contains("/2/activity/subscriptions/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_DeleteSubscription()
-    {
-        
-        var mockJson = "{\"data\":{\"deleted\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Activity.DeleteSubscriptionAsync("test_subscriptionId");
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("DELETE", captured!.Method);
-        Assert.Contains("/2/activity/subscriptions/", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));

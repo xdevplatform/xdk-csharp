@@ -55,10 +55,10 @@ public class SpacesContractsTests : IClassFixture<SpacesLoopbackFixture>
 
     
     [Fact]
-    public async Task Contract_GetByIds()
+    public async Task Contract_GetBuyers()
     {
         
-        var mockJson = "{\"data\":[{\"created_at\":\"2025-01-15T12:00:00.000Z\",\"creator_id\":\"test_value\",\"ended_at\":\"2025-01-15T12:00:00.000Z\",\"host_ids\":[\"test_value\"],\"id\":\"1234567890\",\"invited_user_ids\":[\"test_value\"],\"is_ticketed\":true,\"lang\":\"test_value\",\"participant_count\":1,\"scheduled_start\":\"2025-01-15T12:00:00.000Z\",\"speaker_ids\":[\"test_value\"],\"started_at\":\"2025-01-15T12:00:00.000Z\",\"state\":\"test_value\",\"subscriber_count\":1,\"title\":\"test_value\",\"topic_ids\":[\"test_value\"],\"updated_at\":\"2025-01-15T12:00:00.000Z\"}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]}}";
+        var mockJson = "{\"data\":[{\"active_follower_count\":1,\"affiliation\":{},\"confirmed_email\":\"test_value\",\"connection_status\":[\"blocking\"],\"created_at\":\"2025-01-15T12:00:00.000Z\",\"description\":\"test_value\",\"entities\":{},\"id\":\"1234567890\",\"is_identity_verified\":true,\"location\":\"test_value\",\"most_recent_post_id\":\"test_value\",\"name\":\"test_value\",\"org_only\":true,\"parody\":true,\"pinned_post_id\":\"test_value\",\"profile_banner_url\":\"test_value\",\"profile_image_url\":\"test_value\",\"protected\":true,\"public_metrics\":{\"followers_count\":1,\"following_count\":1,\"listed_count\":1,\"post_count\":1},\"receives_your_chat\":\"test_value\",\"receives_your_dm\":true,\"subscriber_count\":1,\"subscribes_to_you\":true,\"subscription\":{\"subscribes_to_you\":true},\"subscription_type\":\"test_value\",\"url\":\"test_value\",\"username\":\"XDevelopers\",\"verified\":true,\"verified_followers_count\":1,\"verified_type\":\"test_value\",\"withheld\":{}}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"result_count\":1}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
@@ -68,29 +68,17 @@ public class SpacesContractsTests : IClassFixture<SpacesLoopbackFixture>
 
         
         
-        var options = new SpacesClient.GetByIdsOptions();
-        options.Headers["X-Contract-Operation"] = "GetByIds";
+        var options = new SpacesClient.GetBuyersOptions();
+        options.Headers["X-Contract-Operation"] = "GetBuyers";
         
         
         
-        options.SpaceFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-        options.Expansions = new List<string> { "id", "created_at" };
+        options.MaxResults = 10;
         
         
         
         
-        
-        
-        
-        
-
-        
-        
-        
+        options.PaginationToken = "opt_paginationToken";
         
         
         
@@ -103,7 +91,21 @@ public class SpacesContractsTests : IClassFixture<SpacesLoopbackFixture>
         
 
         
-        var result = await _client.Spaces.GetByIdsAsync(new List<string> { "item1" }, options);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Spaces.GetBuyersAsync("test_id", options);
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -113,9 +115,9 @@ public class SpacesContractsTests : IClassFixture<SpacesLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/spaces", captured.Path);
+        Assert.Contains("/2/spaces/", captured.Path);
         
-        Assert.Equal("GetByIds", captured.FirstHeader("X-Contract-Operation"));
+        Assert.Equal("GetBuyers", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -201,6 +203,75 @@ public class SpacesContractsTests : IClassFixture<SpacesLoopbackFixture>
     }
     
     [Fact]
+    public async Task Contract_GetByCreatorIds()
+    {
+        
+        var mockJson = "{\"data\":[{\"created_at\":\"2025-01-15T12:00:00.000Z\",\"creator_id\":\"test_value\",\"ended_at\":\"2025-01-15T12:00:00.000Z\",\"host_ids\":[\"test_value\"],\"id\":\"1234567890\",\"invited_user_ids\":[\"test_value\"],\"is_ticketed\":true,\"lang\":\"test_value\",\"participant_count\":1,\"scheduled_start\":\"2025-01-15T12:00:00.000Z\",\"speaker_ids\":[\"test_value\"],\"started_at\":\"2025-01-15T12:00:00.000Z\",\"state\":\"test_value\",\"subscriber_count\":1,\"title\":\"test_value\",\"topic_ids\":[\"test_value\"],\"updated_at\":\"2025-01-15T12:00:00.000Z\"}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"result_count\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new SpacesClient.GetByCreatorIdsOptions();
+        options.Headers["X-Contract-Operation"] = "GetByCreatorIds";
+        
+        
+        
+        options.SpaceFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+        options.Expansions = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Spaces.GetByCreatorIdsAsync(new List<string> { "item1" }, options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/spaces/by/creator_ids", captured.Path);
+        
+        Assert.Equal("GetByCreatorIds", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
     public async Task Contract_Search()
     {
         
@@ -274,146 +345,6 @@ public class SpacesContractsTests : IClassFixture<SpacesLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_GetByCreatorIds()
-    {
-        
-        var mockJson = "{\"data\":[{\"created_at\":\"2025-01-15T12:00:00.000Z\",\"creator_id\":\"test_value\",\"ended_at\":\"2025-01-15T12:00:00.000Z\",\"host_ids\":[\"test_value\"],\"id\":\"1234567890\",\"invited_user_ids\":[\"test_value\"],\"is_ticketed\":true,\"lang\":\"test_value\",\"participant_count\":1,\"scheduled_start\":\"2025-01-15T12:00:00.000Z\",\"speaker_ids\":[\"test_value\"],\"started_at\":\"2025-01-15T12:00:00.000Z\",\"state\":\"test_value\",\"subscriber_count\":1,\"title\":\"test_value\",\"topic_ids\":[\"test_value\"],\"updated_at\":\"2025-01-15T12:00:00.000Z\"}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"result_count\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new SpacesClient.GetByCreatorIdsOptions();
-        options.Headers["X-Contract-Operation"] = "GetByCreatorIds";
-        
-        
-        
-        options.SpaceFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-        options.Expansions = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Spaces.GetByCreatorIdsAsync(new List<string> { "item1" }, options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/spaces/by/creator_ids", captured.Path);
-        
-        Assert.Equal("GetByCreatorIds", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetBuyers()
-    {
-        
-        var mockJson = "{\"data\":[{\"active_follower_count\":1,\"affiliation\":{},\"confirmed_email\":\"test_value\",\"connection_status\":[\"blocking\"],\"created_at\":\"2025-01-15T12:00:00.000Z\",\"description\":\"test_value\",\"entities\":{},\"id\":\"1234567890\",\"is_identity_verified\":true,\"location\":\"test_value\",\"most_recent_post_id\":\"test_value\",\"name\":\"test_value\",\"org_only\":true,\"parody\":true,\"pinned_post_id\":\"test_value\",\"profile_banner_url\":\"test_value\",\"profile_image_url\":\"test_value\",\"protected\":true,\"public_metrics\":{\"followers_count\":1,\"following_count\":1,\"listed_count\":1,\"post_count\":1},\"receives_your_chat\":\"test_value\",\"receives_your_dm\":true,\"subscriber_count\":1,\"subscribes_to_you\":true,\"subscription\":{\"subscribes_to_you\":true},\"subscription_type\":\"test_value\",\"url\":\"test_value\",\"username\":\"XDevelopers\",\"verified\":true,\"verified_followers_count\":1,\"verified_type\":\"test_value\",\"withheld\":{}}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"result_count\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new SpacesClient.GetBuyersOptions();
-        options.Headers["X-Contract-Operation"] = "GetBuyers";
-        
-        
-        
-        options.MaxResults = 10;
-        
-        
-        
-        
-        options.PaginationToken = "opt_paginationToken";
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Spaces.GetBuyersAsync("test_id", options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/spaces/", captured.Path);
-        
-        Assert.Equal("GetBuyers", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
     public async Task Contract_GetById()
     {
         
@@ -475,6 +406,75 @@ public class SpacesContractsTests : IClassFixture<SpacesLoopbackFixture>
         Assert.Contains("/2/spaces/", captured.Path);
         
         Assert.Equal("GetById", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetByIds()
+    {
+        
+        var mockJson = "{\"data\":[{\"created_at\":\"2025-01-15T12:00:00.000Z\",\"creator_id\":\"test_value\",\"ended_at\":\"2025-01-15T12:00:00.000Z\",\"host_ids\":[\"test_value\"],\"id\":\"1234567890\",\"invited_user_ids\":[\"test_value\"],\"is_ticketed\":true,\"lang\":\"test_value\",\"participant_count\":1,\"scheduled_start\":\"2025-01-15T12:00:00.000Z\",\"speaker_ids\":[\"test_value\"],\"started_at\":\"2025-01-15T12:00:00.000Z\",\"state\":\"test_value\",\"subscriber_count\":1,\"title\":\"test_value\",\"topic_ids\":[\"test_value\"],\"updated_at\":\"2025-01-15T12:00:00.000Z\"}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new SpacesClient.GetByIdsOptions();
+        options.Headers["X-Contract-Operation"] = "GetByIds";
+        
+        
+        
+        options.SpaceFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+        options.Expansions = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Spaces.GetByIdsAsync(new List<string> { "item1" }, options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/spaces", captured.Path);
+        
+        Assert.Equal("GetByIds", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
