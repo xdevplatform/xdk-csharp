@@ -42,6 +42,96 @@ public sealed class PostsClient
 
 
 
+    public sealed class GetQuotedOptions
+    {
+        
+        
+        public int? MaxResults { get; set; }
+        
+        
+        
+        public string? PaginationToken { get; set; }
+        
+        
+        
+        public List<string>? Exclude { get; set; }
+        
+        
+        
+        public List<string>? PostFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? MediaFields { get; set; }
+        
+        
+        
+        public List<string>? PollFields { get; set; }
+        
+        
+        
+        public List<string>? PlaceFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetQuotedOptions Clone()
+        {
+            var copy = (GetQuotedOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public sealed class GetAnalyticsOptions
+    {
+        
+        
+        public string? Granularity { get; set; }
+        
+        
+        
+        public List<string>? AnalyticsFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetAnalyticsOptions Clone()
+        {
+            var copy = (GetAnalyticsOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
     public sealed class GetCountsAllOptions
     {
         
@@ -95,7 +185,7 @@ public sealed class PostsClient
 
 
 
-    public sealed class GetLikingUsersOptions
+    public sealed class GetRepostsOptions
     {
         
         
@@ -105,43 +195,6 @@ public sealed class PostsClient
         
         public string? PaginationToken { get; set; }
         
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? PostFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public GetLikingUsersOptions Clone()
-        {
-            var copy = (GetLikingUsersOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-    public sealed class GetByIdsOptions
-    {
         
         
         public List<string>? PostFields { get; set; }
@@ -171,9 +224,9 @@ public sealed class PostsClient
         
         public Dictionary<string, string> Headers { get; set; } = new();
 
-        public GetByIdsOptions Clone()
+        public GetRepostsOptions Clone()
         {
-            var copy = (GetByIdsOptions)MemberwiseClone();
+            var copy = (GetRepostsOptions)MemberwiseClone();
             copy.Headers = new Dictionary<string, string>(Headers);
             return copy;
         }
@@ -189,28 +242,32 @@ public sealed class PostsClient
 
 
 
-    public sealed class GetAnalyticsOptions
+    public sealed class GetPostDraftsOptions
     {
         
         
-        public string? Granularity { get; set; }
+        public int? MaxResults { get; set; }
         
         
         
-        public List<string>? AnalyticsFields { get; set; }
+        public string? PaginationToken { get; set; }
         
         
         
         
         public Dictionary<string, string> Headers { get; set; } = new();
 
-        public GetAnalyticsOptions Clone()
+        public GetPostDraftsOptions Clone()
         {
-            var copy = (GetAnalyticsOptions)MemberwiseClone();
+            var copy = (GetPostDraftsOptions)MemberwiseClone();
             copy.Headers = new Dictionary<string, string>(Headers);
             return copy;
         }
     }
+
+
+
+
 
 
 
@@ -295,80 +352,6 @@ public sealed class PostsClient
 
 
 
-    public sealed class GetRepostedByOptions
-    {
-        
-        
-        public int? MaxResults { get; set; }
-        
-        
-        
-        public string? PaginationToken { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? PostFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public GetRepostedByOptions Clone()
-        {
-            var copy = (GetRepostedByOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-    public sealed class GetPostDraftsOptions
-    {
-        
-        
-        public int? MaxResults { get; set; }
-        
-        
-        
-        public string? PaginationToken { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public GetPostDraftsOptions Clone()
-        {
-            var copy = (GetPostDraftsOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
     public sealed class SearchRecentOptions
     {
         
@@ -446,165 +429,6 @@ public sealed class PostsClient
 
 
 
-    public sealed class GetByIdOptions
-    {
-        
-        
-        public List<string>? PostFields { get; set; }
-        
-        
-        
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        public List<string>? MediaFields { get; set; }
-        
-        
-        
-        public List<string>? PollFields { get; set; }
-        
-        
-        
-        public List<string>? PlaceFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public GetByIdOptions Clone()
-        {
-            var copy = (GetByIdOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-    public sealed class GetRepostsOptions
-    {
-        
-        
-        public int? MaxResults { get; set; }
-        
-        
-        
-        public string? PaginationToken { get; set; }
-        
-        
-        
-        public List<string>? PostFields { get; set; }
-        
-        
-        
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        public List<string>? MediaFields { get; set; }
-        
-        
-        
-        public List<string>? PollFields { get; set; }
-        
-        
-        
-        public List<string>? PlaceFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public GetRepostsOptions Clone()
-        {
-            var copy = (GetRepostsOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
-    public sealed class GetQuotedOptions
-    {
-        
-        
-        public int? MaxResults { get; set; }
-        
-        
-        
-        public string? PaginationToken { get; set; }
-        
-        
-        
-        public List<string>? Exclude { get; set; }
-        
-        
-        
-        public List<string>? PostFields { get; set; }
-        
-        
-        
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        public List<string>? MediaFields { get; set; }
-        
-        
-        
-        public List<string>? PollFields { get; set; }
-        
-        
-        
-        public List<string>? PlaceFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public GetQuotedOptions Clone()
-        {
-            var copy = (GetQuotedOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
     public sealed class GetCountsRecentOptions
     {
         
@@ -658,8 +482,427 @@ public sealed class PostsClient
 
 
 
+    public sealed class GetByIdsOptions
+    {
+        
+        
+        public List<string>? PostFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? MediaFields { get; set; }
+        
+        
+        
+        public List<string>? PollFields { get; set; }
+        
+        
+        
+        public List<string>? PlaceFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetByIdsOptions Clone()
+        {
+            var copy = (GetByIdsOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
 
 
+
+
+
+
+
+
+
+
+
+    public sealed class GetByIdOptions
+    {
+        
+        
+        public List<string>? PostFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? MediaFields { get; set; }
+        
+        
+        
+        public List<string>? PollFields { get; set; }
+        
+        
+        
+        public List<string>? PlaceFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetByIdOptions Clone()
+        {
+            var copy = (GetByIdOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public sealed class GetRepostedByOptions
+    {
+        
+        
+        public int? MaxResults { get; set; }
+        
+        
+        
+        public string? PaginationToken { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? PostFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetRepostedByOptions Clone()
+        {
+            var copy = (GetRepostedByOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+    public sealed class GetLikingUsersOptions
+    {
+        
+        
+        public int? MaxResults { get; set; }
+        
+        
+        
+        public string? PaginationToken { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? PostFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetLikingUsersOptions Clone()
+        {
+            var copy = (GetLikingUsersOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetPostsQuotedPostsResponse> GetQuotedAsync(string id, GetQuotedOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetQuotedOptions();
+        
+        var path = "/2/tweets/{id}/quote_tweets";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "exclude", opts.Exclude);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "poll.fields", opts.PollFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "place.fields", opts.PlaceFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetPostsQuotedPostsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+    
+    
+    
+
+    public Paginator<GetPostsQuotedPostsResponse> GetQuotedPages(string id, GetQuotedOptions? options = null)
+    {
+        var baseOpts = options?.Clone() ?? new GetQuotedOptions();
+        var initialToken = baseOpts.PaginationToken;
+        return new Paginator<GetPostsQuotedPostsResponse>(
+            (token, ct) =>
+            {
+                var pageOpts = baseOpts.Clone();
+                pageOpts.PaginationToken = token;
+                return GetQuotedAsync(id, pageOpts, ct);
+            },
+            initialToken);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<HidePostsReplyResponse> HideReplyAsync(string tweetId, HidePostsReplyRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/tweets/{tweet_id}/hidden";
+        
+        
+        path = path.Replace("{tweet_id}", XClient.EncodePathSegment(tweetId));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<HidePostsReplyResponse>(
+            new HttpMethod("PUT"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetPostsAnalyticsResponse> GetAnalyticsAsync(List<string> ids, string startTime, string endTime, GetAnalyticsOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetAnalyticsOptions();
+        
+        var path = "/2/tweets/analytics";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "ids", ids);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "start_time", startTime);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "end_time", endTime);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "granularity", opts.Granularity);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "analytics.fields", opts.AnalyticsFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetPostsAnalyticsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
 
 
 
@@ -788,12 +1031,12 @@ public sealed class PostsClient
 
 
     
-    public Task<GetPostsLikingUsersResponse> GetLikingUsersAsync(string id, GetLikingUsersOptions? options = null, CancellationToken cancellationToken = default)
+    public Task<GetPostsRepostsResponse> GetRepostsAsync(string id, GetRepostsOptions? options = null, CancellationToken cancellationToken = default)
     {
         
-        var opts = options ?? new GetLikingUsersOptions();
+        var opts = options ?? new GetRepostsOptions();
         
-        var path = "/2/tweets/{id}/liking_users";
+        var path = "/2/tweets/{id}/retweets";
         
         
         path = path.Replace("{id}", XClient.EncodePathSegment(id));
@@ -811,140 +1054,6 @@ public sealed class PostsClient
         
         
         XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetPostsLikingUsersResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-    
-    
-    
-
-    public Paginator<GetPostsLikingUsersResponse> GetLikingUsersPages(string id, GetLikingUsersOptions? options = null)
-    {
-        var baseOpts = options?.Clone() ?? new GetLikingUsersOptions();
-        var initialToken = baseOpts.PaginationToken;
-        return new Paginator<GetPostsLikingUsersResponse>(
-            (token, ct) =>
-            {
-                var pageOpts = baseOpts.Clone();
-                pageOpts.PaginationToken = token;
-                return GetLikingUsersAsync(id, pageOpts, ct);
-            },
-            initialToken);
-    }
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<HidePostsReplyResponse> HideReplyAsync(string tweetId, HidePostsReplyRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/tweets/{tweet_id}/hidden";
-        
-        
-        path = path.Replace("{tweet_id}", XClient.EncodePathSegment(tweetId));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<HidePostsReplyResponse>(
-            new HttpMethod("PUT"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetPostsByIdsResponse> GetByIdsAsync(List<string> ids, GetByIdsOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetByIdsOptions();
-        
-        var path = "/2/tweets";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "ids", ids);
         
         
         
@@ -993,8 +1102,73 @@ public sealed class PostsClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<GetPostsByIdsResponse>(
+        return _client.SendJsonAsync<GetPostsRepostsResponse>(
             new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+    
+    
+    
+
+    public Paginator<GetPostsRepostsResponse> GetRepostsPages(string id, GetRepostsOptions? options = null)
+    {
+        var baseOpts = options?.Clone() ?? new GetRepostsOptions();
+        var initialToken = baseOpts.PaginationToken;
+        return new Paginator<GetPostsRepostsResponse>(
+            (token, ct) =>
+            {
+                var pageOpts = baseOpts.Clone();
+                pageOpts.PaginationToken = token;
+                return GetRepostsAsync(id, pageOpts, ct);
+            },
+            initialToken);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<DeletePostDraftResponse> DeletePostDraftAsync(string id, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/posts/drafts/{id}";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<DeletePostDraftResponse>(
+            new HttpMethod("DELETE"),
             path,
             queryParams,
             extraHeaders,
@@ -1019,10 +1193,85 @@ public sealed class PostsClient
 
 
     
-    public Task<CreatePostsResponse> CreateAsync(CreatePostsRequest body, CancellationToken cancellationToken = default)
+    public Task<GetPostDraftsResponse> GetPostDraftsAsync(GetPostDraftsOptions? options = null, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/tweets";
+        var opts = options ?? new GetPostDraftsOptions();
+        
+        var path = "/2/posts/drafts";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetPostDraftsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+    
+    
+    
+
+    public Paginator<GetPostDraftsResponse> GetPostDraftsPages(GetPostDraftsOptions? options = null)
+    {
+        var baseOpts = options?.Clone() ?? new GetPostDraftsOptions();
+        var initialToken = baseOpts.PaginationToken;
+        return new Paginator<GetPostDraftsResponse>(
+            (token, ct) =>
+            {
+                var pageOpts = baseOpts.Clone();
+                pageOpts.PaginationToken = token;
+                return GetPostDraftsAsync(pageOpts, ct);
+            },
+            initialToken);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<CreatePostDraftResponse> CreatePostDraftAsync(CreatePostDraftRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/posts/drafts";
         
 
         var queryParams = new Dictionary<string, string>();
@@ -1036,83 +1285,8 @@ public sealed class PostsClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<CreatePostsResponse>(
+        return _client.SendJsonAsync<CreatePostDraftResponse>(
             new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetPostsAnalyticsResponse> GetAnalyticsAsync(List<string> ids, string startTime, string endTime, GetAnalyticsOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetAnalyticsOptions();
-        
-        var path = "/2/tweets/analytics";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "ids", ids);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "start_time", startTime);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "end_time", endTime);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "granularity", opts.Granularity);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "analytics.fields", opts.AnalyticsFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetPostsAnalyticsResponse>(
-            new HttpMethod("GET"),
             path,
             queryParams,
             extraHeaders,
@@ -1290,221 +1464,6 @@ public sealed class PostsClient
 
 
     
-    public Task<GetPostsRepostedByResponse> GetRepostedByAsync(string id, GetRepostedByOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetRepostedByOptions();
-        
-        var path = "/2/tweets/{id}/retweeted_by";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetPostsRepostedByResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-    
-    
-    
-
-    public Paginator<GetPostsRepostedByResponse> GetRepostedByPages(string id, GetRepostedByOptions? options = null)
-    {
-        var baseOpts = options?.Clone() ?? new GetRepostedByOptions();
-        var initialToken = baseOpts.PaginationToken;
-        return new Paginator<GetPostsRepostedByResponse>(
-            (token, ct) =>
-            {
-                var pageOpts = baseOpts.Clone();
-                pageOpts.PaginationToken = token;
-                return GetRepostedByAsync(id, pageOpts, ct);
-            },
-            initialToken);
-    }
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetPostDraftsResponse> GetPostDraftsAsync(GetPostDraftsOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetPostDraftsOptions();
-        
-        var path = "/2/posts/drafts";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetPostDraftsResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-    
-    
-    
-
-    public Paginator<GetPostDraftsResponse> GetPostDraftsPages(GetPostDraftsOptions? options = null)
-    {
-        var baseOpts = options?.Clone() ?? new GetPostDraftsOptions();
-        var initialToken = baseOpts.PaginationToken;
-        return new Paginator<GetPostDraftsResponse>(
-            (token, ct) =>
-            {
-                var pageOpts = baseOpts.Clone();
-                pageOpts.PaginationToken = token;
-                return GetPostDraftsAsync(pageOpts, ct);
-            },
-            initialToken);
-    }
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<CreatePostDraftResponse> CreatePostDraftAsync(CreatePostDraftRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/posts/drafts";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<CreatePostDraftResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
     public Task<SearchPostsRecentResponse> SearchRecentAsync(string query, SearchRecentOptions? options = null, CancellationToken cancellationToken = default)
     {
         
@@ -1658,6 +1617,253 @@ public sealed class PostsClient
 
 
     
+    public Task<GetPostsCountsRecentResponse> GetCountsRecentAsync(string query, GetCountsRecentOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetCountsRecentOptions();
+        
+        var path = "/2/tweets/counts/recent";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "query", query);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "since_id", opts.SinceId);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "until_id", opts.UntilId);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "next_token", opts.NextToken);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "granularity", opts.Granularity);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "search_count.fields", opts.SearchCountFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetPostsCountsRecentResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+    
+    
+    
+
+    public Paginator<GetPostsCountsRecentResponse> GetCountsRecentPages(string query, GetCountsRecentOptions? options = null)
+    {
+        var baseOpts = options?.Clone() ?? new GetCountsRecentOptions();
+        var initialToken = baseOpts.PaginationToken;
+        return new Paginator<GetPostsCountsRecentResponse>(
+            (token, ct) =>
+            {
+                var pageOpts = baseOpts.Clone();
+                pageOpts.PaginationToken = token;
+                return GetCountsRecentAsync(query, pageOpts, ct);
+            },
+            initialToken);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetPostsByIdsResponse> GetByIdsAsync(List<string> ids, GetByIdsOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetByIdsOptions();
+        
+        var path = "/2/tweets";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "ids", ids);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "poll.fields", opts.PollFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "place.fields", opts.PlaceFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetPostsByIdsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<CreatePostsResponse> CreateAsync(CreatePostsRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/tweets";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<CreatePostsResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
     public Task<GetPostsByIdResponse> GetByIdAsync(string id, GetByIdOptions? options = null, CancellationToken cancellationToken = default)
     {
         
@@ -1790,12 +1996,12 @@ public sealed class PostsClient
 
 
     
-    public Task<GetPostsRepostsResponse> GetRepostsAsync(string id, GetRepostsOptions? options = null, CancellationToken cancellationToken = default)
+    public Task<GetPostsRepostedByResponse> GetRepostedByAsync(string id, GetRepostedByOptions? options = null, CancellationToken cancellationToken = default)
     {
         
-        var opts = options ?? new GetRepostsOptions();
+        var opts = options ?? new GetRepostedByOptions();
         
-        var path = "/2/tweets/{id}/retweets";
+        var path = "/2/tweets/{id}/retweeted_by";
         
         
         path = path.Replace("{id}", XClient.EncodePathSegment(id));
@@ -1818,7 +2024,7 @@ public sealed class PostsClient
         
         
         
-        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
         
         
         
@@ -1830,25 +2036,7 @@ public sealed class PostsClient
         
         
         
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "poll.fields", opts.PollFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "place.fields", opts.PlaceFields);
+        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
         
         
         
@@ -1861,7 +2049,7 @@ public sealed class PostsClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<GetPostsRepostsResponse>(
+        return _client.SendJsonAsync<GetPostsRepostedByResponse>(
             new HttpMethod("GET"),
             path,
             queryParams,
@@ -1880,16 +2068,16 @@ public sealed class PostsClient
     
     
 
-    public Paginator<GetPostsRepostsResponse> GetRepostsPages(string id, GetRepostsOptions? options = null)
+    public Paginator<GetPostsRepostedByResponse> GetRepostedByPages(string id, GetRepostedByOptions? options = null)
     {
-        var baseOpts = options?.Clone() ?? new GetRepostsOptions();
+        var baseOpts = options?.Clone() ?? new GetRepostedByOptions();
         var initialToken = baseOpts.PaginationToken;
-        return new Paginator<GetPostsRepostsResponse>(
+        return new Paginator<GetPostsRepostedByResponse>(
             (token, ct) =>
             {
                 var pageOpts = baseOpts.Clone();
                 pageOpts.PaginationToken = token;
-                return GetRepostsAsync(id, pageOpts, ct);
+                return GetRepostedByAsync(id, pageOpts, ct);
             },
             initialToken);
     }
@@ -1905,12 +2093,12 @@ public sealed class PostsClient
 
 
     
-    public Task<GetPostsQuotedPostsResponse> GetQuotedAsync(string id, GetQuotedOptions? options = null, CancellationToken cancellationToken = default)
+    public Task<GetPostsLikingUsersResponse> GetLikingUsersAsync(string id, GetLikingUsersOptions? options = null, CancellationToken cancellationToken = default)
     {
         
-        var opts = options ?? new GetQuotedOptions();
+        var opts = options ?? new GetLikingUsersOptions();
         
-        var path = "/2/tweets/{id}/quote_tweets";
+        var path = "/2/tweets/{id}/liking_users";
         
         
         path = path.Replace("{id}", XClient.EncodePathSegment(id));
@@ -1933,13 +2121,7 @@ public sealed class PostsClient
         
         
         
-        XClient.AddQueryParam(queryParams, "exclude", opts.Exclude);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
         
         
         
@@ -1951,212 +2133,12 @@ public sealed class PostsClient
         
         
         
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "poll.fields", opts.PollFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "place.fields", opts.PlaceFields);
+        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
         
         
         
 
         var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetPostsQuotedPostsResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-    
-    
-    
-
-    public Paginator<GetPostsQuotedPostsResponse> GetQuotedPages(string id, GetQuotedOptions? options = null)
-    {
-        var baseOpts = options?.Clone() ?? new GetQuotedOptions();
-        var initialToken = baseOpts.PaginationToken;
-        return new Paginator<GetPostsQuotedPostsResponse>(
-            (token, ct) =>
-            {
-                var pageOpts = baseOpts.Clone();
-                pageOpts.PaginationToken = token;
-                return GetQuotedAsync(id, pageOpts, ct);
-            },
-            initialToken);
-    }
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetPostsCountsRecentResponse> GetCountsRecentAsync(string query, GetCountsRecentOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetCountsRecentOptions();
-        
-        var path = "/2/tweets/counts/recent";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "query", query);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "start_time", opts.StartTime);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "end_time", opts.EndTime);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "since_id", opts.SinceId);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "until_id", opts.UntilId);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "next_token", opts.NextToken);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "granularity", opts.Granularity);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "search_count.fields", opts.SearchCountFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetPostsCountsRecentResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-    
-    
-    
-
-    public Paginator<GetPostsCountsRecentResponse> GetCountsRecentPages(string query, GetCountsRecentOptions? options = null)
-    {
-        var baseOpts = options?.Clone() ?? new GetCountsRecentOptions();
-        var initialToken = baseOpts.PaginationToken;
-        return new Paginator<GetPostsCountsRecentResponse>(
-            (token, ct) =>
-            {
-                var pageOpts = baseOpts.Clone();
-                pageOpts.PaginationToken = token;
-                return GetCountsRecentAsync(query, pageOpts, ct);
-            },
-            initialToken);
-    }
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<DeletePostDraftResponse> DeletePostDraftAsync(string id, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/posts/drafts/{id}";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
         
 
         IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
@@ -2164,8 +2146,8 @@ public sealed class PostsClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<DeletePostDraftResponse>(
-            new HttpMethod("DELETE"),
+        return _client.SendJsonAsync<GetPostsLikingUsersResponse>(
+            new HttpMethod("GET"),
             path,
             queryParams,
             extraHeaders,
@@ -2178,6 +2160,24 @@ public sealed class PostsClient
     
 
     
+    
+    
+    
+    
+
+    public Paginator<GetPostsLikingUsersResponse> GetLikingUsersPages(string id, GetLikingUsersOptions? options = null)
+    {
+        var baseOpts = options?.Clone() ?? new GetLikingUsersOptions();
+        var initialToken = baseOpts.PaginationToken;
+        return new Paginator<GetPostsLikingUsersResponse>(
+            (token, ct) =>
+            {
+                var pageOpts = baseOpts.Clone();
+                pageOpts.PaginationToken = token;
+                return GetLikingUsersAsync(id, pageOpts, ct);
+            },
+            initialToken);
+    }
     
 
 }

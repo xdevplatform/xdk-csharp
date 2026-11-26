@@ -29,6 +29,20 @@ public class ListsStructureTests
 
         
         Assert.True(
+            methodNames.Contains("GetPostsAsync") || methodNames.Contains("GetPostsStream"),
+            "Expected GetPostsAsync or GetPostsStream on ListsClient");
+        
+        Assert.Contains("GetPostsPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("GetFollowersAsync") || methodNames.Contains("GetFollowersStream"),
+            "Expected GetFollowersAsync or GetFollowersStream on ListsClient");
+        
+        Assert.Contains("GetFollowersPages", methodNames);
+        
+        
+        Assert.True(
             methodNames.Contains("GetByIdAsync") || methodNames.Contains("GetByIdStream"),
             "Expected GetByIdAsync or GetByIdStream on ListsClient");
         
@@ -44,8 +58,8 @@ public class ListsStructureTests
         
         
         Assert.True(
-            methodNames.Contains("RemoveMemberByUserIdAsync") || methodNames.Contains("RemoveMemberByUserIdStream"),
-            "Expected RemoveMemberByUserIdAsync or RemoveMemberByUserIdStream on ListsClient");
+            methodNames.Contains("CreateAsync") || methodNames.Contains("CreateStream"),
+            "Expected CreateAsync or CreateStream on ListsClient");
         
         
         Assert.True(
@@ -61,22 +75,8 @@ public class ListsStructureTests
         
         
         Assert.True(
-            methodNames.Contains("GetFollowersAsync") || methodNames.Contains("GetFollowersStream"),
-            "Expected GetFollowersAsync or GetFollowersStream on ListsClient");
-        
-        Assert.Contains("GetFollowersPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("CreateAsync") || methodNames.Contains("CreateStream"),
-            "Expected CreateAsync or CreateStream on ListsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetPostsAsync") || methodNames.Contains("GetPostsStream"),
-            "Expected GetPostsAsync or GetPostsStream on ListsClient");
-        
-        Assert.Contains("GetPostsPages", methodNames);
+            methodNames.Contains("RemoveMemberByUserIdAsync") || methodNames.Contains("RemoveMemberByUserIdStream"),
+            "Expected RemoveMemberByUserIdAsync or RemoveMemberByUserIdStream on ListsClient");
         
         
     }

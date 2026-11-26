@@ -16,7 +16,7 @@ public class ListsPaginationTests
 {
     
     [Fact]
-    public async Task Paginate_GetMembers()
+    public async Task Paginate_GetPosts()
     {
         var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
         var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
@@ -51,7 +51,7 @@ public class ListsPaginationTests
         
         
 
-        var paginator = client.Lists.GetMembersPages("test_id");
+        var paginator = client.Lists.GetPostsPages("test_id");
         var pages = 0;
         await foreach (var page in paginator)
         {
@@ -122,7 +122,7 @@ public class ListsPaginationTests
     }
     
     [Fact]
-    public async Task Paginate_GetPosts()
+    public async Task Paginate_GetMembers()
     {
         var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
         var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
@@ -157,7 +157,7 @@ public class ListsPaginationTests
         
         
 
-        var paginator = client.Lists.GetPostsPages("test_id");
+        var paginator = client.Lists.GetMembersPages("test_id");
         var pages = 0;
         await foreach (var page in paginator)
         {

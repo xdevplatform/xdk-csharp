@@ -29,38 +29,8 @@ public class CallsStructureTests
 
         
         Assert.True(
-            methodNames.Contains("ListScheduledAsync") || methodNames.Contains("ListScheduledStream"),
-            "Expected ListScheduledAsync or ListScheduledStream on CallsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("ScheduleCallAsync") || methodNames.Contains("ScheduleCallStream"),
-            "Expected ScheduleCallAsync or ScheduleCallStream on CallsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("JoinCallAsync") || methodNames.Contains("JoinCallStream"),
-            "Expected JoinCallAsync or JoinCallStream on CallsClient");
-        
-        
-        Assert.True(
             methodNames.Contains("RespondToScheduledCallAsync") || methodNames.Contains("RespondToScheduledCallStream"),
             "Expected RespondToScheduledCallAsync or RespondToScheduledCallStream on CallsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("LeaveCallAsync") || methodNames.Contains("LeaveCallStream"),
-            "Expected LeaveCallAsync or LeaveCallStream on CallsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("CreateCallAsync") || methodNames.Contains("CreateCallStream"),
-            "Expected CreateCallAsync or CreateCallStream on CallsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetCallAsync") || methodNames.Contains("GetCallStream"),
-            "Expected GetCallAsync or GetCallStream on CallsClient");
         
         
         Assert.True(
@@ -76,6 +46,36 @@ public class CallsStructureTests
         Assert.True(
             methodNames.Contains("CancelScheduledCallAsync") || methodNames.Contains("CancelScheduledCallStream"),
             "Expected CancelScheduledCallAsync or CancelScheduledCallStream on CallsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetCallAsync") || methodNames.Contains("GetCallStream"),
+            "Expected GetCallAsync or GetCallStream on CallsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("ListScheduledAsync") || methodNames.Contains("ListScheduledStream"),
+            "Expected ListScheduledAsync or ListScheduledStream on CallsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("ScheduleCallAsync") || methodNames.Contains("ScheduleCallStream"),
+            "Expected ScheduleCallAsync or ScheduleCallStream on CallsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("JoinCallAsync") || methodNames.Contains("JoinCallStream"),
+            "Expected JoinCallAsync or JoinCallStream on CallsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("CreateCallAsync") || methodNames.Contains("CreateCallStream"),
+            "Expected CreateCallAsync or CreateCallStream on CallsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("LeaveCallAsync") || methodNames.Contains("LeaveCallStream"),
+            "Expected LeaveCallAsync or LeaveCallStream on CallsClient");
         
         
     }

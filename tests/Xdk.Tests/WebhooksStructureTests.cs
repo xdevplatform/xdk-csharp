@@ -29,6 +29,16 @@ public class WebhooksStructureTests
 
         
         Assert.True(
+            methodNames.Contains("GetStreamLinksAsync") || methodNames.Contains("GetStreamLinksStream"),
+            "Expected GetStreamLinksAsync or GetStreamLinksStream on WebhooksClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("CreateWebhookReplayJobAsync") || methodNames.Contains("CreateWebhookReplayJobStream"),
+            "Expected CreateWebhookReplayJobAsync or CreateWebhookReplayJobStream on WebhooksClient");
+        
+        
+        Assert.True(
             methodNames.Contains("ValidateAsync") || methodNames.Contains("ValidateStream"),
             "Expected ValidateAsync or ValidateStream on WebhooksClient");
         
@@ -46,16 +56,6 @@ public class WebhooksStructureTests
         Assert.True(
             methodNames.Contains("CreateAsync") || methodNames.Contains("CreateStream"),
             "Expected CreateAsync or CreateStream on WebhooksClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetStreamLinksAsync") || methodNames.Contains("GetStreamLinksStream"),
-            "Expected GetStreamLinksAsync or GetStreamLinksStream on WebhooksClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("CreateWebhookReplayJobAsync") || methodNames.Contains("CreateWebhookReplayJobStream"),
-            "Expected CreateWebhookReplayJobAsync or CreateWebhookReplayJobStream on WebhooksClient");
         
         
         Assert.True(

@@ -7363,6 +7363,156 @@ public partial class DeleteChatConversationActionSignaturesMessageEventSignature
 
 
 /// <summary>
+/// Model for DeleteChatConversationLegacyActionSignatures
+/// </summary>
+public partial class DeleteChatConversationLegacyActionSignatures
+{
+    /// <summary>Base64-encoded Thrift MessageEventDetail for the signed action.</summary>
+
+    [JsonPropertyName("encoded_message_event_detail")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? EncodedMessageEventDetail { get; set; }
+
+    [JsonPropertyName("message_event_signature")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public DeleteChatConversationLegacyActionSignaturesMessageEventSignature? MessageEventSignature { get; set; }
+
+    /// <summary>Client-generated ID of the message being signed.</summary>
+
+    [JsonPropertyName("message_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? MessageId { get; set; }
+
+    /// <summary>Payload string the client signed; used only in server-side failure logs.</summary>
+
+    [JsonPropertyName("signature_payload")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SignaturePayload { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for DeleteChatConversationLegacyActionSignaturesMessageEventSignature
+/// </summary>
+public partial class DeleteChatConversationLegacyActionSignaturesMessageEventSignature
+{
+    /// <summary>List of signing key information for message verification.</summary>
+
+    [JsonPropertyName("message_signing_key_info_list")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<DeleteChatConversationLegacyActionSignaturesMessageEventSignatureMessageSigningKeyInfoList>? MessageSigningKeyInfoList { get; set; }
+
+    /// <summary>The version of the public key used for signing.</summary>
+
+    [JsonPropertyName("public_key_version")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PublicKeyVersion { get; set; }
+
+    /// <summary>The signature of the message event.</summary>
+
+    [JsonPropertyName("signature")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Signature { get; set; }
+
+    /// <summary>The version of the signature algorithm.</summary>
+
+    [JsonPropertyName("signature_version")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SignatureVersion { get; set; }
+
+    /// <summary>The public key used for signing.</summary>
+
+    [JsonPropertyName("signing_public_key")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SigningPublicKey { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for DeleteChatConversationLegacyActionSignaturesMessageEventSignatureMessageSigningKeyInfoList
+/// </summary>
+public partial class DeleteChatConversationLegacyActionSignaturesMessageEventSignatureMessageSigningKeyInfoList
+{
+    /// <summary>The member ID associated with this signing key.</summary>
+
+    [JsonPropertyName("member_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? MemberId { get; set; }
+
+    /// <summary>The version of the public key.</summary>
+
+    [JsonPropertyName("public_key_version")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PublicKeyVersion { get; set; }
+
+    /// <summary>The signing public key.</summary>
+
+    [JsonPropertyName("signing_public_key")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SigningPublicKey { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for DeleteChatConversationLegacyRequest
+/// </summary>
+public partial class DeleteChatConversationLegacyRequest
+{
+    /// <summary>Signatures for this action, forwarded in the order they are sent.</summary>
+
+    [JsonPropertyName("action_signatures")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<DeleteChatConversationLegacyActionSignatures>? ActionSignatures { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for DeleteChatConversationLegacyResponse
+/// </summary>
+public partial class DeleteChatConversationLegacyResponse
+{
+    [JsonPropertyName("data")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public DeleteChatConversationLegacyResponseData? Data { get; set; }
+
+    [JsonPropertyName("errors")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<JsonElement>? Errors { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for DeleteChatConversationLegacyResponseData
+/// </summary>
+public partial class DeleteChatConversationLegacyResponseData
+{
+    /// <summary>Whether the conversation was deleted.</summary>
+
+    [JsonPropertyName("deleted")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? Deleted { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
 /// Model for DeleteChatConversationMessageTtlActionSignatures
 /// </summary>
 public partial class DeleteChatConversationMessageTtlActionSignatures
@@ -20680,6 +20830,156 @@ public partial class UnarchiveChatConversationActionSignaturesMessageEventSignat
     [JsonPropertyName("signing_public_key")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? SigningPublicKey { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for UnarchiveChatConversationLegacyActionSignatures
+/// </summary>
+public partial class UnarchiveChatConversationLegacyActionSignatures
+{
+    /// <summary>Base64-encoded Thrift MessageEventDetail for the signed action.</summary>
+
+    [JsonPropertyName("encoded_message_event_detail")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? EncodedMessageEventDetail { get; set; }
+
+    [JsonPropertyName("message_event_signature")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public UnarchiveChatConversationLegacyActionSignaturesMessageEventSignature? MessageEventSignature { get; set; }
+
+    /// <summary>Client-generated ID of the message being signed.</summary>
+
+    [JsonPropertyName("message_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? MessageId { get; set; }
+
+    /// <summary>Payload string the client signed; used only in server-side failure logs.</summary>
+
+    [JsonPropertyName("signature_payload")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SignaturePayload { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for UnarchiveChatConversationLegacyActionSignaturesMessageEventSignature
+/// </summary>
+public partial class UnarchiveChatConversationLegacyActionSignaturesMessageEventSignature
+{
+    /// <summary>List of signing key information for message verification.</summary>
+
+    [JsonPropertyName("message_signing_key_info_list")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<UnarchiveChatConversationLegacyActionSignaturesMessageEventSignatureMessageSigningKeyInfoList>? MessageSigningKeyInfoList { get; set; }
+
+    /// <summary>The version of the public key used for signing.</summary>
+
+    [JsonPropertyName("public_key_version")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PublicKeyVersion { get; set; }
+
+    /// <summary>The signature of the message event.</summary>
+
+    [JsonPropertyName("signature")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Signature { get; set; }
+
+    /// <summary>The version of the signature algorithm.</summary>
+
+    [JsonPropertyName("signature_version")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SignatureVersion { get; set; }
+
+    /// <summary>The public key used for signing.</summary>
+
+    [JsonPropertyName("signing_public_key")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SigningPublicKey { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for UnarchiveChatConversationLegacyActionSignaturesMessageEventSignatureMessageSigningKeyInfoList
+/// </summary>
+public partial class UnarchiveChatConversationLegacyActionSignaturesMessageEventSignatureMessageSigningKeyInfoList
+{
+    /// <summary>The member ID associated with this signing key.</summary>
+
+    [JsonPropertyName("member_id")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? MemberId { get; set; }
+
+    /// <summary>The version of the public key.</summary>
+
+    [JsonPropertyName("public_key_version")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PublicKeyVersion { get; set; }
+
+    /// <summary>The signing public key.</summary>
+
+    [JsonPropertyName("signing_public_key")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? SigningPublicKey { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for UnarchiveChatConversationLegacyRequest
+/// </summary>
+public partial class UnarchiveChatConversationLegacyRequest
+{
+    /// <summary>Signatures for this action, forwarded in the order they are sent.</summary>
+
+    [JsonPropertyName("action_signatures")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<UnarchiveChatConversationLegacyActionSignatures>? ActionSignatures { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for UnarchiveChatConversationLegacyResponse
+/// </summary>
+public partial class UnarchiveChatConversationLegacyResponse
+{
+    [JsonPropertyName("data")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public UnarchiveChatConversationLegacyResponseData? Data { get; set; }
+
+    [JsonPropertyName("errors")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<JsonElement>? Errors { get; set; }
+
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }
+}
+
+
+/// <summary>
+/// Model for UnarchiveChatConversationLegacyResponseData
+/// </summary>
+public partial class UnarchiveChatConversationLegacyResponseData
+{
+    /// <summary>Whether the conversation is archived for the authenticated user.</summary>
+
+    [JsonPropertyName("archived")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? Archived { get; set; }
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? AdditionalProperties { get; set; }

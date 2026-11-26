@@ -42,6 +42,100 @@ public sealed class ListsClient
 
 
 
+    public sealed class GetPostsOptions
+    {
+        
+        
+        public int? MaxResults { get; set; }
+        
+        
+        
+        public string? PaginationToken { get; set; }
+        
+        
+        
+        public List<string>? PostFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? MediaFields { get; set; }
+        
+        
+        
+        public List<string>? PollFields { get; set; }
+        
+        
+        
+        public List<string>? PlaceFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetPostsOptions Clone()
+        {
+            var copy = (GetPostsOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
+    public sealed class GetFollowersOptions
+    {
+        
+        
+        public int? MaxResults { get; set; }
+        
+        
+        
+        public string? PaginationToken { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? PostFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetFollowersOptions Clone()
+        {
+            var copy = (GetFollowersOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
     public sealed class GetByIdOptions
     {
         
@@ -132,40 +226,123 @@ public sealed class ListsClient
 
 
 
-    public sealed class GetFollowersOptions
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetListsPostsResponse> GetPostsAsync(string id, GetPostsOptions? options = null, CancellationToken cancellationToken = default)
     {
         
+        var opts = options ?? new GetPostsOptions();
         
-        public int? MaxResults { get; set; }
-        
-        
-        
-        public string? PaginationToken { get; set; }
+        var path = "/2/lists/{id}/tweets";
         
         
-        
-        public List<string>? UserFields { get; set; }
-        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
         
         
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? PostFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
 
-        public GetFollowersOptions Clone()
-        {
-            var copy = (GetFollowersOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "poll.fields", opts.PollFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "place.fields", opts.PlaceFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetListsPostsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
     }
+    
+
+    
+    
+    
+    
+    
+
+    public Paginator<GetListsPostsResponse> GetPostsPages(string id, GetPostsOptions? options = null)
+    {
+        var baseOpts = options?.Clone() ?? new GetPostsOptions();
+        var initialToken = baseOpts.PaginationToken;
+        return new Paginator<GetListsPostsResponse>(
+            (token, ct) =>
+            {
+                var pageOpts = baseOpts.Clone();
+                pageOpts.PaginationToken = token;
+                return GetPostsAsync(id, pageOpts, ct);
+            },
+            initialToken);
+    }
+    
 
 
 
@@ -176,58 +353,93 @@ public sealed class ListsClient
 
 
 
-
-    public sealed class GetPostsOptions
+    
+    public Task<GetListsFollowersResponse> GetFollowersAsync(string id, GetFollowersOptions? options = null, CancellationToken cancellationToken = default)
     {
         
+        var opts = options ?? new GetFollowersOptions();
         
-        public int? MaxResults { get; set; }
-        
-        
-        
-        public string? PaginationToken { get; set; }
+        var path = "/2/lists/{id}/followers";
         
         
-        
-        public List<string>? PostFields { get; set; }
-        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
         
         
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        public List<string>? MediaFields { get; set; }
-        
-        
-        
-        public List<string>? PollFields { get; set; }
-        
-        
-        
-        public List<string>? PlaceFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
 
-        public GetPostsOptions Clone()
-        {
-            var copy = (GetPostsOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetListsFollowersResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
     }
+    
 
+    
+    
+    
+    
+    
 
-
-
-
+    public Paginator<GetListsFollowersResponse> GetFollowersPages(string id, GetFollowersOptions? options = null)
+    {
+        var baseOpts = options?.Clone() ?? new GetFollowersOptions();
+        var initialToken = baseOpts.PaginationToken;
+        return new Paginator<GetListsFollowersResponse>(
+            (token, ct) =>
+            {
+                var pageOpts = baseOpts.Clone();
+                pageOpts.PaginationToken = token;
+                return GetFollowersAsync(id, pageOpts, ct);
+            },
+            initialToken);
+    }
+    
 
 
 
@@ -400,18 +612,10 @@ public sealed class ListsClient
 
 
     
-    public Task<RemoveListsMemberByUserIdResponse> RemoveMemberByUserIdAsync(string id, string userId, CancellationToken cancellationToken = default)
+    public Task<CreateListsResponse> CreateAsync(CreateListsRequest body, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/lists/{id}/members/{user_id}";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-        
-        path = path.Replace("{user_id}", XClient.EncodePathSegment(userId));
-        
+        var path = "/2/lists";
         
 
         var queryParams = new Dictionary<string, string>();
@@ -421,12 +625,12 @@ public sealed class ListsClient
         
 
         IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
+        object? requestBody = body;
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<RemoveListsMemberByUserIdResponse>(
-            new HttpMethod("DELETE"),
+        return _client.SendJsonAsync<CreateListsResponse>(
+            new HttpMethod("POST"),
             path,
             queryParams,
             extraHeaders,
@@ -595,107 +799,18 @@ public sealed class ListsClient
 
 
     
-    public Task<GetListsFollowersResponse> GetFollowersAsync(string id, GetFollowersOptions? options = null, CancellationToken cancellationToken = default)
+    public Task<RemoveListsMemberByUserIdResponse> RemoveMemberByUserIdAsync(string id, string userId, CancellationToken cancellationToken = default)
     {
         
-        var opts = options ?? new GetFollowersOptions();
-        
-        var path = "/2/lists/{id}/followers";
+        var path = "/2/lists/{id}/members/{user_id}";
         
         
         path = path.Replace("{id}", XClient.EncodePathSegment(id));
         
         
-
-        var queryParams = new Dictionary<string, string>();
         
+        path = path.Replace("{user_id}", XClient.EncodePathSegment(userId));
         
-        
-        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetListsFollowersResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-    
-    
-    
-
-    public Paginator<GetListsFollowersResponse> GetFollowersPages(string id, GetFollowersOptions? options = null)
-    {
-        var baseOpts = options?.Clone() ?? new GetFollowersOptions();
-        var initialToken = baseOpts.PaginationToken;
-        return new Paginator<GetListsFollowersResponse>(
-            (token, ct) =>
-            {
-                var pageOpts = baseOpts.Clone();
-                pageOpts.PaginationToken = token;
-                return GetFollowersAsync(id, pageOpts, ct);
-            },
-            initialToken);
-    }
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<CreateListsResponse> CreateAsync(CreateListsRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/lists";
         
 
         var queryParams = new Dictionary<string, string>();
@@ -705,109 +820,12 @@ public sealed class ListsClient
         
 
         IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<CreateListsResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetListsPostsResponse> GetPostsAsync(string id, GetPostsOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetPostsOptions();
-        
-        var path = "/2/lists/{id}/tweets";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "poll.fields", opts.PollFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "place.fields", opts.PlaceFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
         object? requestBody = null;
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<GetListsPostsResponse>(
-            new HttpMethod("GET"),
+        return _client.SendJsonAsync<RemoveListsMemberByUserIdResponse>(
+            new HttpMethod("DELETE"),
             path,
             queryParams,
             extraHeaders,
@@ -820,24 +838,6 @@ public sealed class ListsClient
     
 
     
-    
-    
-    
-    
-
-    public Paginator<GetListsPostsResponse> GetPostsPages(string id, GetPostsOptions? options = null)
-    {
-        var baseOpts = options?.Clone() ?? new GetPostsOptions();
-        var initialToken = baseOpts.PaginationToken;
-        return new Paginator<GetListsPostsResponse>(
-            (token, ct) =>
-            {
-                var pageOpts = baseOpts.Clone();
-                pageOpts.PaginationToken = token;
-                return GetPostsAsync(id, pageOpts, ct);
-            },
-            initialToken);
-    }
     
 
 }

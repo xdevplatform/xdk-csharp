@@ -29,13 +29,13 @@ public class UsageStructureTests
 
         
         Assert.True(
-            methodNames.Contains("GetAsync") || methodNames.Contains("GetStream"),
-            "Expected GetAsync or GetStream on UsageClient");
+            methodNames.Contains("GetCreditsAsync") || methodNames.Contains("GetCreditsStream"),
+            "Expected GetCreditsAsync or GetCreditsStream on UsageClient");
         
         
         Assert.True(
-            methodNames.Contains("GetCreditsAsync") || methodNames.Contains("GetCreditsStream"),
-            "Expected GetCreditsAsync or GetCreditsStream on UsageClient");
+            methodNames.Contains("GetAsync") || methodNames.Contains("GetStream"),
+            "Expected GetAsync or GetStream on UsageClient");
         
         
     }

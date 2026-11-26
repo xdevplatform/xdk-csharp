@@ -98,35 +98,53 @@ public class CommunityNotesContractsTests : IClassFixture<CommunityNotesLoopback
     }
     
     [Fact]
-    public async Task Contract_Evaluate()
+    public async Task Contract_SearchWritten()
     {
         
-        var mockJson = "{\"data\":{\"claim_opinion_score\":1.5}}";
+        var mockJson = "{\"data\":[{\"id\":\"1234567890\",\"info\":{\"text\":\"Hello from XDK!\"},\"scoring_status\":{},\"status\":\"test_value\",\"test_result\":{}}],\"meta\":{\"result_count\":1}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
         
 
         
+
         
-        var reqMockJson = "{\"note_text\":\"test_value\",\"post_id\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<EvaluateCommunityNotesRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        var options = new CommunityNotesClient.SearchWrittenOptions();
+        options.Headers["X-Contract-Operation"] = "SearchWritten";
+        
+        
+        
+        options.MaxResults = 10;
+        
+        
+        
+        
+        options.PaginationToken = "opt_paginationToken";
+        
+        
+        
+        
         
         
 
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.CommunityNotes.EvaluateAsync(reqBody);
+        var result = await _client.CommunityNotes.SearchWrittenAsync(true, options);
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -135,17 +153,13 @@ public class CommunityNotesContractsTests : IClassFixture<CommunityNotesLoopback
 
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/notes/evaluate", captured.Path);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/notes/search/notes_written", captured.Path);
+        
+        Assert.Equal("SearchWritten", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
         
         
     }
@@ -283,35 +297,22 @@ public class CommunityNotesContractsTests : IClassFixture<CommunityNotesLoopback
     }
     
     [Fact]
-    public async Task Contract_SearchWritten()
+    public async Task Contract_Evaluate()
     {
         
-        var mockJson = "{\"data\":[{\"id\":\"1234567890\",\"info\":{\"text\":\"Hello from XDK!\"},\"scoring_status\":{},\"status\":\"test_value\",\"test_result\":{}}],\"meta\":{\"result_count\":1}}";
+        var mockJson = "{\"data\":{\"claim_opinion_score\":1.5}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
         
 
         
+        
+        var reqMockJson = "{\"note_text\":\"test_value\",\"post_id\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<EvaluateCommunityNotesRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
 
-        
-        
-        var options = new CommunityNotesClient.SearchWrittenOptions();
-        options.Headers["X-Contract-Operation"] = "SearchWritten";
-        
-        
-        
-        options.MaxResults = 10;
-        
-        
-        
-        
-        options.PaginationToken = "opt_paginationToken";
-        
-        
-        
-        
-        
         
 
         
@@ -322,14 +323,9 @@ public class CommunityNotesContractsTests : IClassFixture<CommunityNotesLoopback
         
         
         
-        
-        
-        
-        
-        
 
         
-        var result = await _client.CommunityNotes.SearchWrittenAsync(true, options);
+        var result = await _client.CommunityNotes.EvaluateAsync(reqBody);
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -338,13 +334,17 @@ public class CommunityNotesContractsTests : IClassFixture<CommunityNotesLoopback
 
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/notes/search/notes_written", captured.Path);
-        
-        Assert.Equal("SearchWritten", captured.FirstHeader("X-Contract-Operation"));
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/notes/evaluate", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
         
         
     }

@@ -42,8 +42,24 @@ public sealed class DirectMessagesClient
 
 
 
-    public sealed class GetEventsByIdOptions
+
+
+
+
+    public sealed class GetEventsByParticipantIdOptions
     {
+        
+        
+        public int? MaxResults { get; set; }
+        
+        
+        
+        public string? PaginationToken { get; set; }
+        
+        
+        
+        public List<string>? EventTypes { get; set; }
+        
         
         
         public List<string>? DmEventFields { get; set; }
@@ -69,9 +85,9 @@ public sealed class DirectMessagesClient
         
         public Dictionary<string, string> Headers { get; set; } = new();
 
-        public GetEventsByIdOptions Clone()
+        public GetEventsByParticipantIdOptions Clone()
         {
-            var copy = (GetEventsByIdOptions)MemberwiseClone();
+            var copy = (GetEventsByParticipantIdOptions)MemberwiseClone();
             copy.Headers = new Dictionary<string, string>(Headers);
             return copy;
         }
@@ -140,55 +156,6 @@ public sealed class DirectMessagesClient
 
 
 
-    public sealed class GetEventsByParticipantIdOptions
-    {
-        
-        
-        public int? MaxResults { get; set; }
-        
-        
-        
-        public string? PaginationToken { get; set; }
-        
-        
-        
-        public List<string>? EventTypes { get; set; }
-        
-        
-        
-        public List<string>? DmEventFields { get; set; }
-        
-        
-        
-        public List<string>? Expansions { get; set; }
-        
-        
-        
-        public List<string>? UserFields { get; set; }
-        
-        
-        
-        public List<string>? PostFields { get; set; }
-        
-        
-        
-        public List<string>? MediaFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public GetEventsByParticipantIdOptions Clone()
-        {
-            var copy = (GetEventsByParticipantIdOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
 
 
 
@@ -246,6 +213,40 @@ public sealed class DirectMessagesClient
 
 
 
+    public sealed class GetEventsByIdOptions
+    {
+        
+        
+        public List<string>? DmEventFields { get; set; }
+        
+        
+        
+        public List<string>? Expansions { get; set; }
+        
+        
+        
+        public List<string>? UserFields { get; set; }
+        
+        
+        
+        public List<string>? PostFields { get; set; }
+        
+        
+        
+        public List<string>? MediaFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetEventsByIdOptions Clone()
+        {
+            var copy = (GetEventsByIdOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
 
 
 
@@ -260,6 +261,495 @@ public sealed class DirectMessagesClient
 
 
 
+
+
+
+
+
+
+
+
+
+    
+    public Task<CreateDirectMessagesByParticipantIdResponse> CreateByParticipantIdAsync(string participantId, CreateDirectMessagesByParticipantIdRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/dm_conversations/with/{participant_id}/messages";
+        
+        
+        path = path.Replace("{participant_id}", XClient.EncodePathSegment(participantId));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<CreateDirectMessagesByParticipantIdResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetDirectMessagesEventsByParticipantIdResponse> GetEventsByParticipantIdAsync(string participantId, GetEventsByParticipantIdOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetEventsByParticipantIdOptions();
+        
+        var path = "/2/dm_conversations/with/{participant_id}/dm_events";
+        
+        
+        path = path.Replace("{participant_id}", XClient.EncodePathSegment(participantId));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "event_types", opts.EventTypes);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "dm_event.fields", opts.DmEventFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetDirectMessagesEventsByParticipantIdResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+    
+    
+    
+
+    public Paginator<GetDirectMessagesEventsByParticipantIdResponse> GetEventsByParticipantIdPages(string participantId, GetEventsByParticipantIdOptions? options = null)
+    {
+        var baseOpts = options?.Clone() ?? new GetEventsByParticipantIdOptions();
+        var initialToken = baseOpts.PaginationToken;
+        return new Paginator<GetDirectMessagesEventsByParticipantIdResponse>(
+            (token, ct) =>
+            {
+                var pageOpts = baseOpts.Clone();
+                pageOpts.PaginationToken = token;
+                return GetEventsByParticipantIdAsync(participantId, pageOpts, ct);
+            },
+            initialToken);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<byte[]> DmConversationsMediaDownloadAsync(string dmId, string mediaId, string resourceId, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/dm_conversations/media/{dm_id}/{media_id}/{resource_id}";
+        
+        
+        path = path.Replace("{dm_id}", XClient.EncodePathSegment(dmId));
+        
+        
+        
+        path = path.Replace("{media_id}", XClient.EncodePathSegment(mediaId));
+        
+        
+        
+        path = path.Replace("{resource_id}", XClient.EncodePathSegment(resourceId));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendBytesAsync(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetDirectMessagesEventsResponse> GetEventsAsync(GetEventsOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetEventsOptions();
+        
+        var path = "/2/dm_events";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "event_types", opts.EventTypes);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "dm_event.fields", opts.DmEventFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetDirectMessagesEventsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+    
+    
+    
+
+    public Paginator<GetDirectMessagesEventsResponse> GetEventsPages(GetEventsOptions? options = null)
+    {
+        var baseOpts = options?.Clone() ?? new GetEventsOptions();
+        var initialToken = baseOpts.PaginationToken;
+        return new Paginator<GetDirectMessagesEventsResponse>(
+            (token, ct) =>
+            {
+                var pageOpts = baseOpts.Clone();
+                pageOpts.PaginationToken = token;
+                return GetEventsAsync(pageOpts, ct);
+            },
+            initialToken);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<CreateDirectMessagesByConversationIdResponse> CreateByConversationIdAsync(string dmConversationId, CreateDirectMessagesByConversationIdRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/dm_conversations/{dm_conversation_id}/messages";
+        
+        
+        path = path.Replace("{dm_conversation_id}", XClient.EncodePathSegment(dmConversationId));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<CreateDirectMessagesByConversationIdResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetDirectMessagesEventsByConversationIdResponse> GetEventsByConversationIdAsync(string id, GetEventsByConversationIdOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetEventsByConversationIdOptions();
+        
+        var path = "/2/dm_conversations/{id}/dm_events";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "event_types", opts.EventTypes);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "dm_event.fields", opts.DmEventFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetDirectMessagesEventsByConversationIdResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+    
+    
+    
+
+    public Paginator<GetDirectMessagesEventsByConversationIdResponse> GetEventsByConversationIdPages(string id, GetEventsByConversationIdOptions? options = null)
+    {
+        var baseOpts = options?.Clone() ?? new GetEventsByConversationIdOptions();
+        var initialToken = baseOpts.PaginationToken;
+        return new Paginator<GetDirectMessagesEventsByConversationIdResponse>(
+            (token, ct) =>
+            {
+                var pageOpts = baseOpts.Clone();
+                pageOpts.PaginationToken = token;
+                return GetEventsByConversationIdAsync(id, pageOpts, ct);
+            },
+            initialToken);
+    }
+    
 
 
 
@@ -397,394 +887,6 @@ public sealed class DirectMessagesClient
 
 
     
-    public Task<GetDirectMessagesEventsResponse> GetEventsAsync(GetEventsOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetEventsOptions();
-        
-        var path = "/2/dm_events";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "event_types", opts.EventTypes);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "dm_event.fields", opts.DmEventFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetDirectMessagesEventsResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-    
-    
-    
-
-    public Paginator<GetDirectMessagesEventsResponse> GetEventsPages(GetEventsOptions? options = null)
-    {
-        var baseOpts = options?.Clone() ?? new GetEventsOptions();
-        var initialToken = baseOpts.PaginationToken;
-        return new Paginator<GetDirectMessagesEventsResponse>(
-            (token, ct) =>
-            {
-                var pageOpts = baseOpts.Clone();
-                pageOpts.PaginationToken = token;
-                return GetEventsAsync(pageOpts, ct);
-            },
-            initialToken);
-    }
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetDirectMessagesEventsByParticipantIdResponse> GetEventsByParticipantIdAsync(string participantId, GetEventsByParticipantIdOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetEventsByParticipantIdOptions();
-        
-        var path = "/2/dm_conversations/with/{participant_id}/dm_events";
-        
-        
-        path = path.Replace("{participant_id}", XClient.EncodePathSegment(participantId));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "event_types", opts.EventTypes);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "dm_event.fields", opts.DmEventFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetDirectMessagesEventsByParticipantIdResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-    
-    
-    
-
-    public Paginator<GetDirectMessagesEventsByParticipantIdResponse> GetEventsByParticipantIdPages(string participantId, GetEventsByParticipantIdOptions? options = null)
-    {
-        var baseOpts = options?.Clone() ?? new GetEventsByParticipantIdOptions();
-        var initialToken = baseOpts.PaginationToken;
-        return new Paginator<GetDirectMessagesEventsByParticipantIdResponse>(
-            (token, ct) =>
-            {
-                var pageOpts = baseOpts.Clone();
-                pageOpts.PaginationToken = token;
-                return GetEventsByParticipantIdAsync(participantId, pageOpts, ct);
-            },
-            initialToken);
-    }
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetDirectMessagesEventsByConversationIdResponse> GetEventsByConversationIdAsync(string id, GetEventsByConversationIdOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetEventsByConversationIdOptions();
-        
-        var path = "/2/dm_conversations/{id}/dm_events";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "event_types", opts.EventTypes);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "dm_event.fields", opts.DmEventFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "expansions", opts.Expansions);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "user.fields", opts.UserFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "post.fields", opts.PostFields);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetDirectMessagesEventsByConversationIdResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-    
-    
-    
-
-    public Paginator<GetDirectMessagesEventsByConversationIdResponse> GetEventsByConversationIdPages(string id, GetEventsByConversationIdOptions? options = null)
-    {
-        var baseOpts = options?.Clone() ?? new GetEventsByConversationIdOptions();
-        var initialToken = baseOpts.PaginationToken;
-        return new Paginator<GetDirectMessagesEventsByConversationIdResponse>(
-            (token, ct) =>
-            {
-                var pageOpts = baseOpts.Clone();
-                pageOpts.PaginationToken = token;
-                return GetEventsByConversationIdAsync(id, pageOpts, ct);
-            },
-            initialToken);
-    }
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<CreateDirectMessagesByParticipantIdResponse> CreateByParticipantIdAsync(string participantId, CreateDirectMessagesByParticipantIdRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/dm_conversations/with/{participant_id}/messages";
-        
-        
-        path = path.Replace("{participant_id}", XClient.EncodePathSegment(participantId));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<CreateDirectMessagesByParticipantIdResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
     public Task<CreateDirectMessagesConversationResponse> CreateConversationAsync(CreateDirectMessagesConversationRequest body, CancellationToken cancellationToken = default)
     {
         
@@ -804,108 +906,6 @@ public sealed class DirectMessagesClient
         
         return _client.SendJsonAsync<CreateDirectMessagesConversationResponse>(
             new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<CreateDirectMessagesByConversationIdResponse> CreateByConversationIdAsync(string dmConversationId, CreateDirectMessagesByConversationIdRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/dm_conversations/{dm_conversation_id}/messages";
-        
-        
-        path = path.Replace("{dm_conversation_id}", XClient.EncodePathSegment(dmConversationId));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<CreateDirectMessagesByConversationIdResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<byte[]> DmConversationsMediaDownloadAsync(string dmId, string mediaId, string resourceId, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/dm_conversations/media/{dm_id}/{media_id}/{resource_id}";
-        
-        
-        path = path.Replace("{dm_id}", XClient.EncodePathSegment(dmId));
-        
-        
-        
-        path = path.Replace("{media_id}", XClient.EncodePathSegment(mediaId));
-        
-        
-        
-        path = path.Replace("{resource_id}", XClient.EncodePathSegment(resourceId));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendBytesAsync(
-            new HttpMethod("GET"),
             path,
             queryParams,
             extraHeaders,

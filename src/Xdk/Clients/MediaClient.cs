@@ -50,40 +50,40 @@ public sealed class MediaClient
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public sealed class GetByKeysOptions
+    public sealed class GetUploadStatusOptions
     {
         
         
-        public List<string>? MediaFields { get; set; }
+        public string? Command { get; set; }
         
         
         
         
         public Dictionary<string, string> Headers { get; set; } = new();
 
-        public GetByKeysOptions Clone()
+        public GetUploadStatusOptions Clone()
         {
-            var copy = (GetByKeysOptions)MemberwiseClone();
+            var copy = (GetUploadStatusOptions)MemberwiseClone();
             copy.Headers = new Dictionary<string, string>(Headers);
             return copy;
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -149,27 +149,6 @@ public sealed class MediaClient
 
 
 
-    public sealed class GetUploadStatusOptions
-    {
-        
-        
-        public string? Command { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public GetUploadStatusOptions Clone()
-        {
-            var copy = (GetUploadStatusOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
 
 
 
@@ -200,6 +179,27 @@ public sealed class MediaClient
 
 
 
+
+
+
+    public sealed class GetByKeysOptions
+    {
+        
+        
+        public List<string>? MediaFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetByKeysOptions Clone()
+        {
+            var copy = (GetByKeysOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
 
 
 
@@ -236,10 +236,53 @@ public sealed class MediaClient
 
 
     
-    public Task<GetAmplifyProgramResponse> GetAmplifyProgramAsync(string programId, CancellationToken cancellationToken = default)
+    public Task<GetAmplifyProgramsResponse> GetAmplifyProgramsAsync(CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/media/amplify/programs/{program_id}";
+        var path = "/2/media/amplify/programs";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetAmplifyProgramsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetAmplifyProgramPostsResponse> GetAmplifyProgramPostsAsync(string programId, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/media/amplify/programs/{program_id}/posts";
         
         
         path = path.Replace("{program_id}", XClient.EncodePathSegment(programId));
@@ -257,8 +300,465 @@ public sealed class MediaClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<GetAmplifyProgramResponse>(
+        return _client.SendJsonAsync<GetAmplifyProgramPostsResponse>(
             new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetMediaUploadStatusResponse> GetUploadStatusAsync(string mediaId, GetUploadStatusOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetUploadStatusOptions();
+        
+        var path = "/2/media/upload";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media_id", mediaId);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "command", opts.Command);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetMediaUploadStatusResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<MediaUploadResponse> UploadAsync(MediaUploadRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/media/upload";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<MediaUploadResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<CreateMediaMetadataResponse> CreateMetadataAsync(CreateMediaMetadataRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/media/metadata";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<CreateMediaMetadataResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<AddPostToAmplifyProgramsResponse> AddPostToAmplifyProgramsAsync(AddPostToAmplifyProgramsRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/media/amplify/posts";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<AddPostToAmplifyProgramsResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<UpdateMediaInLibraryResponse> UpdateInLibraryAsync(string mediaKey, UpdateMediaInLibraryRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/media/library/{media_key}";
+        
+        
+        path = path.Replace("{media_key}", XClient.EncodePathSegment(mediaKey));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<UpdateMediaInLibraryResponse>(
+            new HttpMethod("PUT"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<RemoveMediaFromLibraryResponse> RemoveFromLibraryAsync(string mediaKey, RemoveMediaFromLibraryRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/media/library/{media_key}";
+        
+        
+        path = path.Replace("{media_key}", XClient.EncodePathSegment(mediaKey));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<RemoveMediaFromLibraryResponse>(
+            new HttpMethod("DELETE"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetMediaByMediaKeyResponse> GetByKeyAsync(string mediaKey, GetByKeyOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetByKeyOptions();
+        
+        var path = "/2/media/{media_key}";
+        
+        
+        path = path.Replace("{media_key}", XClient.EncodePathSegment(mediaKey));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetMediaByMediaKeyResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetMediaAnalyticsResponse> GetAnalyticsAsync(List<string> mediaKeys, string startTime, string endTime, GetAnalyticsOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetAnalyticsOptions();
+        
+        var path = "/2/media/analytics";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media_keys", mediaKeys);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "start_time", startTime);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "end_time", endTime);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "granularity", opts.Granularity);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media_analytics.fields", opts.MediaAnalyticsFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetMediaAnalyticsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<AppendMediaUploadResponse> AppendUploadAsync(string id, AppendMediaUploadRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/media/upload/{id}/append";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<AppendMediaUploadResponse>(
+            new HttpMethod("POST"),
             path,
             queryParams,
             extraHeaders,
@@ -326,25 +826,90 @@ public sealed class MediaClient
 
 
     
-    public Task<AddPostToAmplifyProgramsResponse> AddPostToAmplifyProgramsAsync(AddPostToAmplifyProgramsRequest body, CancellationToken cancellationToken = default)
+    public Task<GetMediaLibraryCategoriesResponse> GetLibraryCategoriesAsync(GetLibraryCategoriesOptions? options = null, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/media/amplify/posts";
+        var opts = options ?? new GetLibraryCategoriesOptions();
+        
+        var path = "/2/media/library/categories";
         
 
         var queryParams = new Dictionary<string, string>();
         
+        
+        
+        XClient.AddQueryParam(queryParams, "lang", opts.Lang);
+        
+        
+        
 
-        var extraHeaders = new Dictionary<string, string>();
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
         
 
         IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
+        object? requestBody = null;
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<AddPostToAmplifyProgramsResponse>(
-            new HttpMethod("POST"),
+        return _client.SendJsonAsync<GetMediaLibraryCategoriesResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetMediaByMediaKeysResponse> GetByKeysAsync(List<string> mediaKeys, GetByKeysOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetByKeysOptions();
+        
+        var path = "/2/media";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media_keys", mediaKeys);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetMediaByMediaKeysResponse>(
+            new HttpMethod("GET"),
             path,
             queryParams,
             extraHeaders,
@@ -502,63 +1067,6 @@ public sealed class MediaClient
 
 
     
-    public Task<GetMediaByMediaKeysResponse> GetByKeysAsync(List<string> mediaKeys, GetByKeysOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetByKeysOptions();
-        
-        var path = "/2/media";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media_keys", mediaKeys);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetMediaByMediaKeysResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
     public Task<InitializeMediaUploadResponse> InitializeUploadAsync(InitializeMediaUploadRequest body, CancellationToken cancellationToken = default)
     {
         
@@ -602,334 +1110,10 @@ public sealed class MediaClient
 
 
     
-    public Task<GetMediaByMediaKeyResponse> GetByKeyAsync(string mediaKey, GetByKeyOptions? options = null, CancellationToken cancellationToken = default)
+    public Task<GetAmplifyProgramResponse> GetAmplifyProgramAsync(string programId, CancellationToken cancellationToken = default)
     {
         
-        var opts = options ?? new GetByKeyOptions();
-        
-        var path = "/2/media/{media_key}";
-        
-        
-        path = path.Replace("{media_key}", XClient.EncodePathSegment(mediaKey));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media.fields", opts.MediaFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetMediaByMediaKeyResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetMediaAnalyticsResponse> GetAnalyticsAsync(List<string> mediaKeys, string startTime, string endTime, GetAnalyticsOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetAnalyticsOptions();
-        
-        var path = "/2/media/analytics";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media_keys", mediaKeys);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "start_time", startTime);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "end_time", endTime);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "granularity", opts.Granularity);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media_analytics.fields", opts.MediaAnalyticsFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetMediaAnalyticsResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetMediaUploadStatusResponse> GetUploadStatusAsync(string mediaId, GetUploadStatusOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetUploadStatusOptions();
-        
-        var path = "/2/media/upload";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "media_id", mediaId);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "command", opts.Command);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetMediaUploadStatusResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<MediaUploadResponse> UploadAsync(MediaUploadRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/media/upload";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<MediaUploadResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetMediaLibraryCategoriesResponse> GetLibraryCategoriesAsync(GetLibraryCategoriesOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetLibraryCategoriesOptions();
-        
-        var path = "/2/media/library/categories";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "lang", opts.Lang);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetMediaLibraryCategoriesResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<CreateMediaMetadataResponse> CreateMetadataAsync(CreateMediaMetadataRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/media/metadata";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<CreateMediaMetadataResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetAmplifyProgramPostsResponse> GetAmplifyProgramPostsAsync(string programId, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/media/amplify/programs/{program_id}/posts";
+        var path = "/2/media/amplify/programs/{program_id}";
         
         
         path = path.Replace("{program_id}", XClient.EncodePathSegment(programId));
@@ -947,192 +1131,8 @@ public sealed class MediaClient
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<GetAmplifyProgramPostsResponse>(
+        return _client.SendJsonAsync<GetAmplifyProgramResponse>(
             new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<UpdateMediaInLibraryResponse> UpdateInLibraryAsync(string mediaKey, UpdateMediaInLibraryRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/media/library/{media_key}";
-        
-        
-        path = path.Replace("{media_key}", XClient.EncodePathSegment(mediaKey));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<UpdateMediaInLibraryResponse>(
-            new HttpMethod("PUT"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<RemoveMediaFromLibraryResponse> RemoveFromLibraryAsync(string mediaKey, RemoveMediaFromLibraryRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/media/library/{media_key}";
-        
-        
-        path = path.Replace("{media_key}", XClient.EncodePathSegment(mediaKey));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<RemoveMediaFromLibraryResponse>(
-            new HttpMethod("DELETE"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetAmplifyProgramsResponse> GetAmplifyProgramsAsync(CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/media/amplify/programs";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetAmplifyProgramsResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<AppendMediaUploadResponse> AppendUploadAsync(string id, AppendMediaUploadRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/media/upload/{id}/append";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<AppendMediaUploadResponse>(
-            new HttpMethod("POST"),
             path,
             queryParams,
             extraHeaders,

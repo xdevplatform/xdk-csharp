@@ -29,96 +29,20 @@ public class UsersStructureTests
 
         
         Assert.True(
-            methodNames.Contains("GetBookmarksAsync") || methodNames.Contains("GetBookmarksStream"),
-            "Expected GetBookmarksAsync or GetBookmarksStream on UsersClient");
-        
-        Assert.Contains("GetBookmarksPages", methodNames);
+            methodNames.Contains("UnrepostPostAsync") || methodNames.Contains("UnrepostPostStream"),
+            "Expected UnrepostPostAsync or UnrepostPostStream on UsersClient");
         
         
         Assert.True(
-            methodNames.Contains("CreateBookmarkAsync") || methodNames.Contains("CreateBookmarkStream"),
-            "Expected CreateBookmarkAsync or CreateBookmarkStream on UsersClient");
+            methodNames.Contains("GetPostsAsync") || methodNames.Contains("GetPostsStream"),
+            "Expected GetPostsAsync or GetPostsStream on UsersClient");
         
-        
-        Assert.True(
-            methodNames.Contains("GetListMembershipsAsync") || methodNames.Contains("GetListMembershipsStream"),
-            "Expected GetListMembershipsAsync or GetListMembershipsStream on UsersClient");
-        
-        Assert.Contains("GetListMembershipsPages", methodNames);
+        Assert.Contains("GetPostsPages", methodNames);
         
         
         Assert.True(
             methodNames.Contains("GetMeAsync") || methodNames.Contains("GetMeStream"),
             "Expected GetMeAsync or GetMeStream on UsersClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetMentionsAsync") || methodNames.Contains("GetMentionsStream"),
-            "Expected GetMentionsAsync or GetMentionsStream on UsersClient");
-        
-        Assert.Contains("GetMentionsPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("GetTimelineAsync") || methodNames.Contains("GetTimelineStream"),
-            "Expected GetTimelineAsync or GetTimelineStream on UsersClient");
-        
-        Assert.Contains("GetTimelinePages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("GetMutingAsync") || methodNames.Contains("GetMutingStream"),
-            "Expected GetMutingAsync or GetMutingStream on UsersClient");
-        
-        Assert.Contains("GetMutingPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("MuteUserAsync") || methodNames.Contains("MuteUserStream"),
-            "Expected MuteUserAsync or MuteUserStream on UsersClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetBookmarksByFolderIdAsync") || methodNames.Contains("GetBookmarksByFolderIdStream"),
-            "Expected GetBookmarksByFolderIdAsync or GetBookmarksByFolderIdStream on UsersClient");
-        
-        Assert.Contains("GetBookmarksByFolderIdPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("BlockDmsAsync") || methodNames.Contains("BlockDmsStream"),
-            "Expected BlockDmsAsync or BlockDmsStream on UsersClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetLikedPostsAsync") || methodNames.Contains("GetLikedPostsStream"),
-            "Expected GetLikedPostsAsync or GetLikedPostsStream on UsersClient");
-        
-        Assert.Contains("GetLikedPostsPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("GetRepostsOfMeAsync") || methodNames.Contains("GetRepostsOfMeStream"),
-            "Expected GetRepostsOfMeAsync or GetRepostsOfMeStream on UsersClient");
-        
-        Assert.Contains("GetRepostsOfMePages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("DeleteBookmarkAsync") || methodNames.Contains("DeleteBookmarkStream"),
-            "Expected DeleteBookmarkAsync or DeleteBookmarkStream on UsersClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetFollowingAsync") || methodNames.Contains("GetFollowingStream"),
-            "Expected GetFollowingAsync or GetFollowingStream on UsersClient");
-        
-        Assert.Contains("GetFollowingPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("FollowUserAsync") || methodNames.Contains("FollowUserStream"),
-            "Expected FollowUserAsync or FollowUserStream on UsersClient");
         
         
         Assert.True(
@@ -129,25 +53,32 @@ public class UsersStructureTests
         
         
         Assert.True(
-            methodNames.Contains("GetPublicKeyAsync") || methodNames.Contains("GetPublicKeyStream"),
-            "Expected GetPublicKeyAsync or GetPublicKeyStream on UsersClient");
+            methodNames.Contains("GetTimelineAsync") || methodNames.Contains("GetTimelineStream"),
+            "Expected GetTimelineAsync or GetTimelineStream on UsersClient");
+        
+        Assert.Contains("GetTimelinePages", methodNames);
         
         
         Assert.True(
-            methodNames.Contains("GetMeFollowersAsync") || methodNames.Contains("GetMeFollowersStream"),
-            "Expected GetMeFollowersAsync or GetMeFollowersStream on UsersClient");
-        
-        Assert.Contains("GetMeFollowersPages", methodNames);
+            methodNames.Contains("DeleteBookmarkAsync") || methodNames.Contains("DeleteBookmarkStream"),
+            "Expected DeleteBookmarkAsync or DeleteBookmarkStream on UsersClient");
         
         
         Assert.True(
-            methodNames.Contains("UnblockDmsAsync") || methodNames.Contains("UnblockDmsStream"),
-            "Expected UnblockDmsAsync or UnblockDmsStream on UsersClient");
+            methodNames.Contains("GetFollowersAsync") || methodNames.Contains("GetFollowersStream"),
+            "Expected GetFollowersAsync or GetFollowersStream on UsersClient");
+        
+        Assert.Contains("GetFollowersPages", methodNames);
         
         
         Assert.True(
-            methodNames.Contains("UnrepostPostAsync") || methodNames.Contains("UnrepostPostStream"),
-            "Expected UnrepostPostAsync or UnrepostPostStream on UsersClient");
+            methodNames.Contains("GetPinnedListsAsync") || methodNames.Contains("GetPinnedListsStream"),
+            "Expected GetPinnedListsAsync or GetPinnedListsStream on UsersClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("PinListAsync") || methodNames.Contains("PinListStream"),
+            "Expected PinListAsync or PinListStream on UsersClient");
         
         
         Assert.True(
@@ -156,20 +87,15 @@ public class UsersStructureTests
         
         
         Assert.True(
-            methodNames.Contains("SearchAsync") || methodNames.Contains("SearchStream"),
-            "Expected SearchAsync or SearchStream on UsersClient");
+            methodNames.Contains("GetBookmarksAsync") || methodNames.Contains("GetBookmarksStream"),
+            "Expected GetBookmarksAsync or GetBookmarksStream on UsersClient");
         
-        Assert.Contains("SearchPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("LikePostAsync") || methodNames.Contains("LikePostStream"),
-            "Expected LikePostAsync or LikePostStream on UsersClient");
+        Assert.Contains("GetBookmarksPages", methodNames);
         
         
         Assert.True(
-            methodNames.Contains("RepostPostAsync") || methodNames.Contains("RepostPostStream"),
-            "Expected RepostPostAsync or RepostPostStream on UsersClient");
+            methodNames.Contains("CreateBookmarkAsync") || methodNames.Contains("CreateBookmarkStream"),
+            "Expected CreateBookmarkAsync or CreateBookmarkStream on UsersClient");
         
         
         Assert.True(
@@ -185,8 +111,75 @@ public class UsersStructureTests
         
         
         Assert.True(
-            methodNames.Contains("UnfollowUserAsync") || methodNames.Contains("UnfollowUserStream"),
-            "Expected UnfollowUserAsync or UnfollowUserStream on UsersClient");
+            methodNames.Contains("LikePostAsync") || methodNames.Contains("LikePostStream"),
+            "Expected LikePostAsync or LikePostStream on UsersClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("IdUnblockAsync") || methodNames.Contains("IdUnblockStream"),
+            "Expected IdUnblockAsync or IdUnblockStream on UsersClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetByUsernamesAsync") || methodNames.Contains("GetByUsernamesStream"),
+            "Expected GetByUsernamesAsync or GetByUsernamesStream on UsersClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("BlockDmsAsync") || methodNames.Contains("BlockDmsStream"),
+            "Expected BlockDmsAsync or BlockDmsStream on UsersClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetLikedPostsAsync") || methodNames.Contains("GetLikedPostsStream"),
+            "Expected GetLikedPostsAsync or GetLikedPostsStream on UsersClient");
+        
+        Assert.Contains("GetLikedPostsPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("GetOwnedListsAsync") || methodNames.Contains("GetOwnedListsStream"),
+            "Expected GetOwnedListsAsync or GetOwnedListsStream on UsersClient");
+        
+        Assert.Contains("GetOwnedListsPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("GetMeFollowersAsync") || methodNames.Contains("GetMeFollowersStream"),
+            "Expected GetMeFollowersAsync or GetMeFollowersStream on UsersClient");
+        
+        Assert.Contains("GetMeFollowersPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("GetMutingAsync") || methodNames.Contains("GetMutingStream"),
+            "Expected GetMutingAsync or GetMutingStream on UsersClient");
+        
+        Assert.Contains("GetMutingPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("MuteUserAsync") || methodNames.Contains("MuteUserStream"),
+            "Expected MuteUserAsync or MuteUserStream on UsersClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetRepostsOfMeAsync") || methodNames.Contains("GetRepostsOfMeStream"),
+            "Expected GetRepostsOfMeAsync or GetRepostsOfMeStream on UsersClient");
+        
+        Assert.Contains("GetRepostsOfMePages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("GetBookmarksByFolderIdAsync") || methodNames.Contains("GetBookmarksByFolderIdStream"),
+            "Expected GetBookmarksByFolderIdAsync or GetBookmarksByFolderIdStream on UsersClient");
+        
+        Assert.Contains("GetBookmarksByFolderIdPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("UnfollowListAsync") || methodNames.Contains("UnfollowListStream"),
+            "Expected UnfollowListAsync or UnfollowListStream on UsersClient");
         
         
         Assert.True(
@@ -197,35 +190,17 @@ public class UsersStructureTests
         
         
         Assert.True(
-            methodNames.Contains("GetByUsernameAsync") || methodNames.Contains("GetByUsernameStream"),
-            "Expected GetByUsernameAsync or GetByUsernameStream on UsersClient");
+            methodNames.Contains("GetListMembershipsAsync") || methodNames.Contains("GetListMembershipsStream"),
+            "Expected GetListMembershipsAsync or GetListMembershipsStream on UsersClient");
+        
+        Assert.Contains("GetListMembershipsPages", methodNames);
         
         
         Assert.True(
-            methodNames.Contains("GetByUsernamesAsync") || methodNames.Contains("GetByUsernamesStream"),
-            "Expected GetByUsernamesAsync or GetByUsernamesStream on UsersClient");
+            methodNames.Contains("GetMentionsAsync") || methodNames.Contains("GetMentionsStream"),
+            "Expected GetMentionsAsync or GetMentionsStream on UsersClient");
         
-        
-        Assert.True(
-            methodNames.Contains("GetBlockingAsync") || methodNames.Contains("GetBlockingStream"),
-            "Expected GetBlockingAsync or GetBlockingStream on UsersClient");
-        
-        Assert.Contains("GetBlockingPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("IdBlockAsync") || methodNames.Contains("IdBlockStream"),
-            "Expected IdBlockAsync or IdBlockStream on UsersClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("UnlikePostAsync") || methodNames.Contains("UnlikePostStream"),
-            "Expected UnlikePostAsync or UnlikePostStream on UsersClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("GetByIdAsync") || methodNames.Contains("GetByIdStream"),
-            "Expected GetByIdAsync or GetByIdStream on UsersClient");
+        Assert.Contains("GetMentionsPages", methodNames);
         
         
         Assert.True(
@@ -234,13 +209,23 @@ public class UsersStructureTests
         
         
         Assert.True(
-            methodNames.Contains("GetPinnedListsAsync") || methodNames.Contains("GetPinnedListsStream"),
-            "Expected GetPinnedListsAsync or GetPinnedListsStream on UsersClient");
+            methodNames.Contains("RepostPostAsync") || methodNames.Contains("RepostPostStream"),
+            "Expected RepostPostAsync or RepostPostStream on UsersClient");
         
         
         Assert.True(
-            methodNames.Contains("PinListAsync") || methodNames.Contains("PinListStream"),
-            "Expected PinListAsync or PinListStream on UsersClient");
+            methodNames.Contains("GetByIdAsync") || methodNames.Contains("GetByIdStream"),
+            "Expected GetByIdAsync or GetByIdStream on UsersClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetByIdsAsync") || methodNames.Contains("GetByIdsStream"),
+            "Expected GetByIdsAsync or GetByIdsStream on UsersClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetPublicKeyAsync") || methodNames.Contains("GetPublicKeyStream"),
+            "Expected GetPublicKeyAsync or GetPublicKeyStream on UsersClient");
         
         
         Assert.True(
@@ -249,29 +234,20 @@ public class UsersStructureTests
         
         
         Assert.True(
-            methodNames.Contains("GetPostsAsync") || methodNames.Contains("GetPostsStream"),
-            "Expected GetPostsAsync or GetPostsStream on UsersClient");
-        
-        Assert.Contains("GetPostsPages", methodNames);
+            methodNames.Contains("UnfollowUserAsync") || methodNames.Contains("UnfollowUserStream"),
+            "Expected UnfollowUserAsync or UnfollowUserStream on UsersClient");
         
         
         Assert.True(
-            methodNames.Contains("GetFollowersAsync") || methodNames.Contains("GetFollowersStream"),
-            "Expected GetFollowersAsync or GetFollowersStream on UsersClient");
+            methodNames.Contains("SearchAsync") || methodNames.Contains("SearchStream"),
+            "Expected SearchAsync or SearchStream on UsersClient");
         
-        Assert.Contains("GetFollowersPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("IdUnblockAsync") || methodNames.Contains("IdUnblockStream"),
-            "Expected IdUnblockAsync or IdUnblockStream on UsersClient");
+        Assert.Contains("SearchPages", methodNames);
         
         
         Assert.True(
-            methodNames.Contains("GetOwnedListsAsync") || methodNames.Contains("GetOwnedListsStream"),
-            "Expected GetOwnedListsAsync or GetOwnedListsStream on UsersClient");
-        
-        Assert.Contains("GetOwnedListsPages", methodNames);
+            methodNames.Contains("GetByUsernameAsync") || methodNames.Contains("GetByUsernameStream"),
+            "Expected GetByUsernameAsync or GetByUsernameStream on UsersClient");
         
         
         Assert.True(
@@ -287,13 +263,37 @@ public class UsersStructureTests
         
         
         Assert.True(
-            methodNames.Contains("UnfollowListAsync") || methodNames.Contains("UnfollowListStream"),
-            "Expected UnfollowListAsync or UnfollowListStream on UsersClient");
+            methodNames.Contains("UnblockDmsAsync") || methodNames.Contains("UnblockDmsStream"),
+            "Expected UnblockDmsAsync or UnblockDmsStream on UsersClient");
         
         
         Assert.True(
-            methodNames.Contains("GetByIdsAsync") || methodNames.Contains("GetByIdsStream"),
-            "Expected GetByIdsAsync or GetByIdsStream on UsersClient");
+            methodNames.Contains("GetBlockingAsync") || methodNames.Contains("GetBlockingStream"),
+            "Expected GetBlockingAsync or GetBlockingStream on UsersClient");
+        
+        Assert.Contains("GetBlockingPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("IdBlockAsync") || methodNames.Contains("IdBlockStream"),
+            "Expected IdBlockAsync or IdBlockStream on UsersClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetFollowingAsync") || methodNames.Contains("GetFollowingStream"),
+            "Expected GetFollowingAsync or GetFollowingStream on UsersClient");
+        
+        Assert.Contains("GetFollowingPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("FollowUserAsync") || methodNames.Contains("FollowUserStream"),
+            "Expected FollowUserAsync or FollowUserStream on UsersClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("UnlikePostAsync") || methodNames.Contains("UnlikePostStream"),
+            "Expected UnlikePostAsync or UnlikePostStream on UsersClient");
         
         
     }

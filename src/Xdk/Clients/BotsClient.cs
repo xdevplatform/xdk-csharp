@@ -50,14 +50,6 @@ public sealed class BotsClient
 
 
 
-
-
-
-
-
-
-
-
     public sealed class GetOptions
     {
         
@@ -84,6 +76,14 @@ public sealed class BotsClient
             return copy;
         }
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -198,100 +198,6 @@ public sealed class BotsClient
 
 
     
-    public Task<UpdateBotResponse> UpdateBotAsync(string id, UpdateBotRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/bots/{id}";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<UpdateBotResponse>(
-            new HttpMethod("PUT"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<DeleteBotResponse> DeleteBotAsync(string id, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/bots/{id}";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
-        
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<DeleteBotResponse>(
-            new HttpMethod("DELETE"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
     public Task<GetBotsResponse> GetAsync(GetOptions? options = null, CancellationToken cancellationToken = default)
     {
         
@@ -374,6 +280,100 @@ public sealed class BotsClient
         
         return _client.SendJsonAsync<CreateBotResponse>(
             new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<UpdateBotResponse> UpdateBotAsync(string id, UpdateBotRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/bots/{id}";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<UpdateBotResponse>(
+            new HttpMethod("PUT"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<DeleteBotResponse> DeleteBotAsync(string id, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/bots/{id}";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<DeleteBotResponse>(
+            new HttpMethod("DELETE"),
             path,
             queryParams,
             extraHeaders,

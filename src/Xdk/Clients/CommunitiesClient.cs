@@ -42,31 +42,6 @@ public sealed class CommunitiesClient
 
 
 
-    public sealed class GetByIdOptions
-    {
-        
-        
-        public List<string>? CommunityFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public GetByIdOptions Clone()
-        {
-            var copy = (GetByIdOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
-
-
-
-
     public sealed class SearchOptions
     {
         
@@ -104,59 +79,29 @@ public sealed class CommunitiesClient
 
 
 
-
-
-
-
-
-
-
-
-    
-    public Task<GetCommunitiesByIdResponse> GetByIdAsync(string id, GetByIdOptions? options = null, CancellationToken cancellationToken = default)
+    public sealed class GetByIdOptions
     {
         
-        var opts = options ?? new GetByIdOptions();
         
-        var path = "/2/communities/{id}";
-        
-        
-        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        public List<string>? CommunityFields { get; set; }
         
         
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
 
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "community.fields", opts.CommunityFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetCommunitiesByIdResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
+        public GetByIdOptions Clone()
+        {
+            var copy = (GetByIdOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
     }
-    
 
-    
-    
+
+
+
+
 
 
 
@@ -249,6 +194,61 @@ public sealed class CommunitiesClient
             },
             initialToken);
     }
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<GetCommunitiesByIdResponse> GetByIdAsync(string id, GetByIdOptions? options = null, CancellationToken cancellationToken = default)
+    {
+        
+        var opts = options ?? new GetByIdOptions();
+        
+        var path = "/2/communities/{id}";
+        
+        
+        path = path.Replace("{id}", XClient.EncodePathSegment(id));
+        
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "community.fields", opts.CommunityFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken", "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetCommunitiesByIdResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
     
 
 }

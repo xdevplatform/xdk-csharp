@@ -29,15 +29,10 @@ public class PostsStructureTests
 
         
         Assert.True(
-            methodNames.Contains("GetCountsAllAsync") || methodNames.Contains("GetCountsAllStream"),
-            "Expected GetCountsAllAsync or GetCountsAllStream on PostsClient");
+            methodNames.Contains("GetQuotedAsync") || methodNames.Contains("GetQuotedStream"),
+            "Expected GetQuotedAsync or GetQuotedStream on PostsClient");
         
-        
-        Assert.True(
-            methodNames.Contains("GetLikingUsersAsync") || methodNames.Contains("GetLikingUsersStream"),
-            "Expected GetLikingUsersAsync or GetLikingUsersStream on PostsClient");
-        
-        Assert.Contains("GetLikingUsersPages", methodNames);
+        Assert.Contains("GetQuotedPages", methodNames);
         
         
         Assert.True(
@@ -46,32 +41,25 @@ public class PostsStructureTests
         
         
         Assert.True(
-            methodNames.Contains("GetByIdsAsync") || methodNames.Contains("GetByIdsStream"),
-            "Expected GetByIdsAsync or GetByIdsStream on PostsClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("CreateAsync") || methodNames.Contains("CreateStream"),
-            "Expected CreateAsync or CreateStream on PostsClient");
-        
-        
-        Assert.True(
             methodNames.Contains("GetAnalyticsAsync") || methodNames.Contains("GetAnalyticsStream"),
             "Expected GetAnalyticsAsync or GetAnalyticsStream on PostsClient");
         
         
         Assert.True(
-            methodNames.Contains("SearchAllAsync") || methodNames.Contains("SearchAllStream"),
-            "Expected SearchAllAsync or SearchAllStream on PostsClient");
-        
-        Assert.Contains("SearchAllPages", methodNames);
+            methodNames.Contains("GetCountsAllAsync") || methodNames.Contains("GetCountsAllStream"),
+            "Expected GetCountsAllAsync or GetCountsAllStream on PostsClient");
         
         
         Assert.True(
-            methodNames.Contains("GetRepostedByAsync") || methodNames.Contains("GetRepostedByStream"),
-            "Expected GetRepostedByAsync or GetRepostedByStream on PostsClient");
+            methodNames.Contains("GetRepostsAsync") || methodNames.Contains("GetRepostsStream"),
+            "Expected GetRepostsAsync or GetRepostsStream on PostsClient");
         
-        Assert.Contains("GetRepostedByPages", methodNames);
+        Assert.Contains("GetRepostsPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("DeletePostDraftAsync") || methodNames.Contains("DeletePostDraftStream"),
+            "Expected DeletePostDraftAsync or DeletePostDraftStream on PostsClient");
         
         
         Assert.True(
@@ -87,10 +75,32 @@ public class PostsStructureTests
         
         
         Assert.True(
+            methodNames.Contains("SearchAllAsync") || methodNames.Contains("SearchAllStream"),
+            "Expected SearchAllAsync or SearchAllStream on PostsClient");
+        
+        Assert.Contains("SearchAllPages", methodNames);
+        
+        
+        Assert.True(
             methodNames.Contains("SearchRecentAsync") || methodNames.Contains("SearchRecentStream"),
             "Expected SearchRecentAsync or SearchRecentStream on PostsClient");
         
         Assert.Contains("SearchRecentPages", methodNames);
+        
+        
+        Assert.True(
+            methodNames.Contains("GetCountsRecentAsync") || methodNames.Contains("GetCountsRecentStream"),
+            "Expected GetCountsRecentAsync or GetCountsRecentStream on PostsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetByIdsAsync") || methodNames.Contains("GetByIdsStream"),
+            "Expected GetByIdsAsync or GetByIdsStream on PostsClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("CreateAsync") || methodNames.Contains("CreateStream"),
+            "Expected CreateAsync or CreateStream on PostsClient");
         
         
         Assert.True(
@@ -104,27 +114,17 @@ public class PostsStructureTests
         
         
         Assert.True(
-            methodNames.Contains("GetRepostsAsync") || methodNames.Contains("GetRepostsStream"),
-            "Expected GetRepostsAsync or GetRepostsStream on PostsClient");
+            methodNames.Contains("GetRepostedByAsync") || methodNames.Contains("GetRepostedByStream"),
+            "Expected GetRepostedByAsync or GetRepostedByStream on PostsClient");
         
-        Assert.Contains("GetRepostsPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("GetQuotedAsync") || methodNames.Contains("GetQuotedStream"),
-            "Expected GetQuotedAsync or GetQuotedStream on PostsClient");
-        
-        Assert.Contains("GetQuotedPages", methodNames);
+        Assert.Contains("GetRepostedByPages", methodNames);
         
         
         Assert.True(
-            methodNames.Contains("GetCountsRecentAsync") || methodNames.Contains("GetCountsRecentStream"),
-            "Expected GetCountsRecentAsync or GetCountsRecentStream on PostsClient");
+            methodNames.Contains("GetLikingUsersAsync") || methodNames.Contains("GetLikingUsersStream"),
+            "Expected GetLikingUsersAsync or GetLikingUsersStream on PostsClient");
         
-        
-        Assert.True(
-            methodNames.Contains("DeletePostDraftAsync") || methodNames.Contains("DeletePostDraftStream"),
-            "Expected DeletePostDraftAsync or DeletePostDraftStream on PostsClient");
+        Assert.Contains("GetLikingUsersPages", methodNames);
         
         
     }

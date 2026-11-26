@@ -50,6 +50,14 @@ public sealed class WebhooksClient
 
 
 
+
+
+
+
+
+
+
+
     public sealed class GetOptions
     {
         
@@ -93,6 +101,84 @@ public sealed class WebhooksClient
 
 
 
+
+
+    
+    public Task<GetWebhooksStreamLinksResponse> GetStreamLinksAsync(CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/tweets/search/webhooks";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetWebhooksStreamLinksResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+    
+    public Task<CreateWebhookReplayJobResponse> CreateWebhookReplayJobAsync(CreateWebhookReplayJobRequest body, CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/webhooks/replay";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
+        object? requestBody = body;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<CreateWebhookReplayJobResponse>(
+            new HttpMethod("POST"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
 
 
 
@@ -267,92 +353,6 @@ public sealed class WebhooksClient
 
         
         return _client.SendJsonAsync<CreateWebhooksResponse>(
-            new HttpMethod("POST"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetWebhooksStreamLinksResponse> GetStreamLinksAsync(CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/tweets/search/webhooks";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetWebhooksStreamLinksResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<CreateWebhookReplayJobResponse> CreateWebhookReplayJobAsync(CreateWebhookReplayJobRequest body, CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/webhooks/replay";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "BearerToken" };
-        object? requestBody = body;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<CreateWebhookReplayJobResponse>(
             new HttpMethod("POST"),
             path,
             queryParams,

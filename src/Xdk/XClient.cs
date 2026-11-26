@@ -26,8 +26,8 @@ namespace Xdk;
 /// </summary>
 public sealed class XClient : IDisposable
 {
-    public const string Version = "0.1.2";
-    public const string UserAgent = "xdk-csharp/0.1.2";
+    public const string Version = "0.2.0";
+    public const string UserAgent = "xdk-csharp/0.2.0";
 
     private static readonly HashSet<int> RetryableStatusCodes = new() { 429, 500, 502, 503, 504 };
 
@@ -46,31 +46,9 @@ public sealed class XClient : IDisposable
     public JsonSerializerOptions JsonOptions { get; }
 
 
-    public GeneralClient General { get; }
+    public AccountActivityClient AccountActivity { get; }
 
-    public UsersClient Users { get; }
-
-    public PostsClient Posts { get; }
-
-    public ListsClient Lists { get; }
-
-    public BotsClient Bots { get; }
-
-    public ConnectionsClient Connections { get; }
-
-    public ComplianceClient Compliance { get; }
-
-    public DirectMessagesClient DirectMessages { get; }
-
-    public MediaClient Media { get; }
-
-    public ChatClient Chat { get; }
-
-    public CallsClient Calls { get; }
-
-    public WebhooksClient Webhooks { get; }
-
-    public TrendsClient Trends { get; }
+    public NewsClient News { get; }
 
     public CommunityNotesClient CommunityNotes { get; }
 
@@ -78,21 +56,43 @@ public sealed class XClient : IDisposable
 
     public AccountClient Account { get; }
 
-    public SpacesClient Spaces { get; }
-
-    public CommunitiesClient Communities { get; }
-
-    public ActivityClient Activity { get; }
-
-    public NewsClient News { get; }
+    public ComplianceClient Compliance { get; }
 
     public UsageClient Usage { get; }
+
+    public WebhooksClient Webhooks { get; }
+
+    public CallsClient Calls { get; }
+
+    public BotsClient Bots { get; }
+
+    public MediaClient Media { get; }
+
+    public GeneralClient General { get; }
+
+    public UsersClient Users { get; }
+
+    public ListsClient Lists { get; }
+
+    public ConnectionsClient Connections { get; }
+
+    public DirectMessagesClient DirectMessages { get; }
+
+    public ChatClient Chat { get; }
 
     public ArticlesClient Articles { get; }
 
     public StreamClient Stream { get; }
 
-    public AccountActivityClient AccountActivity { get; }
+    public ActivityClient Activity { get; }
+
+    public PostsClient Posts { get; }
+
+    public TrendsClient Trends { get; }
+
+    public SpacesClient Spaces { get; }
+
+    public CommunitiesClient Communities { get; }
 
 
     public XClient(XClientOptions? options = null)
@@ -138,31 +138,9 @@ public sealed class XClient : IDisposable
         };
 
 
-        General = new GeneralClient(this);
+        AccountActivity = new AccountActivityClient(this);
 
-        Users = new UsersClient(this);
-
-        Posts = new PostsClient(this);
-
-        Lists = new ListsClient(this);
-
-        Bots = new BotsClient(this);
-
-        Connections = new ConnectionsClient(this);
-
-        Compliance = new ComplianceClient(this);
-
-        DirectMessages = new DirectMessagesClient(this);
-
-        Media = new MediaClient(this);
-
-        Chat = new ChatClient(this);
-
-        Calls = new CallsClient(this);
-
-        Webhooks = new WebhooksClient(this);
-
-        Trends = new TrendsClient(this);
+        News = new NewsClient(this);
 
         CommunityNotes = new CommunityNotesClient(this);
 
@@ -170,21 +148,43 @@ public sealed class XClient : IDisposable
 
         Account = new AccountClient(this);
 
-        Spaces = new SpacesClient(this);
-
-        Communities = new CommunitiesClient(this);
-
-        Activity = new ActivityClient(this);
-
-        News = new NewsClient(this);
+        Compliance = new ComplianceClient(this);
 
         Usage = new UsageClient(this);
+
+        Webhooks = new WebhooksClient(this);
+
+        Calls = new CallsClient(this);
+
+        Bots = new BotsClient(this);
+
+        Media = new MediaClient(this);
+
+        General = new GeneralClient(this);
+
+        Users = new UsersClient(this);
+
+        Lists = new ListsClient(this);
+
+        Connections = new ConnectionsClient(this);
+
+        DirectMessages = new DirectMessagesClient(this);
+
+        Chat = new ChatClient(this);
 
         Articles = new ArticlesClient(this);
 
         Stream = new StreamClient(this);
 
-        AccountActivity = new AccountActivityClient(this);
+        Activity = new ActivityClient(this);
+
+        Posts = new PostsClient(this);
+
+        Trends = new TrendsClient(this);
+
+        Spaces = new SpacesClient(this);
+
+        Communities = new CommunitiesClient(this);
 
     }
 

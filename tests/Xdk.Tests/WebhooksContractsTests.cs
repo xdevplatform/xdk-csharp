@@ -55,6 +55,97 @@ public class WebhooksContractsTests : IClassFixture<WebhooksLoopbackFixture>
 
     
     [Fact]
+    public async Task Contract_GetStreamLinks()
+    {
+        
+        var mockJson = "{\"data\":[{\"application_id\":\"test_value\",\"business_user_id\":\"test_value\",\"created_at\":\"test_value\",\"fields\":[\"test_value\"],\"instance_id\":\"test_value\",\"webhook_id\":\"test_value\"}]}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+
+        
+        var result = await _client.Webhooks.GetStreamLinksAsync();
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/tweets/search/webhooks", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_CreateWebhookReplayJob()
+    {
+        
+        var mockJson = "{\"data\":{\"created_at\":\"test_value\",\"job_id\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"from_date\":\"test_value\",\"to_date\":\"test_value\",\"webhook_id\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<CreateWebhookReplayJobRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Webhooks.CreateWebhookReplayJobAsync(reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/webhooks/replay", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
     public async Task Contract_Validate()
     {
         
@@ -235,97 +326,6 @@ public class WebhooksContractsTests : IClassFixture<WebhooksLoopbackFixture>
         Assert.NotNull(captured);
         Assert.Equal("POST", captured!.Method);
         Assert.Contains("/2/webhooks", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetStreamLinks()
-    {
-        
-        var mockJson = "{\"data\":[{\"application_id\":\"test_value\",\"business_user_id\":\"test_value\",\"created_at\":\"test_value\",\"fields\":[\"test_value\"],\"instance_id\":\"test_value\",\"webhook_id\":\"test_value\"}]}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-
-        
-        var result = await _client.Webhooks.GetStreamLinksAsync();
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/tweets/search/webhooks", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_CreateWebhookReplayJob()
-    {
-        
-        var mockJson = "{\"data\":{\"created_at\":\"test_value\",\"job_id\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"from_date\":\"test_value\",\"to_date\":\"test_value\",\"webhook_id\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<CreateWebhookReplayJobRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Webhooks.CreateWebhookReplayJobAsync(reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/webhooks/replay", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));

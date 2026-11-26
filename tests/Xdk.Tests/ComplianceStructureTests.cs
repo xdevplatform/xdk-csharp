@@ -29,21 +29,6 @@ public class ComplianceStructureTests
 
         
         Assert.True(
-            methodNames.Contains("GetJobsByIdAsync") || methodNames.Contains("GetJobsByIdStream"),
-            "Expected GetJobsByIdAsync or GetJobsByIdStream on ComplianceClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("DeleteJobsByIdAsync") || methodNames.Contains("DeleteJobsByIdStream"),
-            "Expected DeleteJobsByIdAsync or DeleteJobsByIdStream on ComplianceClient");
-        
-        
-        Assert.True(
-            methodNames.Contains("UploadJobSubmissionAsync") || methodNames.Contains("UploadJobSubmissionStream"),
-            "Expected UploadJobSubmissionAsync or UploadJobSubmissionStream on ComplianceClient");
-        
-        
-        Assert.True(
             methodNames.Contains("GetJobsAsync") || methodNames.Contains("GetJobsStream"),
             "Expected GetJobsAsync or GetJobsStream on ComplianceClient");
         
@@ -54,8 +39,23 @@ public class ComplianceStructureTests
         
         
         Assert.True(
+            methodNames.Contains("GetJobsByIdAsync") || methodNames.Contains("GetJobsByIdStream"),
+            "Expected GetJobsByIdAsync or GetJobsByIdStream on ComplianceClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("DeleteJobsByIdAsync") || methodNames.Contains("DeleteJobsByIdStream"),
+            "Expected DeleteJobsByIdAsync or DeleteJobsByIdStream on ComplianceClient");
+        
+        
+        Assert.True(
             methodNames.Contains("DownloadJobResultsAsync") || methodNames.Contains("DownloadJobResultsStream"),
             "Expected DownloadJobResultsAsync or DownloadJobResultsStream on ComplianceClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("UploadJobSubmissionAsync") || methodNames.Contains("UploadJobSubmissionStream"),
+            "Expected UploadJobSubmissionAsync or UploadJobSubmissionStream on ComplianceClient");
         
         
     }

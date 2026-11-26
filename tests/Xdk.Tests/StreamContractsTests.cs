@@ -55,10 +55,10 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
 
     
     [Fact]
-    public async Task Contract_Posts()
+    public async Task Contract_LikesFirehose()
     {
         
-        var mockJson = "{\"data\":{\"article\":{},\"article_title\":{},\"attachments\":{\"media_keys\":[\"test_value\"],\"media_source_tweet_id\":[\"test_value\"],\"poll_ids\":[\"test_value\"]},\"author_id\":\"test_value\",\"card_uri\":\"test_value\",\"community_id\":\"test_value\",\"context_annotations\":[{\"domain\":{\"id\":\"1234567890\",\"name\":\"test_value\"},\"entity\":{\"id\":\"1234567890\",\"name\":\"test_value\"}}],\"conversation_id\":\"test_value\",\"created_at\":\"2025-01-15T12:00:00.000Z\",\"display_text_range\":[1],\"edit_controls\":{\"editable_until\":\"test_value\",\"edits_remaining\":1,\"is_edit_eligible\":true},\"edit_history_post_ids\":[\"test_value\"],\"entities\":{\"cashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"hashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"mentions\":[{\"end\":1,\"id\":\"1234567890\",\"start\":1,\"username\":\"XDevelopers\"}],\"urls\":[{\"end\":1,\"start\":1}]},\"geo\":{\"coordinates\":{\"coordinates\":[1.5],\"type\":\"Point\"},\"place_id\":\"test_value\"},\"id\":\"1234567890\",\"in_reply_to_user_id\":\"test_value\",\"lang\":\"test_value\",\"matched_media_notes\":[{}],\"media_metadata\":[{}],\"non_public_metrics\":{},\"note_post\":{\"entities\":{},\"text\":\"Hello from XDK!\"},\"note_request_suggestions\":[{}],\"organic_metrics\":{},\"paid_partnership\":true,\"possibly_sensitive\":true,\"promoted_metrics\":{},\"public_metrics\":{\"bookmark_count\":1,\"impression_count\":1,\"like_count\":1,\"quote_count\":1,\"reply_count\":1,\"repost_count\":1},\"referenced_posts\":[{\"id\":\"1234567890\",\"type\":\"retweeted\"}],\"reply_settings\":\"test_value\",\"scopes\":{\"followers\":true},\"source\":\"test_value\",\"suggested_source_links\":[\"test_value\"],\"suggested_source_links_with_counts\":[{}],\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\",\"withheld\":{\"copyright\":true,\"country_codes\":[\"test_value\"],\"scope\":\"post\"}},\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"matching_rules\":[{\"id\":\"1234567890\",\"tag\":\"test_value\"}]}";
+        var mockJson = "{\"data\":{\"created_at\":\"2025-01-15T12:00:00.000Z\",\"id\":\"1234567890\",\"liked_tweet_id\":\"test_value\",\"timestamp_ms\":1,\"tweet_author_id\":\"test_value\"},\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.ChunkedStream(new[]
         {
             Encoding.UTF8.GetBytes("{}\r\n"),
@@ -70,8 +70,8 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
 
         
         
-        var options = new StreamClient.PostsOptions();
-        options.Headers["X-Contract-Operation"] = "Posts";
+        var options = new StreamClient.LikesFirehoseOptions();
+        options.Headers["X-Contract-Operation"] = "LikesFirehose";
         
         
         
@@ -81,8 +81,6 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         
         
         options.StartTime = "opt_startTime";
-        
-        
         
         
         
@@ -110,9 +108,14 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         
         
         
+        
+        
+        
+        
+        
 
         
-        await using var stream = _client.Stream.PostsStream(options);
+        await using var stream = _client.Stream.LikesFirehoseStream(1, options);
         var count = 0;
         await foreach (var item in stream)
         {
@@ -129,9 +132,9 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/tweets/search/stream", captured.Path);
+        Assert.Contains("/2/likes/firehose/stream", captured.Path);
         
-        Assert.Equal("Posts", captured.FirstHeader("X-Contract-Operation"));
+        Assert.Equal("LikesFirehose", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -140,10 +143,10 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_LabelsCompliance()
+    public async Task Contract_PostsFirehoseEn()
     {
         
-        var mockJson = "{\"data\":{\"public_tweet_notice\":{\"application\":\"test_value\",\"event_at\":\"2025-01-15T12:00:00.000Z\",\"event_type\":\"test_value\",\"tweet\":{\"author_id\":\"test_value\",\"id\":\"1234567890\"}}}}";
+        var mockJson = "{\"data\":{\"article\":{},\"article_title\":{},\"attachments\":{\"media_keys\":[\"test_value\"],\"media_source_tweet_id\":[\"test_value\"],\"poll_ids\":[\"test_value\"]},\"author_id\":\"test_value\",\"card_uri\":\"test_value\",\"community_id\":\"test_value\",\"context_annotations\":[{\"domain\":{\"id\":\"1234567890\",\"name\":\"test_value\"},\"entity\":{\"id\":\"1234567890\",\"name\":\"test_value\"}}],\"conversation_id\":\"test_value\",\"created_at\":\"2025-01-15T12:00:00.000Z\",\"display_text_range\":[1],\"edit_controls\":{\"editable_until\":\"test_value\",\"edits_remaining\":1,\"is_edit_eligible\":true},\"edit_history_post_ids\":[\"test_value\"],\"entities\":{\"cashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"hashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"mentions\":[{\"end\":1,\"id\":\"1234567890\",\"start\":1,\"username\":\"XDevelopers\"}],\"urls\":[{\"end\":1,\"start\":1}]},\"geo\":{\"coordinates\":{\"coordinates\":[1.5],\"type\":\"Point\"},\"place_id\":\"test_value\"},\"id\":\"1234567890\",\"in_reply_to_user_id\":\"test_value\",\"lang\":\"test_value\",\"matched_media_notes\":[{}],\"media_metadata\":[{}],\"non_public_metrics\":{},\"note_post\":{\"entities\":{},\"text\":\"Hello from XDK!\"},\"note_request_suggestions\":[{}],\"organic_metrics\":{},\"paid_partnership\":true,\"possibly_sensitive\":true,\"promoted_metrics\":{},\"public_metrics\":{\"bookmark_count\":1,\"impression_count\":1,\"like_count\":1,\"quote_count\":1,\"reply_count\":1,\"repost_count\":1},\"referenced_posts\":[{\"id\":\"1234567890\",\"type\":\"retweeted\"}],\"reply_settings\":\"test_value\",\"scopes\":{\"followers\":true},\"source\":\"test_value\",\"suggested_source_links\":[\"test_value\"],\"suggested_source_links_with_counts\":[{}],\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\",\"withheld\":{\"copyright\":true,\"country_codes\":[\"test_value\"],\"scope\":\"post\"}},\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.ChunkedStream(new[]
         {
             Encoding.UTF8.GetBytes("{}\r\n"),
@@ -155,8 +158,8 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
 
         
         
-        var options = new StreamClient.LabelsComplianceOptions();
-        options.Headers["X-Contract-Operation"] = "LabelsCompliance";
+        var options = new StreamClient.PostsFirehoseEnOptions();
+        options.Headers["X-Contract-Operation"] = "PostsFirehoseEn";
         
         
         
@@ -165,7 +168,19 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         
         
         
-        options.StartTime = "opt_startTime";
+        options.TweetFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -183,9 +198,14 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         
         
         
+        
+        
+        
+        
+        
 
         
-        await using var stream = _client.Stream.LabelsComplianceStream(options);
+        await using var stream = _client.Stream.PostsFirehoseEnStream(1, options);
         var count = 0;
         await foreach (var item in stream)
         {
@@ -202,9 +222,9 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/tweets/label/stream", captured.Path);
+        Assert.Contains("/2/tweets/firehose/stream/lang/en", captured.Path);
         
-        Assert.Equal("LabelsCompliance", captured.FirstHeader("X-Contract-Operation"));
+        Assert.Equal("PostsFirehoseEn", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -303,10 +323,10 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_PostsFirehosePt()
+    public async Task Contract_Activity()
     {
         
-        var mockJson = "{\"data\":{\"article\":{},\"article_title\":{},\"attachments\":{\"media_keys\":[\"test_value\"],\"media_source_tweet_id\":[\"test_value\"],\"poll_ids\":[\"test_value\"]},\"author_id\":\"test_value\",\"card_uri\":\"test_value\",\"community_id\":\"test_value\",\"context_annotations\":[{\"domain\":{\"id\":\"1234567890\",\"name\":\"test_value\"},\"entity\":{\"id\":\"1234567890\",\"name\":\"test_value\"}}],\"conversation_id\":\"test_value\",\"created_at\":\"2025-01-15T12:00:00.000Z\",\"display_text_range\":[1],\"edit_controls\":{\"editable_until\":\"test_value\",\"edits_remaining\":1,\"is_edit_eligible\":true},\"edit_history_post_ids\":[\"test_value\"],\"entities\":{\"cashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"hashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"mentions\":[{\"end\":1,\"id\":\"1234567890\",\"start\":1,\"username\":\"XDevelopers\"}],\"urls\":[{\"end\":1,\"start\":1}]},\"geo\":{\"coordinates\":{\"coordinates\":[1.5],\"type\":\"Point\"},\"place_id\":\"test_value\"},\"id\":\"1234567890\",\"in_reply_to_user_id\":\"test_value\",\"lang\":\"test_value\",\"matched_media_notes\":[{}],\"media_metadata\":[{}],\"non_public_metrics\":{},\"note_post\":{\"entities\":{},\"text\":\"Hello from XDK!\"},\"note_request_suggestions\":[{}],\"organic_metrics\":{},\"paid_partnership\":true,\"possibly_sensitive\":true,\"promoted_metrics\":{},\"public_metrics\":{\"bookmark_count\":1,\"impression_count\":1,\"like_count\":1,\"quote_count\":1,\"reply_count\":1,\"repost_count\":1},\"referenced_posts\":[{\"id\":\"1234567890\",\"type\":\"retweeted\"}],\"reply_settings\":\"test_value\",\"scopes\":{\"followers\":true},\"source\":\"test_value\",\"suggested_source_links\":[\"test_value\"],\"suggested_source_links_with_counts\":[{}],\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\",\"withheld\":{\"copyright\":true,\"country_codes\":[\"test_value\"],\"scope\":\"post\"}},\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]}}";
+        var mockJson = "{\"data\":{\"created_at\":\"2025-01-15T12:00:00.000Z\",\"event_type\":\"test_value\",\"event_uuid\":\"test_value\",\"filter\":{\"direction\":\"inbound\",\"keyword\":\"test_value\",\"qualifiers\":{},\"user_id\":\"1234567890\"},\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"payload\":{},\"tag\":\"test_value\"}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.ChunkedStream(new[]
         {
             Encoding.UTF8.GetBytes("{}\r\n"),
@@ -318,98 +338,8 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
 
         
         
-        var options = new StreamClient.PostsFirehosePtOptions();
-        options.Headers["X-Contract-Operation"] = "PostsFirehosePt";
-        
-        
-        
-        options.BackfillMinutes = 10;
-        
-        
-        
-        
-        options.TweetFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        options.StreamOptions = new StreamOptions { MaxRetries = 0 };
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        await using var stream = _client.Stream.PostsFirehosePtStream(1, options);
-        var count = 0;
-        await foreach (var item in stream)
-        {
-            object? boxed = item;
-            Assert.NotNull(boxed);
-            var roundTrip = JsonSerializer.Serialize(item, _client.JsonOptions);
-            Assert.False(string.IsNullOrEmpty(roundTrip));
-            count++;
-            break;
-        }
-        Assert.Equal(1, count);
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/tweets/firehose/stream/lang/pt", captured.Path);
-        
-        Assert.Equal("PostsFirehosePt", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_LikesCompliance()
-    {
-        
-        var mockJson = "{\"data\":{\"delete\":{\"event_at\":\"2025-01-15T12:00:00.000Z\",\"favorite\":{\"id\":\"1234567890\",\"user_id\":\"1234567890\"}}}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.ChunkedStream(new[]
-        {
-            Encoding.UTF8.GetBytes("{}\r\n"),
-            Encoding.UTF8.GetBytes(mockJson + "\n"),
-        }));
-        
-
-        
-
-        
-        
-        var options = new StreamClient.LikesComplianceOptions();
-        options.Headers["X-Contract-Operation"] = "LikesCompliance";
+        var options = new StreamClient.ActivityOptions();
+        options.Headers["X-Contract-Operation"] = "Activity";
         
         
         
@@ -438,7 +368,7 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         
 
         
-        await using var stream = _client.Stream.LikesComplianceStream(options);
+        await using var stream = _client.Stream.ActivityStream(options);
         var count = 0;
         await foreach (var item in stream)
         {
@@ -455,9 +385,9 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/likes/compliance/stream", captured.Path);
+        Assert.Contains("/2/activity/stream", captured.Path);
         
-        Assert.Equal("LikesCompliance", captured.FirstHeader("X-Contract-Operation"));
+        Assert.Equal("Activity", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -554,7 +484,7 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_PostsSample()
+    public async Task Contract_PostsFirehosePt()
     {
         
         var mockJson = "{\"data\":{\"article\":{},\"article_title\":{},\"attachments\":{\"media_keys\":[\"test_value\"],\"media_source_tweet_id\":[\"test_value\"],\"poll_ids\":[\"test_value\"]},\"author_id\":\"test_value\",\"card_uri\":\"test_value\",\"community_id\":\"test_value\",\"context_annotations\":[{\"domain\":{\"id\":\"1234567890\",\"name\":\"test_value\"},\"entity\":{\"id\":\"1234567890\",\"name\":\"test_value\"}}],\"conversation_id\":\"test_value\",\"created_at\":\"2025-01-15T12:00:00.000Z\",\"display_text_range\":[1],\"edit_controls\":{\"editable_until\":\"test_value\",\"edits_remaining\":1,\"is_edit_eligible\":true},\"edit_history_post_ids\":[\"test_value\"],\"entities\":{\"cashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"hashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"mentions\":[{\"end\":1,\"id\":\"1234567890\",\"start\":1,\"username\":\"XDevelopers\"}],\"urls\":[{\"end\":1,\"start\":1}]},\"geo\":{\"coordinates\":{\"coordinates\":[1.5],\"type\":\"Point\"},\"place_id\":\"test_value\"},\"id\":\"1234567890\",\"in_reply_to_user_id\":\"test_value\",\"lang\":\"test_value\",\"matched_media_notes\":[{}],\"media_metadata\":[{}],\"non_public_metrics\":{},\"note_post\":{\"entities\":{},\"text\":\"Hello from XDK!\"},\"note_request_suggestions\":[{}],\"organic_metrics\":{},\"paid_partnership\":true,\"possibly_sensitive\":true,\"promoted_metrics\":{},\"public_metrics\":{\"bookmark_count\":1,\"impression_count\":1,\"like_count\":1,\"quote_count\":1,\"reply_count\":1,\"repost_count\":1},\"referenced_posts\":[{\"id\":\"1234567890\",\"type\":\"retweeted\"}],\"reply_settings\":\"test_value\",\"scopes\":{\"followers\":true},\"source\":\"test_value\",\"suggested_source_links\":[\"test_value\"],\"suggested_source_links_with_counts\":[{}],\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\",\"withheld\":{\"copyright\":true,\"country_codes\":[\"test_value\"],\"scope\":\"post\"}},\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]}}";
@@ -569,144 +499,8 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
 
         
         
-        var options = new StreamClient.PostsSampleOptions();
-        options.Headers["X-Contract-Operation"] = "PostsSample";
-        
-        
-        
-        options.BackfillMinutes = 10;
-        
-        
-        
-        
-        options.TweetFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        options.StreamOptions = new StreamOptions { MaxRetries = 0 };
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        await using var stream = _client.Stream.PostsSampleStream(options);
-        var count = 0;
-        await foreach (var item in stream)
-        {
-            object? boxed = item;
-            Assert.NotNull(boxed);
-            var roundTrip = JsonSerializer.Serialize(item, _client.JsonOptions);
-            Assert.False(string.IsNullOrEmpty(roundTrip));
-            count++;
-            break;
-        }
-        Assert.Equal(1, count);
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/tweets/sample/stream", captured.Path);
-        
-        Assert.Equal("PostsSample", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetRuleCounts()
-    {
-        
-        var mockJson = "{\"data\":{\"all_project_client_apps\":[{\"rule_count\":1}],\"cap_per_client_app\":\"test_value\",\"cap_per_project\":\"test_value\",\"client_app_rules_count\":{\"client_app_id\":\"test_value\",\"rule_count\":1},\"project_rules_count\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new StreamClient.GetRuleCountsOptions();
-        options.Headers["X-Contract-Operation"] = "GetRuleCounts";
-        
-        
-        
-        options.RulesCountFields = "opt_rulesCountFields";
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Stream.GetRuleCountsAsync(options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/tweets/search/stream/rules/counts", captured.Path);
-        
-        Assert.Equal("GetRuleCounts", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_PostsFirehose()
-    {
-        
-        var mockJson = "{\"data\":{\"article\":{},\"article_title\":{},\"attachments\":{\"media_keys\":[\"test_value\"],\"media_source_tweet_id\":[\"test_value\"],\"poll_ids\":[\"test_value\"]},\"author_id\":\"test_value\",\"card_uri\":\"test_value\",\"community_id\":\"test_value\",\"context_annotations\":[{\"domain\":{\"id\":\"1234567890\",\"name\":\"test_value\"},\"entity\":{\"id\":\"1234567890\",\"name\":\"test_value\"}}],\"conversation_id\":\"test_value\",\"created_at\":\"2025-01-15T12:00:00.000Z\",\"display_text_range\":[1],\"edit_controls\":{\"editable_until\":\"test_value\",\"edits_remaining\":1,\"is_edit_eligible\":true},\"edit_history_post_ids\":[\"test_value\"],\"entities\":{\"cashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"hashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"mentions\":[{\"end\":1,\"id\":\"1234567890\",\"start\":1,\"username\":\"XDevelopers\"}],\"urls\":[{\"end\":1,\"start\":1}]},\"geo\":{\"coordinates\":{\"coordinates\":[1.5],\"type\":\"Point\"},\"place_id\":\"test_value\"},\"id\":\"1234567890\",\"in_reply_to_user_id\":\"test_value\",\"lang\":\"test_value\",\"matched_media_notes\":[{}],\"media_metadata\":[{}],\"non_public_metrics\":{},\"note_post\":{\"entities\":{},\"text\":\"Hello from XDK!\"},\"note_request_suggestions\":[{}],\"organic_metrics\":{},\"paid_partnership\":true,\"possibly_sensitive\":true,\"promoted_metrics\":{},\"public_metrics\":{\"bookmark_count\":1,\"impression_count\":1,\"like_count\":1,\"quote_count\":1,\"reply_count\":1,\"repost_count\":1},\"referenced_posts\":[{\"id\":\"1234567890\",\"type\":\"retweeted\"}],\"reply_settings\":\"test_value\",\"scopes\":{\"followers\":true},\"source\":\"test_value\",\"suggested_source_links\":[\"test_value\"],\"suggested_source_links_with_counts\":[{}],\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\",\"withheld\":{\"copyright\":true,\"country_codes\":[\"test_value\"],\"scope\":\"post\"}},\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.ChunkedStream(new[]
-        {
-            Encoding.UTF8.GetBytes("{}\r\n"),
-            Encoding.UTF8.GetBytes(mockJson + "\n"),
-        }));
-        
-
-        
-
-        
-        
-        var options = new StreamClient.PostsFirehoseOptions();
-        options.Headers["X-Contract-Operation"] = "PostsFirehose";
+        var options = new StreamClient.PostsFirehosePtOptions();
+        options.Headers["X-Contract-Operation"] = "PostsFirehosePt";
         
         
         
@@ -752,7 +546,7 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         
 
         
-        await using var stream = _client.Stream.PostsFirehoseStream(1, options);
+        await using var stream = _client.Stream.PostsFirehosePtStream(1, options);
         var count = 0;
         await foreach (var item in stream)
         {
@@ -769,9 +563,9 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/tweets/firehose/stream", captured.Path);
+        Assert.Contains("/2/tweets/firehose/stream/lang/pt", captured.Path);
         
-        Assert.Equal("PostsFirehose", captured.FirstHeader("X-Contract-Operation"));
+        Assert.Equal("PostsFirehosePt", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -780,10 +574,10 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_Activity()
+    public async Task Contract_PostsSample10()
     {
         
-        var mockJson = "{\"data\":{\"created_at\":\"2025-01-15T12:00:00.000Z\",\"event_type\":\"test_value\",\"event_uuid\":\"test_value\",\"filter\":{\"direction\":\"inbound\",\"keyword\":\"test_value\",\"qualifiers\":{},\"user_id\":\"1234567890\"},\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"payload\":{},\"tag\":\"test_value\"}}";
+        var mockJson = "{\"data\":{\"article\":{},\"article_title\":{},\"attachments\":{\"media_keys\":[\"test_value\"],\"media_source_tweet_id\":[\"test_value\"],\"poll_ids\":[\"test_value\"]},\"author_id\":\"test_value\",\"card_uri\":\"test_value\",\"community_id\":\"test_value\",\"context_annotations\":[{\"domain\":{\"id\":\"1234567890\",\"name\":\"test_value\"},\"entity\":{\"id\":\"1234567890\",\"name\":\"test_value\"}}],\"conversation_id\":\"test_value\",\"created_at\":\"2025-01-15T12:00:00.000Z\",\"display_text_range\":[1],\"edit_controls\":{\"editable_until\":\"test_value\",\"edits_remaining\":1,\"is_edit_eligible\":true},\"edit_history_post_ids\":[\"test_value\"],\"entities\":{\"cashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"hashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"mentions\":[{\"end\":1,\"id\":\"1234567890\",\"start\":1,\"username\":\"XDevelopers\"}],\"urls\":[{\"end\":1,\"start\":1}]},\"geo\":{\"coordinates\":{\"coordinates\":[1.5],\"type\":\"Point\"},\"place_id\":\"test_value\"},\"id\":\"1234567890\",\"in_reply_to_user_id\":\"test_value\",\"lang\":\"test_value\",\"matched_media_notes\":[{}],\"media_metadata\":[{}],\"non_public_metrics\":{},\"note_post\":{\"entities\":{},\"text\":\"Hello from XDK!\"},\"note_request_suggestions\":[{}],\"organic_metrics\":{},\"paid_partnership\":true,\"possibly_sensitive\":true,\"promoted_metrics\":{},\"public_metrics\":{\"bookmark_count\":1,\"impression_count\":1,\"like_count\":1,\"quote_count\":1,\"reply_count\":1,\"repost_count\":1},\"referenced_posts\":[{\"id\":\"1234567890\",\"type\":\"retweeted\"}],\"reply_settings\":\"test_value\",\"scopes\":{\"followers\":true},\"source\":\"test_value\",\"suggested_source_links\":[\"test_value\"],\"suggested_source_links_with_counts\":[{}],\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\",\"withheld\":{\"copyright\":true,\"country_codes\":[\"test_value\"],\"scope\":\"post\"}},\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.ChunkedStream(new[]
         {
             Encoding.UTF8.GetBytes("{}\r\n"),
@@ -795,8 +589,8 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
 
         
         
-        var options = new StreamClient.ActivityOptions();
-        options.Headers["X-Contract-Operation"] = "Activity";
+        var options = new StreamClient.PostsSample10Options();
+        options.Headers["X-Contract-Operation"] = "PostsSample10";
         
         
         
@@ -805,7 +599,19 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         
         
         
-        options.StartTime = "opt_startTime";
+        options.TweetFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -823,9 +629,14 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         
         
         
+        
+        
+        
+        
+        
 
         
-        await using var stream = _client.Stream.ActivityStream(options);
+        await using var stream = _client.Stream.PostsSample10Stream(1, options);
         var count = 0;
         await foreach (var item in stream)
         {
@@ -842,9 +653,9 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/activity/stream", captured.Path);
+        Assert.Contains("/2/tweets/sample10/stream", captured.Path);
         
-        Assert.Equal("Activity", captured.FirstHeader("X-Contract-Operation"));
+        Assert.Equal("PostsSample10", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -943,10 +754,10 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_UsersCompliance()
+    public async Task Contract_PostsFirehose()
     {
         
-        var mockJson = "{\"data\":{\"user_protect\":{\"event_at\":\"2025-01-15T12:00:00.000Z\",\"user\":{\"id\":\"1234567890\"}}}}";
+        var mockJson = "{\"data\":{\"article\":{},\"article_title\":{},\"attachments\":{\"media_keys\":[\"test_value\"],\"media_source_tweet_id\":[\"test_value\"],\"poll_ids\":[\"test_value\"]},\"author_id\":\"test_value\",\"card_uri\":\"test_value\",\"community_id\":\"test_value\",\"context_annotations\":[{\"domain\":{\"id\":\"1234567890\",\"name\":\"test_value\"},\"entity\":{\"id\":\"1234567890\",\"name\":\"test_value\"}}],\"conversation_id\":\"test_value\",\"created_at\":\"2025-01-15T12:00:00.000Z\",\"display_text_range\":[1],\"edit_controls\":{\"editable_until\":\"test_value\",\"edits_remaining\":1,\"is_edit_eligible\":true},\"edit_history_post_ids\":[\"test_value\"],\"entities\":{\"cashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"hashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"mentions\":[{\"end\":1,\"id\":\"1234567890\",\"start\":1,\"username\":\"XDevelopers\"}],\"urls\":[{\"end\":1,\"start\":1}]},\"geo\":{\"coordinates\":{\"coordinates\":[1.5],\"type\":\"Point\"},\"place_id\":\"test_value\"},\"id\":\"1234567890\",\"in_reply_to_user_id\":\"test_value\",\"lang\":\"test_value\",\"matched_media_notes\":[{}],\"media_metadata\":[{}],\"non_public_metrics\":{},\"note_post\":{\"entities\":{},\"text\":\"Hello from XDK!\"},\"note_request_suggestions\":[{}],\"organic_metrics\":{},\"paid_partnership\":true,\"possibly_sensitive\":true,\"promoted_metrics\":{},\"public_metrics\":{\"bookmark_count\":1,\"impression_count\":1,\"like_count\":1,\"quote_count\":1,\"reply_count\":1,\"repost_count\":1},\"referenced_posts\":[{\"id\":\"1234567890\",\"type\":\"retweeted\"}],\"reply_settings\":\"test_value\",\"scopes\":{\"followers\":true},\"source\":\"test_value\",\"suggested_source_links\":[\"test_value\"],\"suggested_source_links_with_counts\":[{}],\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\",\"withheld\":{\"copyright\":true,\"country_codes\":[\"test_value\"],\"scope\":\"post\"}},\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.ChunkedStream(new[]
         {
             Encoding.UTF8.GetBytes("{}\r\n"),
@@ -958,8 +769,8 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
 
         
         
-        var options = new StreamClient.UsersComplianceOptions();
-        options.Headers["X-Contract-Operation"] = "UsersCompliance";
+        var options = new StreamClient.PostsFirehoseOptions();
+        options.Headers["X-Contract-Operation"] = "PostsFirehose";
         
         
         
@@ -968,7 +779,19 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         
         
         
-        options.StartTime = "opt_startTime";
+        options.TweetFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -993,7 +816,7 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         
 
         
-        await using var stream = _client.Stream.UsersComplianceStream(1, options);
+        await using var stream = _client.Stream.PostsFirehoseStream(1, options);
         var count = 0;
         await foreach (var item in stream)
         {
@@ -1010,9 +833,9 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/users/compliance/stream", captured.Path);
+        Assert.Contains("/2/tweets/firehose/stream", captured.Path);
         
-        Assert.Equal("UsersCompliance", captured.FirstHeader("X-Contract-Operation"));
+        Assert.Equal("PostsFirehose", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -1099,7 +922,80 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_PostsFirehoseEn()
+    public async Task Contract_LikesCompliance()
+    {
+        
+        var mockJson = "{\"data\":{\"delete\":{\"event_at\":\"2025-01-15T12:00:00.000Z\",\"favorite\":{\"id\":\"1234567890\",\"user_id\":\"1234567890\"}}}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.ChunkedStream(new[]
+        {
+            Encoding.UTF8.GetBytes("{}\r\n"),
+            Encoding.UTF8.GetBytes(mockJson + "\n"),
+        }));
+        
+
+        
+
+        
+        
+        var options = new StreamClient.LikesComplianceOptions();
+        options.Headers["X-Contract-Operation"] = "LikesCompliance";
+        
+        
+        
+        options.BackfillMinutes = 10;
+        
+        
+        
+        
+        options.StartTime = "opt_startTime";
+        
+        
+        
+        
+        
+        options.StreamOptions = new StreamOptions { MaxRetries = 0 };
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        await using var stream = _client.Stream.LikesComplianceStream(options);
+        var count = 0;
+        await foreach (var item in stream)
+        {
+            object? boxed = item;
+            Assert.NotNull(boxed);
+            var roundTrip = JsonSerializer.Serialize(item, _client.JsonOptions);
+            Assert.False(string.IsNullOrEmpty(roundTrip));
+            count++;
+            break;
+        }
+        Assert.Equal(1, count);
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/likes/compliance/stream", captured.Path);
+        
+        Assert.Equal("LikesCompliance", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_PostsSample()
     {
         
         var mockJson = "{\"data\":{\"article\":{},\"article_title\":{},\"attachments\":{\"media_keys\":[\"test_value\"],\"media_source_tweet_id\":[\"test_value\"],\"poll_ids\":[\"test_value\"]},\"author_id\":\"test_value\",\"card_uri\":\"test_value\",\"community_id\":\"test_value\",\"context_annotations\":[{\"domain\":{\"id\":\"1234567890\",\"name\":\"test_value\"},\"entity\":{\"id\":\"1234567890\",\"name\":\"test_value\"}}],\"conversation_id\":\"test_value\",\"created_at\":\"2025-01-15T12:00:00.000Z\",\"display_text_range\":[1],\"edit_controls\":{\"editable_until\":\"test_value\",\"edits_remaining\":1,\"is_edit_eligible\":true},\"edit_history_post_ids\":[\"test_value\"],\"entities\":{\"cashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"hashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"mentions\":[{\"end\":1,\"id\":\"1234567890\",\"start\":1,\"username\":\"XDevelopers\"}],\"urls\":[{\"end\":1,\"start\":1}]},\"geo\":{\"coordinates\":{\"coordinates\":[1.5],\"type\":\"Point\"},\"place_id\":\"test_value\"},\"id\":\"1234567890\",\"in_reply_to_user_id\":\"test_value\",\"lang\":\"test_value\",\"matched_media_notes\":[{}],\"media_metadata\":[{}],\"non_public_metrics\":{},\"note_post\":{\"entities\":{},\"text\":\"Hello from XDK!\"},\"note_request_suggestions\":[{}],\"organic_metrics\":{},\"paid_partnership\":true,\"possibly_sensitive\":true,\"promoted_metrics\":{},\"public_metrics\":{\"bookmark_count\":1,\"impression_count\":1,\"like_count\":1,\"quote_count\":1,\"reply_count\":1,\"repost_count\":1},\"referenced_posts\":[{\"id\":\"1234567890\",\"type\":\"retweeted\"}],\"reply_settings\":\"test_value\",\"scopes\":{\"followers\":true},\"source\":\"test_value\",\"suggested_source_links\":[\"test_value\"],\"suggested_source_links_with_counts\":[{}],\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\",\"withheld\":{\"copyright\":true,\"country_codes\":[\"test_value\"],\"scope\":\"post\"}},\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]}}";
@@ -1114,8 +1010,8 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
 
         
         
-        var options = new StreamClient.PostsFirehoseEnOptions();
-        options.Headers["X-Contract-Operation"] = "PostsFirehoseEn";
+        var options = new StreamClient.PostsSampleOptions();
+        options.Headers["X-Contract-Operation"] = "PostsSample";
         
         
         
@@ -1125,10 +1021,6 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         
         
         options.TweetFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
         
         
         
@@ -1154,14 +1046,9 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         
         
         
-        
-        
-        
-        
-        
 
         
-        await using var stream = _client.Stream.PostsFirehoseEnStream(1, options);
+        await using var stream = _client.Stream.PostsSampleStream(options);
         var count = 0;
         await foreach (var item in stream)
         {
@@ -1178,9 +1065,142 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/tweets/firehose/stream/lang/en", captured.Path);
+        Assert.Contains("/2/tweets/sample/stream", captured.Path);
         
-        Assert.Equal("PostsFirehoseEn", captured.FirstHeader("X-Contract-Operation"));
+        Assert.Equal("PostsSample", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_UsersCompliance()
+    {
+        
+        var mockJson = "{\"data\":{\"user_protect\":{\"event_at\":\"2025-01-15T12:00:00.000Z\",\"user\":{\"id\":\"1234567890\"}}}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.ChunkedStream(new[]
+        {
+            Encoding.UTF8.GetBytes("{}\r\n"),
+            Encoding.UTF8.GetBytes(mockJson + "\n"),
+        }));
+        
+
+        
+
+        
+        
+        var options = new StreamClient.UsersComplianceOptions();
+        options.Headers["X-Contract-Operation"] = "UsersCompliance";
+        
+        
+        
+        options.BackfillMinutes = 10;
+        
+        
+        
+        
+        options.StartTime = "opt_startTime";
+        
+        
+        
+        
+        
+        options.StreamOptions = new StreamOptions { MaxRetries = 0 };
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        await using var stream = _client.Stream.UsersComplianceStream(1, options);
+        var count = 0;
+        await foreach (var item in stream)
+        {
+            object? boxed = item;
+            Assert.NotNull(boxed);
+            var roundTrip = JsonSerializer.Serialize(item, _client.JsonOptions);
+            Assert.False(string.IsNullOrEmpty(roundTrip));
+            count++;
+            break;
+        }
+        Assert.Equal(1, count);
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/users/compliance/stream", captured.Path);
+        
+        Assert.Equal("UsersCompliance", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetRuleCounts()
+    {
+        
+        var mockJson = "{\"data\":{\"all_project_client_apps\":[{\"rule_count\":1}],\"cap_per_client_app\":\"test_value\",\"cap_per_project\":\"test_value\",\"client_app_rules_count\":{\"client_app_id\":\"test_value\",\"rule_count\":1},\"project_rules_count\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new StreamClient.GetRuleCountsOptions();
+        options.Headers["X-Contract-Operation"] = "GetRuleCounts";
+        
+        
+        
+        options.RulesCountFields = "opt_rulesCountFields";
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Stream.GetRuleCountsAsync(options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/tweets/search/stream/rules/counts", captured.Path);
+        
+        Assert.Equal("GetRuleCounts", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -1326,10 +1346,10 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_LikesFirehose()
+    public async Task Contract_LabelsCompliance()
     {
         
-        var mockJson = "{\"data\":{\"created_at\":\"2025-01-15T12:00:00.000Z\",\"id\":\"1234567890\",\"liked_tweet_id\":\"test_value\",\"timestamp_ms\":1,\"tweet_author_id\":\"test_value\"},\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]}}";
+        var mockJson = "{\"data\":{\"public_tweet_notice\":{\"application\":\"test_value\",\"event_at\":\"2025-01-15T12:00:00.000Z\",\"event_type\":\"test_value\",\"tweet\":{\"author_id\":\"test_value\",\"id\":\"1234567890\"}}}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.ChunkedStream(new[]
         {
             Encoding.UTF8.GetBytes("{}\r\n"),
@@ -1341,8 +1361,81 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
 
         
         
-        var options = new StreamClient.LikesFirehoseOptions();
-        options.Headers["X-Contract-Operation"] = "LikesFirehose";
+        var options = new StreamClient.LabelsComplianceOptions();
+        options.Headers["X-Contract-Operation"] = "LabelsCompliance";
+        
+        
+        
+        options.BackfillMinutes = 10;
+        
+        
+        
+        
+        options.StartTime = "opt_startTime";
+        
+        
+        
+        
+        
+        options.StreamOptions = new StreamOptions { MaxRetries = 0 };
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        await using var stream = _client.Stream.LabelsComplianceStream(options);
+        var count = 0;
+        await foreach (var item in stream)
+        {
+            object? boxed = item;
+            Assert.NotNull(boxed);
+            var roundTrip = JsonSerializer.Serialize(item, _client.JsonOptions);
+            Assert.False(string.IsNullOrEmpty(roundTrip));
+            count++;
+            break;
+        }
+        Assert.Equal(1, count);
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/tweets/label/stream", captured.Path);
+        
+        Assert.Equal("LabelsCompliance", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_Posts()
+    {
+        
+        var mockJson = "{\"data\":{\"article\":{},\"article_title\":{},\"attachments\":{\"media_keys\":[\"test_value\"],\"media_source_tweet_id\":[\"test_value\"],\"poll_ids\":[\"test_value\"]},\"author_id\":\"test_value\",\"card_uri\":\"test_value\",\"community_id\":\"test_value\",\"context_annotations\":[{\"domain\":{\"id\":\"1234567890\",\"name\":\"test_value\"},\"entity\":{\"id\":\"1234567890\",\"name\":\"test_value\"}}],\"conversation_id\":\"test_value\",\"created_at\":\"2025-01-15T12:00:00.000Z\",\"display_text_range\":[1],\"edit_controls\":{\"editable_until\":\"test_value\",\"edits_remaining\":1,\"is_edit_eligible\":true},\"edit_history_post_ids\":[\"test_value\"],\"entities\":{\"cashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"hashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"mentions\":[{\"end\":1,\"id\":\"1234567890\",\"start\":1,\"username\":\"XDevelopers\"}],\"urls\":[{\"end\":1,\"start\":1}]},\"geo\":{\"coordinates\":{\"coordinates\":[1.5],\"type\":\"Point\"},\"place_id\":\"test_value\"},\"id\":\"1234567890\",\"in_reply_to_user_id\":\"test_value\",\"lang\":\"test_value\",\"matched_media_notes\":[{}],\"media_metadata\":[{}],\"non_public_metrics\":{},\"note_post\":{\"entities\":{},\"text\":\"Hello from XDK!\"},\"note_request_suggestions\":[{}],\"organic_metrics\":{},\"paid_partnership\":true,\"possibly_sensitive\":true,\"promoted_metrics\":{},\"public_metrics\":{\"bookmark_count\":1,\"impression_count\":1,\"like_count\":1,\"quote_count\":1,\"reply_count\":1,\"repost_count\":1},\"referenced_posts\":[{\"id\":\"1234567890\",\"type\":\"retweeted\"}],\"reply_settings\":\"test_value\",\"scopes\":{\"followers\":true},\"source\":\"test_value\",\"suggested_source_links\":[\"test_value\"],\"suggested_source_links_with_counts\":[{}],\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\",\"withheld\":{\"copyright\":true,\"country_codes\":[\"test_value\"],\"scope\":\"post\"}},\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"matching_rules\":[{\"id\":\"1234567890\",\"tag\":\"test_value\"}]}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.ChunkedStream(new[]
+        {
+            Encoding.UTF8.GetBytes("{}\r\n"),
+            Encoding.UTF8.GetBytes(mockJson + "\n"),
+        }));
+        
+
+        
+
+        
+        
+        var options = new StreamClient.PostsOptions();
+        options.Headers["X-Contract-Operation"] = "Posts";
         
         
         
@@ -1367,6 +1460,8 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         
         
         
+        
+        
         options.StreamOptions = new StreamOptions { MaxRetries = 0 };
         
         
@@ -1379,14 +1474,9 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         
         
         
-        
-        
-        
-        
-        
 
         
-        await using var stream = _client.Stream.LikesFirehoseStream(1, options);
+        await using var stream = _client.Stream.PostsStream(options);
         var count = 0;
         await foreach (var item in stream)
         {
@@ -1403,99 +1493,9 @@ public class StreamContractsTests : IClassFixture<StreamLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/likes/firehose/stream", captured.Path);
+        Assert.Contains("/2/tweets/search/stream", captured.Path);
         
-        Assert.Equal("LikesFirehose", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_PostsSample10()
-    {
-        
-        var mockJson = "{\"data\":{\"article\":{},\"article_title\":{},\"attachments\":{\"media_keys\":[\"test_value\"],\"media_source_tweet_id\":[\"test_value\"],\"poll_ids\":[\"test_value\"]},\"author_id\":\"test_value\",\"card_uri\":\"test_value\",\"community_id\":\"test_value\",\"context_annotations\":[{\"domain\":{\"id\":\"1234567890\",\"name\":\"test_value\"},\"entity\":{\"id\":\"1234567890\",\"name\":\"test_value\"}}],\"conversation_id\":\"test_value\",\"created_at\":\"2025-01-15T12:00:00.000Z\",\"display_text_range\":[1],\"edit_controls\":{\"editable_until\":\"test_value\",\"edits_remaining\":1,\"is_edit_eligible\":true},\"edit_history_post_ids\":[\"test_value\"],\"entities\":{\"cashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"hashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"mentions\":[{\"end\":1,\"id\":\"1234567890\",\"start\":1,\"username\":\"XDevelopers\"}],\"urls\":[{\"end\":1,\"start\":1}]},\"geo\":{\"coordinates\":{\"coordinates\":[1.5],\"type\":\"Point\"},\"place_id\":\"test_value\"},\"id\":\"1234567890\",\"in_reply_to_user_id\":\"test_value\",\"lang\":\"test_value\",\"matched_media_notes\":[{}],\"media_metadata\":[{}],\"non_public_metrics\":{},\"note_post\":{\"entities\":{},\"text\":\"Hello from XDK!\"},\"note_request_suggestions\":[{}],\"organic_metrics\":{},\"paid_partnership\":true,\"possibly_sensitive\":true,\"promoted_metrics\":{},\"public_metrics\":{\"bookmark_count\":1,\"impression_count\":1,\"like_count\":1,\"quote_count\":1,\"reply_count\":1,\"repost_count\":1},\"referenced_posts\":[{\"id\":\"1234567890\",\"type\":\"retweeted\"}],\"reply_settings\":\"test_value\",\"scopes\":{\"followers\":true},\"source\":\"test_value\",\"suggested_source_links\":[\"test_value\"],\"suggested_source_links_with_counts\":[{}],\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\",\"withheld\":{\"copyright\":true,\"country_codes\":[\"test_value\"],\"scope\":\"post\"}},\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.ChunkedStream(new[]
-        {
-            Encoding.UTF8.GetBytes("{}\r\n"),
-            Encoding.UTF8.GetBytes(mockJson + "\n"),
-        }));
-        
-
-        
-
-        
-        
-        var options = new StreamClient.PostsSample10Options();
-        options.Headers["X-Contract-Operation"] = "PostsSample10";
-        
-        
-        
-        options.BackfillMinutes = 10;
-        
-        
-        
-        
-        options.TweetFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        options.StreamOptions = new StreamOptions { MaxRetries = 0 };
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        await using var stream = _client.Stream.PostsSample10Stream(1, options);
-        var count = 0;
-        await foreach (var item in stream)
-        {
-            object? boxed = item;
-            Assert.NotNull(boxed);
-            var roundTrip = JsonSerializer.Serialize(item, _client.JsonOptions);
-            Assert.False(string.IsNullOrEmpty(roundTrip));
-            count++;
-            break;
-        }
-        Assert.Equal(1, count);
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/tweets/sample10/stream", captured.Path);
-        
-        Assert.Equal("PostsSample10", captured.FirstHeader("X-Contract-Operation"));
+        Assert.Equal("Posts", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));

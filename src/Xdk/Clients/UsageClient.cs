@@ -42,6 +42,10 @@ public sealed class UsageClient
 
 
 
+
+
+
+
     public sealed class GetOptions
     {
         
@@ -73,6 +77,45 @@ public sealed class UsageClient
 
 
 
+
+
+
+
+
+
+    
+    public Task<GetUsageCreditsResponse> GetCreditsAsync(CancellationToken cancellationToken = default)
+    {
+        
+        var path = "/2/usage/credits";
+        
+
+        var queryParams = new Dictionary<string, string>();
+        
+
+        var extraHeaders = new Dictionary<string, string>();
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetUsageCreditsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
+    }
+    
+
+    
+    
 
 
 
@@ -116,49 +159,6 @@ public sealed class UsageClient
 
         
         return _client.SendJsonAsync<GetUsageResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetUsageCreditsResponse> GetCreditsAsync(CancellationToken cancellationToken = default)
-    {
-        
-        var path = "/2/usage/credits";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-
-        var extraHeaders = new Dictionary<string, string>();
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetUsageCreditsResponse>(
             new HttpMethod("GET"),
             path,
             queryParams,

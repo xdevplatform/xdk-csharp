@@ -55,6 +55,44 @@ public class UsageContractsTests : IClassFixture<UsageLoopbackFixture>
 
     
     [Fact]
+    public async Task Contract_GetCredits()
+    {
+        
+        var mockJson = "{\"data\":{\"free_balance\":1.5,\"free_grants\":[{\"amount\":1.5}],\"prepaid_balance\":1.5,\"total_balance\":1.5}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+
+        
+        var result = await _client.Usage.GetCreditsAsync();
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/usage/credits", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
     public async Task Contract_Get()
     {
         
@@ -107,44 +145,6 @@ public class UsageContractsTests : IClassFixture<UsageLoopbackFixture>
         Assert.Contains("/2/usage/tweets", captured.Path);
         
         Assert.Equal("Get", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetCredits()
-    {
-        
-        var mockJson = "{\"data\":{\"free_balance\":1.5,\"free_grants\":[{\"amount\":1.5}],\"prepaid_balance\":1.5,\"total_balance\":1.5}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-
-        
-        var result = await _client.Usage.GetCreditsAsync();
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/usage/credits", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));

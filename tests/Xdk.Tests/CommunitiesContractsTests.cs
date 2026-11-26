@@ -55,66 +55,6 @@ public class CommunitiesContractsTests : IClassFixture<CommunitiesLoopbackFixtur
 
     
     [Fact]
-    public async Task Contract_GetById()
-    {
-        
-        var mockJson = "{\"data\":{\"access\":\"test_value\",\"created_at\":\"test_value\",\"description\":\"test_value\",\"id\":\"1234567890\",\"join_policy\":\"test_value\",\"member_count\":1,\"name\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new CommunitiesClient.GetByIdOptions();
-        options.Headers["X-Contract-Operation"] = "GetById";
-        
-        
-        
-        options.CommunityFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Communities.GetByIdAsync("test_id", options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/communities/", captured.Path);
-        
-        Assert.Equal("GetById", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
     public async Task Contract_Search()
     {
         
@@ -176,6 +116,66 @@ public class CommunitiesContractsTests : IClassFixture<CommunitiesLoopbackFixtur
         Assert.Contains("/2/communities/search", captured.Path);
         
         Assert.Equal("Search", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetById()
+    {
+        
+        var mockJson = "{\"data\":{\"access\":\"test_value\",\"created_at\":\"test_value\",\"description\":\"test_value\",\"id\":\"1234567890\",\"join_policy\":\"test_value\",\"member_count\":1,\"name\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new CommunitiesClient.GetByIdOptions();
+        options.Headers["X-Contract-Operation"] = "GetById";
+        
+        
+        
+        options.CommunityFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Communities.GetByIdAsync("test_id", options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/communities/", captured.Path);
+        
+        Assert.Equal("GetById", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));

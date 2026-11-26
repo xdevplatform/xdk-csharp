@@ -29,22 +29,10 @@ public class SpacesStructureTests
 
         
         Assert.True(
-            methodNames.Contains("GetBuyersAsync") || methodNames.Contains("GetBuyersStream"),
-            "Expected GetBuyersAsync or GetBuyersStream on SpacesClient");
-        
-        Assert.Contains("GetBuyersPages", methodNames);
-        
-        
-        Assert.True(
             methodNames.Contains("GetPostsAsync") || methodNames.Contains("GetPostsStream"),
             "Expected GetPostsAsync or GetPostsStream on SpacesClient");
         
         Assert.Contains("GetPostsPages", methodNames);
-        
-        
-        Assert.True(
-            methodNames.Contains("GetByCreatorIdsAsync") || methodNames.Contains("GetByCreatorIdsStream"),
-            "Expected GetByCreatorIdsAsync or GetByCreatorIdsStream on SpacesClient");
         
         
         Assert.True(
@@ -53,13 +41,25 @@ public class SpacesStructureTests
         
         
         Assert.True(
-            methodNames.Contains("GetByIdAsync") || methodNames.Contains("GetByIdStream"),
-            "Expected GetByIdAsync or GetByIdStream on SpacesClient");
+            methodNames.Contains("GetBuyersAsync") || methodNames.Contains("GetBuyersStream"),
+            "Expected GetBuyersAsync or GetBuyersStream on SpacesClient");
+        
+        Assert.Contains("GetBuyersPages", methodNames);
         
         
         Assert.True(
             methodNames.Contains("GetByIdsAsync") || methodNames.Contains("GetByIdsStream"),
             "Expected GetByIdsAsync or GetByIdsStream on SpacesClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetByCreatorIdsAsync") || methodNames.Contains("GetByCreatorIdsStream"),
+            "Expected GetByCreatorIdsAsync or GetByCreatorIdsStream on SpacesClient");
+        
+        
+        Assert.True(
+            methodNames.Contains("GetByIdAsync") || methodNames.Contains("GetByIdStream"),
+            "Expected GetByIdAsync or GetByIdStream on SpacesClient");
         
         
     }

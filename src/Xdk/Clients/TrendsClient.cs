@@ -42,6 +42,31 @@ public sealed class TrendsClient
 
 
 
+    public sealed class GetLocationsOptions
+    {
+        
+        
+        public List<string>? TrendLocationFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public GetLocationsOptions Clone()
+        {
+            var copy = (GetLocationsOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
+
+
+
+
     public sealed class GetByWoeidOptions
     {
         
@@ -96,29 +121,55 @@ public sealed class TrendsClient
 
 
 
-    public sealed class GetLocationsOptions
+
+
+
+
+
+
+
+
+    
+    public Task<GetTrendsLocationsResponse> GetLocationsAsync(GetLocationsOptions? options = null, CancellationToken cancellationToken = default)
     {
         
+        var opts = options ?? new GetLocationsOptions();
         
-        public List<string>? TrendLocationFields { get; set; }
+        var path = "/2/trends/locations";
         
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
 
-        public GetLocationsOptions Clone()
-        {
-            var copy = (GetLocationsOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
+        var queryParams = new Dictionary<string, string>();
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "trend_location.fields", opts.TrendLocationFields);
+        
+        
+        
+
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        
+
+        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "BearerToken" };
+        object? requestBody = null;
+        var contentType = "application/json";
+
+        
+        return _client.SendJsonAsync<GetTrendsLocationsResponse>(
+            new HttpMethod("GET"),
+            path,
+            queryParams,
+            extraHeaders,
+            requestBody,
+            contentType,
+            securitySchemes,
+            cancellationToken);
+        
     }
+    
 
-
-
-
-
+    
+    
 
 
 
@@ -217,57 +268,6 @@ public sealed class TrendsClient
 
         
         return _client.SendJsonAsync<GetTrendsPersonalizedTrendsResponse>(
-            new HttpMethod("GET"),
-            path,
-            queryParams,
-            extraHeaders,
-            requestBody,
-            contentType,
-            securitySchemes,
-            cancellationToken);
-        
-    }
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-    
-    public Task<GetTrendsLocationsResponse> GetLocationsAsync(GetLocationsOptions? options = null, CancellationToken cancellationToken = default)
-    {
-        
-        var opts = options ?? new GetLocationsOptions();
-        
-        var path = "/2/trends/locations";
-        
-
-        var queryParams = new Dictionary<string, string>();
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "trend_location.fields", opts.TrendLocationFields);
-        
-        
-        
-
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
-        
-
-        IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "BearerToken" };
-        object? requestBody = null;
-        var contentType = "application/json";
-
-        
-        return _client.SendJsonAsync<GetTrendsLocationsResponse>(
             new HttpMethod("GET"),
             path,
             queryParams,

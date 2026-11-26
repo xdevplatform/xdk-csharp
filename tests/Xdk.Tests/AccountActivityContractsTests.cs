@@ -55,49 +55,6 @@ public class AccountActivityContractsTests : IClassFixture<AccountActivityLoopba
 
     
     [Fact]
-    public async Task Contract_GetSubscriptions()
-    {
-        
-        var mockJson = "{\"data\":{\"application_id\":\"test_value\",\"subscriptions\":[{}],\"webhook_id\":\"test_value\",\"webhook_url\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.AccountActivity.GetSubscriptionsAsync("test_webhookId");
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/account_activity/webhooks/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
     public async Task Contract_ValidateSubscription()
     {
         
@@ -199,44 +156,6 @@ public class AccountActivityContractsTests : IClassFixture<AccountActivityLoopba
     }
     
     [Fact]
-    public async Task Contract_GetSubscriptionCount()
-    {
-        
-        var mockJson = "{\"data\":{\"account_name\":\"test_value\",\"provisioned_count\":\"test_value\",\"subscriptions_count_all\":\"test_value\",\"subscriptions_count_direct_messages\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-
-        
-        var result = await _client.AccountActivity.GetSubscriptionCountAsync();
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/account_activity/subscriptions/count", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
     public async Task Contract_DeleteSubscription()
     {
         
@@ -277,6 +196,87 @@ public class AccountActivityContractsTests : IClassFixture<AccountActivityLoopba
         Assert.NotNull(captured);
         Assert.Equal("DELETE", captured!.Method);
         Assert.Contains("/2/account_activity/webhooks/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetSubscriptions()
+    {
+        
+        var mockJson = "{\"data\":{\"application_id\":\"test_value\",\"subscriptions\":[{}],\"webhook_id\":\"test_value\",\"webhook_url\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.AccountActivity.GetSubscriptionsAsync("test_webhookId");
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/account_activity/webhooks/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetSubscriptionCount()
+    {
+        
+        var mockJson = "{\"data\":{\"account_name\":\"test_value\",\"provisioned_count\":\"test_value\",\"subscriptions_count_all\":\"test_value\",\"subscriptions_count_direct_messages\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+
+        
+        var result = await _client.AccountActivity.GetSubscriptionCountAsync();
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/account_activity/subscriptions/count", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));

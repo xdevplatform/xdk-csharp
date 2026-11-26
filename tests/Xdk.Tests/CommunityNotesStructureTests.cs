@@ -34,8 +34,10 @@ public class CommunityNotesStructureTests
         
         
         Assert.True(
-            methodNames.Contains("EvaluateAsync") || methodNames.Contains("EvaluateStream"),
-            "Expected EvaluateAsync or EvaluateStream on CommunityNotesClient");
+            methodNames.Contains("SearchWrittenAsync") || methodNames.Contains("SearchWrittenStream"),
+            "Expected SearchWrittenAsync or SearchWrittenStream on CommunityNotesClient");
+        
+        Assert.Contains("SearchWrittenPages", methodNames);
         
         
         Assert.True(
@@ -51,10 +53,8 @@ public class CommunityNotesStructureTests
         
         
         Assert.True(
-            methodNames.Contains("SearchWrittenAsync") || methodNames.Contains("SearchWrittenStream"),
-            "Expected SearchWrittenAsync or SearchWrittenStream on CommunityNotesClient");
-        
-        Assert.Contains("SearchWrittenPages", methodNames);
+            methodNames.Contains("EvaluateAsync") || methodNames.Contains("EvaluateStream"),
+            "Expected EvaluateAsync or EvaluateStream on CommunityNotesClient");
         
         
     }

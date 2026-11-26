@@ -46,6 +46,35 @@ public sealed class CommunityNotesClient
 
 
 
+    public sealed class SearchWrittenOptions
+    {
+        
+        
+        public int? MaxResults { get; set; }
+        
+        
+        
+        public string? PaginationToken { get; set; }
+        
+        
+        
+        public List<string>? NoteFields { get; set; }
+        
+        
+        
+        
+        public Dictionary<string, string> Headers { get; set; } = new();
+
+        public SearchWrittenOptions Clone()
+        {
+            var copy = (SearchWrittenOptions)MemberwiseClone();
+            copy.Headers = new Dictionary<string, string>(Headers);
+            return copy;
+        }
+    }
+
+
+
 
 
 
@@ -111,35 +140,6 @@ public sealed class CommunityNotesClient
 
 
 
-    public sealed class SearchWrittenOptions
-    {
-        
-        
-        public int? MaxResults { get; set; }
-        
-        
-        
-        public string? PaginationToken { get; set; }
-        
-        
-        
-        public List<string>? NoteFields { get; set; }
-        
-        
-        
-        
-        public Dictionary<string, string> Headers { get; set; } = new();
-
-        public SearchWrittenOptions Clone()
-        {
-            var copy = (SearchWrittenOptions)MemberwiseClone();
-            copy.Headers = new Dictionary<string, string>(Headers);
-            return copy;
-        }
-    }
-
-
-
 
 
 
@@ -200,25 +200,51 @@ public sealed class CommunityNotesClient
 
 
     
-    public Task<EvaluateCommunityNotesResponse> EvaluateAsync(EvaluateCommunityNotesRequest body, CancellationToken cancellationToken = default)
+    public Task<SearchCommunityNotesWrittenResponse> SearchWrittenAsync(bool testMode, SearchWrittenOptions? options = null, CancellationToken cancellationToken = default)
     {
         
-        var path = "/2/notes/evaluate";
+        var opts = options ?? new SearchWrittenOptions();
+        
+        var path = "/2/notes/search/notes_written";
         
 
         var queryParams = new Dictionary<string, string>();
         
+        
+        
+        XClient.AddQueryParam(queryParams, "test_mode", testMode);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
+        
+        
+        
+        
+        
+        XClient.AddQueryParam(queryParams, "note.fields", opts.NoteFields);
+        
+        
+        
 
-        var extraHeaders = new Dictionary<string, string>();
+        var extraHeaders = new Dictionary<string, string>(opts.Headers);
         
 
         IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = body;
+        object? requestBody = null;
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<EvaluateCommunityNotesResponse>(
-            new HttpMethod("POST"),
+        return _client.SendJsonAsync<SearchCommunityNotesWrittenResponse>(
+            new HttpMethod("GET"),
             path,
             queryParams,
             extraHeaders,
@@ -231,6 +257,24 @@ public sealed class CommunityNotesClient
     
 
     
+    
+    
+    
+    
+
+    public Paginator<SearchCommunityNotesWrittenResponse> SearchWrittenPages(bool testMode, SearchWrittenOptions? options = null)
+    {
+        var baseOpts = options?.Clone() ?? new SearchWrittenOptions();
+        var initialToken = baseOpts.PaginationToken;
+        return new Paginator<SearchCommunityNotesWrittenResponse>(
+            (token, ct) =>
+            {
+                var pageOpts = baseOpts.Clone();
+                pageOpts.PaginationToken = token;
+                return SearchWrittenAsync(testMode, pageOpts, ct);
+            },
+            initialToken);
+    }
     
 
 
@@ -409,51 +453,25 @@ public sealed class CommunityNotesClient
 
 
     
-    public Task<SearchCommunityNotesWrittenResponse> SearchWrittenAsync(bool testMode, SearchWrittenOptions? options = null, CancellationToken cancellationToken = default)
+    public Task<EvaluateCommunityNotesResponse> EvaluateAsync(EvaluateCommunityNotesRequest body, CancellationToken cancellationToken = default)
     {
         
-        var opts = options ?? new SearchWrittenOptions();
-        
-        var path = "/2/notes/search/notes_written";
+        var path = "/2/notes/evaluate";
         
 
         var queryParams = new Dictionary<string, string>();
         
-        
-        
-        XClient.AddQueryParam(queryParams, "test_mode", testMode);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "max_results", opts.MaxResults);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "pagination_token", opts.PaginationToken);
-        
-        
-        
-        
-        
-        XClient.AddQueryParam(queryParams, "note.fields", opts.NoteFields);
-        
-        
-        
 
-        var extraHeaders = new Dictionary<string, string>(opts.Headers);
+        var extraHeaders = new Dictionary<string, string>();
         
 
         IReadOnlyList<string> securitySchemes = new[] { "OAuth2UserToken", "UserToken" };
-        object? requestBody = null;
+        object? requestBody = body;
         var contentType = "application/json";
 
         
-        return _client.SendJsonAsync<SearchCommunityNotesWrittenResponse>(
-            new HttpMethod("GET"),
+        return _client.SendJsonAsync<EvaluateCommunityNotesResponse>(
+            new HttpMethod("POST"),
             path,
             queryParams,
             extraHeaders,
@@ -466,24 +484,6 @@ public sealed class CommunityNotesClient
     
 
     
-    
-    
-    
-    
-
-    public Paginator<SearchCommunityNotesWrittenResponse> SearchWrittenPages(bool testMode, SearchWrittenOptions? options = null)
-    {
-        var baseOpts = options?.Clone() ?? new SearchWrittenOptions();
-        var initialToken = baseOpts.PaginationToken;
-        return new Paginator<SearchCommunityNotesWrittenResponse>(
-            (token, ct) =>
-            {
-                var pageOpts = baseOpts.Clone();
-                pageOpts.PaginationToken = token;
-                return SearchWrittenAsync(testMode, pageOpts, ct);
-            },
-            initialToken);
-    }
     
 
 }

@@ -16,6 +16,218 @@ public class UsersPaginationTests
 {
     
     [Fact]
+    public async Task Paginate_GetPosts()
+    {
+        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
+        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
+        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
+        var callIndex = 0;
+
+        var handler = new MockHttpMessageHandler(_ =>
+        {
+            callIndex++;
+            var body = callIndex == 1 ? page1 : page2;
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(body, Encoding.UTF8, "application/json"),
+            };
+        });
+
+        using var httpClient = new HttpClient(handler);
+        using var client = new XClient(new XClientOptions
+        {
+            BaseUrl = "https://api.example.com",
+            BearerToken = "test-bearer",
+            AccessToken = "test-access",
+            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
+            HttpClient = httpClient,
+        });
+
+        
+        
+        
+        
+        
+        
+        
+
+        var paginator = client.Users.GetPostsPages("test_id");
+        var pages = 0;
+        await foreach (var page in paginator)
+        {
+            object? boxed = page;
+            Assert.NotNull(boxed);
+            pages++;
+            if (pages > 5) break;
+        }
+
+        Assert.Equal(2, pages);
+        Assert.Equal(2, handler.Requests.Count);
+        
+        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
+        
+    }
+    
+    [Fact]
+    public async Task Paginate_GetAffiliates()
+    {
+        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
+        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
+        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
+        var callIndex = 0;
+
+        var handler = new MockHttpMessageHandler(_ =>
+        {
+            callIndex++;
+            var body = callIndex == 1 ? page1 : page2;
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(body, Encoding.UTF8, "application/json"),
+            };
+        });
+
+        using var httpClient = new HttpClient(handler);
+        using var client = new XClient(new XClientOptions
+        {
+            BaseUrl = "https://api.example.com",
+            BearerToken = "test-bearer",
+            AccessToken = "test-access",
+            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
+            HttpClient = httpClient,
+        });
+
+        
+        
+        
+        
+        
+        
+        
+
+        var paginator = client.Users.GetAffiliatesPages("test_id");
+        var pages = 0;
+        await foreach (var page in paginator)
+        {
+            object? boxed = page;
+            Assert.NotNull(boxed);
+            pages++;
+            if (pages > 5) break;
+        }
+
+        Assert.Equal(2, pages);
+        Assert.Equal(2, handler.Requests.Count);
+        
+        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
+        
+    }
+    
+    [Fact]
+    public async Task Paginate_GetTimeline()
+    {
+        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
+        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
+        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
+        var callIndex = 0;
+
+        var handler = new MockHttpMessageHandler(_ =>
+        {
+            callIndex++;
+            var body = callIndex == 1 ? page1 : page2;
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(body, Encoding.UTF8, "application/json"),
+            };
+        });
+
+        using var httpClient = new HttpClient(handler);
+        using var client = new XClient(new XClientOptions
+        {
+            BaseUrl = "https://api.example.com",
+            BearerToken = "test-bearer",
+            AccessToken = "test-access",
+            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
+            HttpClient = httpClient,
+        });
+
+        
+        
+        
+        
+        
+        
+        
+
+        var paginator = client.Users.GetTimelinePages("test_id");
+        var pages = 0;
+        await foreach (var page in paginator)
+        {
+            object? boxed = page;
+            Assert.NotNull(boxed);
+            pages++;
+            if (pages > 5) break;
+        }
+
+        Assert.Equal(2, pages);
+        Assert.Equal(2, handler.Requests.Count);
+        
+        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
+        
+    }
+    
+    [Fact]
+    public async Task Paginate_GetFollowers()
+    {
+        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
+        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
+        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
+        var callIndex = 0;
+
+        var handler = new MockHttpMessageHandler(_ =>
+        {
+            callIndex++;
+            var body = callIndex == 1 ? page1 : page2;
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(body, Encoding.UTF8, "application/json"),
+            };
+        });
+
+        using var httpClient = new HttpClient(handler);
+        using var client = new XClient(new XClientOptions
+        {
+            BaseUrl = "https://api.example.com",
+            BearerToken = "test-bearer",
+            AccessToken = "test-access",
+            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
+            HttpClient = httpClient,
+        });
+
+        
+        
+        
+        
+        
+        
+        
+
+        var paginator = client.Users.GetFollowersPages("test_id");
+        var pages = 0;
+        await foreach (var page in paginator)
+        {
+            object? boxed = page;
+            Assert.NotNull(boxed);
+            pages++;
+            if (pages > 5) break;
+        }
+
+        Assert.Equal(2, pages);
+        Assert.Equal(2, handler.Requests.Count);
+        
+        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
+        
+    }
+    
+    [Fact]
     public async Task Paginate_GetBookmarks()
     {
         var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
@@ -52,6 +264,420 @@ public class UsersPaginationTests
         
 
         var paginator = client.Users.GetBookmarksPages("test_id");
+        var pages = 0;
+        await foreach (var page in paginator)
+        {
+            object? boxed = page;
+            Assert.NotNull(boxed);
+            pages++;
+            if (pages > 5) break;
+        }
+
+        Assert.Equal(2, pages);
+        Assert.Equal(2, handler.Requests.Count);
+        
+        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
+        
+    }
+    
+    [Fact]
+    public async Task Paginate_GetBookmarkFolders()
+    {
+        var itemJson = "{\"id\":\"test_value\",\"name\":\"test_value\"}";
+        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
+        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
+        var callIndex = 0;
+
+        var handler = new MockHttpMessageHandler(_ =>
+        {
+            callIndex++;
+            var body = callIndex == 1 ? page1 : page2;
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(body, Encoding.UTF8, "application/json"),
+            };
+        });
+
+        using var httpClient = new HttpClient(handler);
+        using var client = new XClient(new XClientOptions
+        {
+            BaseUrl = "https://api.example.com",
+            BearerToken = "test-bearer",
+            AccessToken = "test-access",
+            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
+            HttpClient = httpClient,
+        });
+
+        
+        
+        
+        
+        
+        
+        
+
+        var paginator = client.Users.GetBookmarkFoldersPages("test_id");
+        var pages = 0;
+        await foreach (var page in paginator)
+        {
+            object? boxed = page;
+            Assert.NotNull(boxed);
+            pages++;
+            if (pages > 5) break;
+        }
+
+        Assert.Equal(2, pages);
+        Assert.Equal(2, handler.Requests.Count);
+        
+        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
+        
+    }
+    
+    [Fact]
+    public async Task Paginate_GetLikedPosts()
+    {
+        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
+        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
+        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
+        var callIndex = 0;
+
+        var handler = new MockHttpMessageHandler(_ =>
+        {
+            callIndex++;
+            var body = callIndex == 1 ? page1 : page2;
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(body, Encoding.UTF8, "application/json"),
+            };
+        });
+
+        using var httpClient = new HttpClient(handler);
+        using var client = new XClient(new XClientOptions
+        {
+            BaseUrl = "https://api.example.com",
+            BearerToken = "test-bearer",
+            AccessToken = "test-access",
+            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
+            HttpClient = httpClient,
+        });
+
+        
+        
+        
+        
+        
+        
+        
+
+        var paginator = client.Users.GetLikedPostsPages("test_id");
+        var pages = 0;
+        await foreach (var page in paginator)
+        {
+            object? boxed = page;
+            Assert.NotNull(boxed);
+            pages++;
+            if (pages > 5) break;
+        }
+
+        Assert.Equal(2, pages);
+        Assert.Equal(2, handler.Requests.Count);
+        
+        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
+        
+    }
+    
+    [Fact]
+    public async Task Paginate_GetOwnedLists()
+    {
+        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
+        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
+        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
+        var callIndex = 0;
+
+        var handler = new MockHttpMessageHandler(_ =>
+        {
+            callIndex++;
+            var body = callIndex == 1 ? page1 : page2;
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(body, Encoding.UTF8, "application/json"),
+            };
+        });
+
+        using var httpClient = new HttpClient(handler);
+        using var client = new XClient(new XClientOptions
+        {
+            BaseUrl = "https://api.example.com",
+            BearerToken = "test-bearer",
+            AccessToken = "test-access",
+            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
+            HttpClient = httpClient,
+        });
+
+        
+        
+        
+        
+        
+        
+        
+
+        var paginator = client.Users.GetOwnedListsPages("test_id");
+        var pages = 0;
+        await foreach (var page in paginator)
+        {
+            object? boxed = page;
+            Assert.NotNull(boxed);
+            pages++;
+            if (pages > 5) break;
+        }
+
+        Assert.Equal(2, pages);
+        Assert.Equal(2, handler.Requests.Count);
+        
+        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
+        
+    }
+    
+    [Fact]
+    public async Task Paginate_GetMeFollowers()
+    {
+        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
+        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
+        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
+        var callIndex = 0;
+
+        var handler = new MockHttpMessageHandler(_ =>
+        {
+            callIndex++;
+            var body = callIndex == 1 ? page1 : page2;
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(body, Encoding.UTF8, "application/json"),
+            };
+        });
+
+        using var httpClient = new HttpClient(handler);
+        using var client = new XClient(new XClientOptions
+        {
+            BaseUrl = "https://api.example.com",
+            BearerToken = "test-bearer",
+            AccessToken = "test-access",
+            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
+            HttpClient = httpClient,
+        });
+
+        
+        
+
+        var paginator = client.Users.GetMeFollowersPages();
+        var pages = 0;
+        await foreach (var page in paginator)
+        {
+            object? boxed = page;
+            Assert.NotNull(boxed);
+            pages++;
+            if (pages > 5) break;
+        }
+
+        Assert.Equal(2, pages);
+        Assert.Equal(2, handler.Requests.Count);
+        
+        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
+        
+    }
+    
+    [Fact]
+    public async Task Paginate_GetMuting()
+    {
+        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
+        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
+        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
+        var callIndex = 0;
+
+        var handler = new MockHttpMessageHandler(_ =>
+        {
+            callIndex++;
+            var body = callIndex == 1 ? page1 : page2;
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(body, Encoding.UTF8, "application/json"),
+            };
+        });
+
+        using var httpClient = new HttpClient(handler);
+        using var client = new XClient(new XClientOptions
+        {
+            BaseUrl = "https://api.example.com",
+            BearerToken = "test-bearer",
+            AccessToken = "test-access",
+            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
+            HttpClient = httpClient,
+        });
+
+        
+        
+        
+        
+        
+        
+        
+
+        var paginator = client.Users.GetMutingPages("test_id");
+        var pages = 0;
+        await foreach (var page in paginator)
+        {
+            object? boxed = page;
+            Assert.NotNull(boxed);
+            pages++;
+            if (pages > 5) break;
+        }
+
+        Assert.Equal(2, pages);
+        Assert.Equal(2, handler.Requests.Count);
+        
+        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
+        
+    }
+    
+    [Fact]
+    public async Task Paginate_GetRepostsOfMe()
+    {
+        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
+        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
+        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
+        var callIndex = 0;
+
+        var handler = new MockHttpMessageHandler(_ =>
+        {
+            callIndex++;
+            var body = callIndex == 1 ? page1 : page2;
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(body, Encoding.UTF8, "application/json"),
+            };
+        });
+
+        using var httpClient = new HttpClient(handler);
+        using var client = new XClient(new XClientOptions
+        {
+            BaseUrl = "https://api.example.com",
+            BearerToken = "test-bearer",
+            AccessToken = "test-access",
+            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
+            HttpClient = httpClient,
+        });
+
+        
+        
+
+        var paginator = client.Users.GetRepostsOfMePages();
+        var pages = 0;
+        await foreach (var page in paginator)
+        {
+            object? boxed = page;
+            Assert.NotNull(boxed);
+            pages++;
+            if (pages > 5) break;
+        }
+
+        Assert.Equal(2, pages);
+        Assert.Equal(2, handler.Requests.Count);
+        
+        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
+        
+    }
+    
+    [Fact]
+    public async Task Paginate_GetBookmarksByFolderId()
+    {
+        var itemJson = "{\"id\":\"test_value\"}";
+        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
+        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
+        var callIndex = 0;
+
+        var handler = new MockHttpMessageHandler(_ =>
+        {
+            callIndex++;
+            var body = callIndex == 1 ? page1 : page2;
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(body, Encoding.UTF8, "application/json"),
+            };
+        });
+
+        using var httpClient = new HttpClient(handler);
+        using var client = new XClient(new XClientOptions
+        {
+            BaseUrl = "https://api.example.com",
+            BearerToken = "test-bearer",
+            AccessToken = "test-access",
+            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
+            HttpClient = httpClient,
+        });
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        var paginator = client.Users.GetBookmarksByFolderIdPages("test_id", "test_folderId");
+        var pages = 0;
+        await foreach (var page in paginator)
+        {
+            object? boxed = page;
+            Assert.NotNull(boxed);
+            pages++;
+            if (pages > 5) break;
+        }
+
+        Assert.Equal(2, pages);
+        Assert.Equal(2, handler.Requests.Count);
+        
+        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
+        
+    }
+    
+    [Fact]
+    public async Task Paginate_GetMeFollowing()
+    {
+        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
+        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
+        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
+        var callIndex = 0;
+
+        var handler = new MockHttpMessageHandler(_ =>
+        {
+            callIndex++;
+            var body = callIndex == 1 ? page1 : page2;
+            return new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent(body, Encoding.UTF8, "application/json"),
+            };
+        });
+
+        using var httpClient = new HttpClient(handler);
+        using var client = new XClient(new XClientOptions
+        {
+            BaseUrl = "https://api.example.com",
+            BearerToken = "test-bearer",
+            AccessToken = "test-access",
+            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
+            HttpClient = httpClient,
+        });
+
+        
+        
+
+        var paginator = client.Users.GetMeFollowingPages();
         var pages = 0;
         await foreach (var page in paginator)
         {
@@ -175,425 +801,6 @@ public class UsersPaginationTests
     }
     
     [Fact]
-    public async Task Paginate_GetTimeline()
-    {
-        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
-        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
-        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
-        var callIndex = 0;
-
-        var handler = new MockHttpMessageHandler(_ =>
-        {
-            callIndex++;
-            var body = callIndex == 1 ? page1 : page2;
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent(body, Encoding.UTF8, "application/json"),
-            };
-        });
-
-        using var httpClient = new HttpClient(handler);
-        using var client = new XClient(new XClientOptions
-        {
-            BaseUrl = "https://api.example.com",
-            BearerToken = "test-bearer",
-            AccessToken = "test-access",
-            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
-            HttpClient = httpClient,
-        });
-
-        
-        
-        
-        
-        
-        
-        
-
-        var paginator = client.Users.GetTimelinePages("test_id");
-        var pages = 0;
-        await foreach (var page in paginator)
-        {
-            object? boxed = page;
-            Assert.NotNull(boxed);
-            pages++;
-            if (pages > 5) break;
-        }
-
-        Assert.Equal(2, pages);
-        Assert.Equal(2, handler.Requests.Count);
-        
-        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
-        
-    }
-    
-    [Fact]
-    public async Task Paginate_GetMuting()
-    {
-        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
-        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
-        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
-        var callIndex = 0;
-
-        var handler = new MockHttpMessageHandler(_ =>
-        {
-            callIndex++;
-            var body = callIndex == 1 ? page1 : page2;
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent(body, Encoding.UTF8, "application/json"),
-            };
-        });
-
-        using var httpClient = new HttpClient(handler);
-        using var client = new XClient(new XClientOptions
-        {
-            BaseUrl = "https://api.example.com",
-            BearerToken = "test-bearer",
-            AccessToken = "test-access",
-            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
-            HttpClient = httpClient,
-        });
-
-        
-        
-        
-        
-        
-        
-        
-
-        var paginator = client.Users.GetMutingPages("test_id");
-        var pages = 0;
-        await foreach (var page in paginator)
-        {
-            object? boxed = page;
-            Assert.NotNull(boxed);
-            pages++;
-            if (pages > 5) break;
-        }
-
-        Assert.Equal(2, pages);
-        Assert.Equal(2, handler.Requests.Count);
-        
-        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
-        
-    }
-    
-    [Fact]
-    public async Task Paginate_GetBookmarksByFolderId()
-    {
-        var itemJson = "{\"id\":\"test_value\"}";
-        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
-        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
-        var callIndex = 0;
-
-        var handler = new MockHttpMessageHandler(_ =>
-        {
-            callIndex++;
-            var body = callIndex == 1 ? page1 : page2;
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent(body, Encoding.UTF8, "application/json"),
-            };
-        });
-
-        using var httpClient = new HttpClient(handler);
-        using var client = new XClient(new XClientOptions
-        {
-            BaseUrl = "https://api.example.com",
-            BearerToken = "test-bearer",
-            AccessToken = "test-access",
-            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
-            HttpClient = httpClient,
-        });
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        var paginator = client.Users.GetBookmarksByFolderIdPages("test_id", "test_folderId");
-        var pages = 0;
-        await foreach (var page in paginator)
-        {
-            object? boxed = page;
-            Assert.NotNull(boxed);
-            pages++;
-            if (pages > 5) break;
-        }
-
-        Assert.Equal(2, pages);
-        Assert.Equal(2, handler.Requests.Count);
-        
-        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
-        
-    }
-    
-    [Fact]
-    public async Task Paginate_GetLikedPosts()
-    {
-        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
-        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
-        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
-        var callIndex = 0;
-
-        var handler = new MockHttpMessageHandler(_ =>
-        {
-            callIndex++;
-            var body = callIndex == 1 ? page1 : page2;
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent(body, Encoding.UTF8, "application/json"),
-            };
-        });
-
-        using var httpClient = new HttpClient(handler);
-        using var client = new XClient(new XClientOptions
-        {
-            BaseUrl = "https://api.example.com",
-            BearerToken = "test-bearer",
-            AccessToken = "test-access",
-            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
-            HttpClient = httpClient,
-        });
-
-        
-        
-        
-        
-        
-        
-        
-
-        var paginator = client.Users.GetLikedPostsPages("test_id");
-        var pages = 0;
-        await foreach (var page in paginator)
-        {
-            object? boxed = page;
-            Assert.NotNull(boxed);
-            pages++;
-            if (pages > 5) break;
-        }
-
-        Assert.Equal(2, pages);
-        Assert.Equal(2, handler.Requests.Count);
-        
-        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
-        
-    }
-    
-    [Fact]
-    public async Task Paginate_GetRepostsOfMe()
-    {
-        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
-        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
-        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
-        var callIndex = 0;
-
-        var handler = new MockHttpMessageHandler(_ =>
-        {
-            callIndex++;
-            var body = callIndex == 1 ? page1 : page2;
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent(body, Encoding.UTF8, "application/json"),
-            };
-        });
-
-        using var httpClient = new HttpClient(handler);
-        using var client = new XClient(new XClientOptions
-        {
-            BaseUrl = "https://api.example.com",
-            BearerToken = "test-bearer",
-            AccessToken = "test-access",
-            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
-            HttpClient = httpClient,
-        });
-
-        
-        
-
-        var paginator = client.Users.GetRepostsOfMePages();
-        var pages = 0;
-        await foreach (var page in paginator)
-        {
-            object? boxed = page;
-            Assert.NotNull(boxed);
-            pages++;
-            if (pages > 5) break;
-        }
-
-        Assert.Equal(2, pages);
-        Assert.Equal(2, handler.Requests.Count);
-        
-        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
-        
-    }
-    
-    [Fact]
-    public async Task Paginate_GetFollowing()
-    {
-        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
-        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
-        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
-        var callIndex = 0;
-
-        var handler = new MockHttpMessageHandler(_ =>
-        {
-            callIndex++;
-            var body = callIndex == 1 ? page1 : page2;
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent(body, Encoding.UTF8, "application/json"),
-            };
-        });
-
-        using var httpClient = new HttpClient(handler);
-        using var client = new XClient(new XClientOptions
-        {
-            BaseUrl = "https://api.example.com",
-            BearerToken = "test-bearer",
-            AccessToken = "test-access",
-            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
-            HttpClient = httpClient,
-        });
-
-        
-        
-        
-        
-        
-        
-        
-
-        var paginator = client.Users.GetFollowingPages("test_id");
-        var pages = 0;
-        await foreach (var page in paginator)
-        {
-            object? boxed = page;
-            Assert.NotNull(boxed);
-            pages++;
-            if (pages > 5) break;
-        }
-
-        Assert.Equal(2, pages);
-        Assert.Equal(2, handler.Requests.Count);
-        
-        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
-        
-    }
-    
-    [Fact]
-    public async Task Paginate_GetAffiliates()
-    {
-        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
-        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
-        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
-        var callIndex = 0;
-
-        var handler = new MockHttpMessageHandler(_ =>
-        {
-            callIndex++;
-            var body = callIndex == 1 ? page1 : page2;
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent(body, Encoding.UTF8, "application/json"),
-            };
-        });
-
-        using var httpClient = new HttpClient(handler);
-        using var client = new XClient(new XClientOptions
-        {
-            BaseUrl = "https://api.example.com",
-            BearerToken = "test-bearer",
-            AccessToken = "test-access",
-            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
-            HttpClient = httpClient,
-        });
-
-        
-        
-        
-        
-        
-        
-        
-
-        var paginator = client.Users.GetAffiliatesPages("test_id");
-        var pages = 0;
-        await foreach (var page in paginator)
-        {
-            object? boxed = page;
-            Assert.NotNull(boxed);
-            pages++;
-            if (pages > 5) break;
-        }
-
-        Assert.Equal(2, pages);
-        Assert.Equal(2, handler.Requests.Count);
-        
-        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
-        
-    }
-    
-    [Fact]
-    public async Task Paginate_GetMeFollowers()
-    {
-        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
-        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
-        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
-        var callIndex = 0;
-
-        var handler = new MockHttpMessageHandler(_ =>
-        {
-            callIndex++;
-            var body = callIndex == 1 ? page1 : page2;
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent(body, Encoding.UTF8, "application/json"),
-            };
-        });
-
-        using var httpClient = new HttpClient(handler);
-        using var client = new XClient(new XClientOptions
-        {
-            BaseUrl = "https://api.example.com",
-            BearerToken = "test-bearer",
-            AccessToken = "test-access",
-            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
-            HttpClient = httpClient,
-        });
-
-        
-        
-
-        var paginator = client.Users.GetMeFollowersPages();
-        var pages = 0;
-        await foreach (var page in paginator)
-        {
-            object? boxed = page;
-            Assert.NotNull(boxed);
-            pages++;
-            if (pages > 5) break;
-        }
-
-        Assert.Equal(2, pages);
-        Assert.Equal(2, handler.Requests.Count);
-        
-        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
-        
-    }
-    
-    [Fact]
     public async Task Paginate_Search()
     {
         var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
@@ -647,60 +854,7 @@ public class UsersPaginationTests
     }
     
     [Fact]
-    public async Task Paginate_GetBookmarkFolders()
-    {
-        var itemJson = "{\"id\":\"test_value\",\"name\":\"test_value\"}";
-        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
-        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
-        var callIndex = 0;
-
-        var handler = new MockHttpMessageHandler(_ =>
-        {
-            callIndex++;
-            var body = callIndex == 1 ? page1 : page2;
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent(body, Encoding.UTF8, "application/json"),
-            };
-        });
-
-        using var httpClient = new HttpClient(handler);
-        using var client = new XClient(new XClientOptions
-        {
-            BaseUrl = "https://api.example.com",
-            BearerToken = "test-bearer",
-            AccessToken = "test-access",
-            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
-            HttpClient = httpClient,
-        });
-
-        
-        
-        
-        
-        
-        
-        
-
-        var paginator = client.Users.GetBookmarkFoldersPages("test_id");
-        var pages = 0;
-        await foreach (var page in paginator)
-        {
-            object? boxed = page;
-            Assert.NotNull(boxed);
-            pages++;
-            if (pages > 5) break;
-        }
-
-        Assert.Equal(2, pages);
-        Assert.Equal(2, handler.Requests.Count);
-        
-        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
-        
-    }
-    
-    [Fact]
-    public async Task Paginate_GetMeFollowing()
+    public async Task Paginate_GetFollowedLists()
     {
         var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
         var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
@@ -729,8 +883,13 @@ public class UsersPaginationTests
 
         
         
+        
+        
+        
+        
+        
 
-        var paginator = client.Users.GetMeFollowingPages();
+        var paginator = client.Users.GetFollowedListsPages("test_id");
         var pages = 0;
         await foreach (var page in paginator)
         {
@@ -801,7 +960,7 @@ public class UsersPaginationTests
     }
     
     [Fact]
-    public async Task Paginate_GetPosts()
+    public async Task Paginate_GetFollowing()
     {
         var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
         var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
@@ -836,166 +995,7 @@ public class UsersPaginationTests
         
         
 
-        var paginator = client.Users.GetPostsPages("test_id");
-        var pages = 0;
-        await foreach (var page in paginator)
-        {
-            object? boxed = page;
-            Assert.NotNull(boxed);
-            pages++;
-            if (pages > 5) break;
-        }
-
-        Assert.Equal(2, pages);
-        Assert.Equal(2, handler.Requests.Count);
-        
-        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
-        
-    }
-    
-    [Fact]
-    public async Task Paginate_GetFollowers()
-    {
-        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
-        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
-        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
-        var callIndex = 0;
-
-        var handler = new MockHttpMessageHandler(_ =>
-        {
-            callIndex++;
-            var body = callIndex == 1 ? page1 : page2;
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent(body, Encoding.UTF8, "application/json"),
-            };
-        });
-
-        using var httpClient = new HttpClient(handler);
-        using var client = new XClient(new XClientOptions
-        {
-            BaseUrl = "https://api.example.com",
-            BearerToken = "test-bearer",
-            AccessToken = "test-access",
-            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
-            HttpClient = httpClient,
-        });
-
-        
-        
-        
-        
-        
-        
-        
-
-        var paginator = client.Users.GetFollowersPages("test_id");
-        var pages = 0;
-        await foreach (var page in paginator)
-        {
-            object? boxed = page;
-            Assert.NotNull(boxed);
-            pages++;
-            if (pages > 5) break;
-        }
-
-        Assert.Equal(2, pages);
-        Assert.Equal(2, handler.Requests.Count);
-        
-        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
-        
-    }
-    
-    [Fact]
-    public async Task Paginate_GetOwnedLists()
-    {
-        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
-        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
-        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
-        var callIndex = 0;
-
-        var handler = new MockHttpMessageHandler(_ =>
-        {
-            callIndex++;
-            var body = callIndex == 1 ? page1 : page2;
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent(body, Encoding.UTF8, "application/json"),
-            };
-        });
-
-        using var httpClient = new HttpClient(handler);
-        using var client = new XClient(new XClientOptions
-        {
-            BaseUrl = "https://api.example.com",
-            BearerToken = "test-bearer",
-            AccessToken = "test-access",
-            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
-            HttpClient = httpClient,
-        });
-
-        
-        
-        
-        
-        
-        
-        
-
-        var paginator = client.Users.GetOwnedListsPages("test_id");
-        var pages = 0;
-        await foreach (var page in paginator)
-        {
-            object? boxed = page;
-            Assert.NotNull(boxed);
-            pages++;
-            if (pages > 5) break;
-        }
-
-        Assert.Equal(2, pages);
-        Assert.Equal(2, handler.Requests.Count);
-        
-        Assert.Contains("pagination_token=tok_2", handler.Requests[1].RequestUri!.ToString());
-        
-    }
-    
-    [Fact]
-    public async Task Paginate_GetFollowedLists()
-    {
-        var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
-        var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
-        var page2 = "{\"data\":[" + itemJson + "],\"meta\":{\"result_count\":1}}";
-        var callIndex = 0;
-
-        var handler = new MockHttpMessageHandler(_ =>
-        {
-            callIndex++;
-            var body = callIndex == 1 ? page1 : page2;
-            return new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StringContent(body, Encoding.UTF8, "application/json"),
-            };
-        });
-
-        using var httpClient = new HttpClient(handler);
-        using var client = new XClient(new XClientOptions
-        {
-            BaseUrl = "https://api.example.com",
-            BearerToken = "test-bearer",
-            AccessToken = "test-access",
-            OAuth1 = new OAuth1("ck", "cs", "oob", "at", "ats"),
-            HttpClient = httpClient,
-        });
-
-        
-        
-        
-        
-        
-        
-        
-
-        var paginator = client.Users.GetFollowedListsPages("test_id");
+        var paginator = client.Users.GetFollowingPages("test_id");
         var pages = 0;
         await foreach (var page in paginator)
         {

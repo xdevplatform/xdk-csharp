@@ -9,7 +9,7 @@ Official C# / .NET SDK for the X API v2 (.NET 8+, zero external runtime dependen
 ## Installation
 
 ```bash
-dotnet add package XDevPlatform.Xdk --version 0.1.2
+dotnet add package XDevPlatform.Xdk --version 0.2.0
 ```
 
 ## Quick Start

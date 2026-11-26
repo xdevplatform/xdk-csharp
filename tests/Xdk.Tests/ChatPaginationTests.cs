@@ -16,7 +16,7 @@ public class ChatPaginationTests
 {
     
     [Fact]
-    public async Task Paginate_GetConversations()
+    public async Task Paginate_GetConversationEvents()
     {
         var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
         var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
@@ -45,8 +45,13 @@ public class ChatPaginationTests
 
         
         
+        
+        
+        
+        
+        
 
-        var paginator = client.Chat.GetConversationsPages();
+        var paginator = client.Chat.GetConversationEventsPages("test_id");
         var pages = 0;
         await foreach (var page in paginator)
         {
@@ -112,7 +117,7 @@ public class ChatPaginationTests
     }
     
     [Fact]
-    public async Task Paginate_GetConversationEvents()
+    public async Task Paginate_GetConversations()
     {
         var itemJson = "{\"id\": \"1\", \"name\": \"Item 1\"}";
         var page1 = "{\"data\":[" + itemJson + "," + itemJson + "],\"meta\":{\"next_token\":\"tok_2\",\"result_count\":2}}";
@@ -141,13 +146,8 @@ public class ChatPaginationTests
 
         
         
-        
-        
-        
-        
-        
 
-        var paginator = client.Chat.GetConversationEventsPages("test_id");
+        var paginator = client.Chat.GetConversationsPages();
         var pages = 0;
         await foreach (var page in paginator)
         {

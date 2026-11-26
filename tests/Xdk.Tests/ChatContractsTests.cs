@@ -55,300 +55,6 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
 
     
     [Fact]
-    public async Task Contract_SendMessage()
-    {
-        
-        var mockJson = "{\"data\":{\"encoded_message_event\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            201,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"content\":{\"message\":{\"text\":\"Hello from XDK!\"},\"reaction_add\":{\"emoji\":\"test_value\",\"event_id\":\"test_value\"},\"reaction_remove\":{\"emoji\":\"test_value\",\"event_id\":\"test_value\"}},\"conversation_token\":\"test_value\",\"encoded_message_create_event\":\"test_value\",\"encoded_message_event_signature\":\"test_value\",\"message_id\":\"test_value\",\"xdk_version\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<SendChatMessageRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.SendMessageAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_AcceptMessageRequest()
-    {
-        
-        var mockJson = "{\"data\":{\"accepted\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.AcceptMessageRequestAsync("test_id");
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/chat/message_requests/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_CreateConversation()
-    {
-        
-        var mockJson = "{\"data\":{\"conversation_id\":\"test_value\",\"conversation_key_change_sequence_id\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            201,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"base64_encoded_key_rotation\":\"test_value\",\"conversation_id\":\"test_value\",\"conversation_key_version\":\"test_value\",\"conversation_participant_keys\":[{\"encrypted_conversation_key\":\"test_value\",\"public_key_version\":\"test_value\",\"user_id\":\"1234567890\"}],\"group_admins\":[\"test_value\"],\"group_avatar_url\":\"test_value\",\"group_description\":\"test_value\",\"group_members\":[\"test_value\"],\"group_name\":\"test_value\",\"ttl_msec\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<CreateChatConversationRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.CreateConversationAsync(reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/chat/conversations/group", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_CreateGroupJoinRequest()
-    {
-        
-        var mockJson = "{\"data\":{\"requested\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"token\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<CreateChatGroupJoinRequestRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.CreateGroupJoinRequestAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetConversations()
-    {
-        
-        var mockJson = "{\"data\":[{\"admin_ids\":[\"test_value\"],\"admin_settings\":{},\"created_at\":\"2025-01-15T12:00:00.000Z\",\"group_avatar_url\":\"test_value\",\"group_description\":\"test_value\",\"group_description_key_version\":\"test_value\",\"group_name\":\"test_value\",\"id\":\"1234567890\",\"invite\":{\"invite_url\":\"test_value\"},\"is_archived\":true,\"is_muted\":true,\"last_read_event_id\":\"test_value\",\"member_ids\":[\"test_value\"],\"message_ttl_ms\":5000000000,\"newest_event_id\":\"test_value\",\"participant_ids\":[\"test_value\"],\"pending_member_ids\":[\"test_value\"],\"screen_capture_blocking_enabled\":true,\"screen_capture_detection_enabled\":true,\"type\":\"test_value\",\"unread\":true,\"updated_at\":\"2025-01-15T12:00:00.000Z\"}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"has_message_requests\":true,\"has_more\":true,\"result_count\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new ChatClient.GetConversationsOptions();
-        options.Headers["X-Contract-Operation"] = "GetConversations";
-        
-        
-        
-        options.MaxResults = 10;
-        
-        
-        
-        
-        options.PaginationToken = "opt_paginationToken";
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.GetConversationsAsync(options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/chat/conversations", captured.Path);
-        
-        Assert.Equal("GetConversations", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
     public async Task Contract_ArchiveConversation()
     {
         
@@ -407,7 +113,7 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_UnarchiveConversation()
+    public async Task Contract_UnarchiveConversationLegacy()
     {
         
         var mockJson = "{\"data\":{\"archived\":true}}";
@@ -419,7 +125,7 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         
         
         var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
-        var reqBody = JsonSerializer.Deserialize<UnarchiveChatConversationRequest>(reqMockJson, _client.JsonOptions)!;
+        var reqBody = JsonSerializer.Deserialize<UnarchiveChatConversationLegacyRequest>(reqMockJson, _client.JsonOptions)!;
         
         
 
@@ -440,7 +146,7 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         
 
         
-        var result = await _client.Chat.UnarchiveConversationAsync("test_id", reqBody);
+        var result = await _client.Chat.UnarchiveConversationLegacyAsync("test_id", reqBody);
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -465,82 +171,19 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_RejectGroupAdminRequest()
+    public async Task Contract_SendMessage()
     {
         
-        var mockJson = "{\"data\":{\"rejected\":true}}";
+        var mockJson = "{\"data\":{\"encoded_message_event\":\"test_value\"}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
+            201,
             mockJson));
         
 
         
         
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
-        var reqBody = JsonSerializer.Deserialize<RejectChatGroupAdminRequestRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.RejectGroupAdminRequestAsync("test_id", "test_userId", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_AddConversationKeys()
-    {
-        
-        var mockJson = "{\"data\":{\"conversation_id\":\"test_value\",\"sequence_id\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"base64_encoded_key_rotation\":\"test_value\",\"conversation_key_version\":\"test_value\",\"conversation_participant_keys\":[{\"encrypted_conversation_key\":\"test_value\",\"public_key_version\":\"test_value\",\"user_id\":\"1234567890\"}]}";
-        var reqBody = JsonSerializer.Deserialize<AddConversationKeysRequest>(reqMockJson, _client.JsonOptions)!;
+        var reqMockJson = "{\"content\":{\"message\":{\"text\":\"Hello from XDK!\"},\"reaction_add\":{\"emoji\":\"test_value\",\"event_id\":\"test_value\"},\"reaction_remove\":{\"emoji\":\"test_value\",\"event_id\":\"test_value\"}},\"conversation_token\":\"test_value\",\"encoded_message_create_event\":\"test_value\",\"encoded_message_event_signature\":\"test_value\",\"message_id\":\"test_value\",\"xdk_version\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<SendChatMessageRequest>(reqMockJson, _client.JsonOptions)!;
         
         
 
@@ -561,65 +204,7 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         
 
         
-        var result = await _client.Chat.AddConversationKeysAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_RejectGroupJoinRequests()
-    {
-        
-        var mockJson = "{\"data\":{\"rejected\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"user_ids\":[\"test_value\"]}";
-        var reqBody = JsonSerializer.Deserialize<RejectChatGroupJoinRequestsRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.RejectGroupJoinRequestsAsync("test_id", reqBody);
+        var result = await _client.Chat.SendMessageAsync("test_id", reqBody);
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -679,129 +264,6 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         Assert.NotNull(captured);
         Assert.Equal("POST", captured!.Method);
         Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_UpdateConversationScreenCapture()
-    {
-        
-        var mockJson = "{\"data\":{\"blocking\":true,\"detection\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"blocking\":true,\"blocking_action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"detection\":true,\"detection_action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
-        var reqBody = JsonSerializer.Deserialize<UpdateChatConversationScreenCaptureRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.UpdateConversationScreenCaptureAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("PUT", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetConversationPinnedMessages()
-    {
-        
-        var mockJson = "{\"data\":[{\"encoded_event\":\"test_value\"}],\"meta\":{\"result_count\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new ChatClient.GetConversationPinnedMessagesOptions();
-        options.Headers["X-Contract-Operation"] = "GetConversationPinnedMessages";
-        
-        
-        
-        options.PaginationToken = "opt_paginationToken";
-        
-        
-        
-        
-        options.ChatPinnedMessageFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.GetConversationPinnedMessagesAsync("test_id", options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        Assert.Equal("GetConversationPinnedMessages", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -904,6 +366,1819 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         Assert.NotNull(captured);
         Assert.Equal("PUT", captured!.Method);
         Assert.Contains("/2/chat/settings", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetConversationEvents()
+    {
+        
+        var mockJson = "{\"data\":[{\"conversation_id\":\"test_value\",\"conversation_key_version\":\"test_value\",\"conversation_token\":\"test_value\",\"created_at\":\"2025-01-15T12:00:00.000Z\",\"encoded_event\":\"test_value\",\"id\":\"1234567890\",\"is_trusted\":true,\"message_event_signature\":{},\"previous_id\":\"test_value\",\"sender_id\":\"test_value\"}],\"meta\":{\"conversation_key_events\":[\"test_value\"],\"has_more\":true,\"result_count\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new ChatClient.GetConversationEventsOptions();
+        options.Headers["X-Contract-Operation"] = "GetConversationEvents";
+        
+        
+        
+        options.MaxResults = 10;
+        
+        
+        
+        
+        options.PaginationToken = "opt_paginationToken";
+        
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.GetConversationEventsAsync("test_id", options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        Assert.Equal("GetConversationEvents", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_AddGroupMembers()
+    {
+        
+        var mockJson = "{\"data\":{\"article\":{},\"article_title\":{},\"attachments\":{\"media_keys\":[\"test_value\"],\"media_source_tweet_id\":[\"test_value\"],\"poll_ids\":[\"test_value\"]},\"author_id\":\"test_value\",\"card_uri\":\"test_value\",\"community_id\":\"test_value\",\"context_annotations\":[{\"domain\":{\"id\":\"1234567890\",\"name\":\"test_value\"},\"entity\":{\"id\":\"1234567890\",\"name\":\"test_value\"}}],\"conversation_id\":\"test_value\",\"created_at\":\"2025-01-15T12:00:00.000Z\",\"display_text_range\":[1],\"edit_controls\":{\"editable_until\":\"test_value\",\"edits_remaining\":1,\"is_edit_eligible\":true},\"edit_history_post_ids\":[\"test_value\"],\"entities\":{\"cashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"hashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"mentions\":[{\"end\":1,\"id\":\"1234567890\",\"start\":1,\"username\":\"XDevelopers\"}],\"urls\":[{\"end\":1,\"start\":1}]},\"geo\":{\"coordinates\":{\"coordinates\":[1.5],\"type\":\"Point\"},\"place_id\":\"test_value\"},\"id\":\"1234567890\",\"in_reply_to_user_id\":\"test_value\",\"lang\":\"test_value\",\"matched_media_notes\":[{}],\"media_metadata\":[{}],\"non_public_metrics\":{},\"note_post\":{\"entities\":{},\"text\":\"Hello from XDK!\"},\"note_request_suggestions\":[{}],\"organic_metrics\":{},\"paid_partnership\":true,\"possibly_sensitive\":true,\"promoted_metrics\":{},\"public_metrics\":{\"bookmark_count\":1,\"impression_count\":1,\"like_count\":1,\"quote_count\":1,\"reply_count\":1,\"repost_count\":1},\"referenced_posts\":[{\"id\":\"1234567890\",\"type\":\"retweeted\"}],\"reply_settings\":\"test_value\",\"scopes\":{\"followers\":true},\"source\":\"test_value\",\"suggested_source_links\":[\"test_value\"],\"suggested_source_links_with_counts\":[{}],\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\",\"withheld\":{\"copyright\":true,\"country_codes\":[\"test_value\"],\"scope\":\"post\"}}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"conversation_key_version\":\"test_value\",\"conversation_participant_keys\":[{\"encrypted_conversation_key\":\"test_value\",\"public_key_version\":\"test_value\",\"user_id\":\"1234567890\"}],\"encrypted_avatar_url\":\"test_value\",\"encrypted_title\":\"test_value\",\"user_ids\":[\"test_value\"]}";
+        var reqBody = JsonSerializer.Deserialize<AddChatGroupMembersRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.AddGroupMembersAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetConversationPinnedMessages()
+    {
+        
+        var mockJson = "{\"data\":[{\"encoded_event\":\"test_value\"}],\"meta\":{\"result_count\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new ChatClient.GetConversationPinnedMessagesOptions();
+        options.Headers["X-Contract-Operation"] = "GetConversationPinnedMessages";
+        
+        
+        
+        options.PaginationToken = "opt_paginationToken";
+        
+        
+        
+        
+        options.ChatPinnedMessageFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.GetConversationPinnedMessagesAsync("test_id", options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        Assert.Equal("GetConversationPinnedMessages", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_RemoveGroupAdmins()
+    {
+        
+        var mockJson = "{\"data\":{\"removed\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"user_ids\":[\"test_value\"]}";
+        var reqBody = JsonSerializer.Deserialize<RemoveChatGroupAdminsRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.RemoveGroupAdminsAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_MediaDownload()
+    {
+        
+        var expectedBinary = new byte[] { 0x00, 0x01, 0x58, 0x44, 0x4B, 0xFF };
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Bytes(
+            200,
+            "application/octet-stream",
+            expectedBinary));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.MediaDownloadAsync("test_id", "test_mediaHashKey");
+        Assert.Equal(expectedBinary, result);
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/chat/media/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_UpdateConversationScreenCapture()
+    {
+        
+        var mockJson = "{\"data\":{\"blocking\":true,\"detection\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"blocking\":true,\"blocking_action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"detection\":true,\"detection_action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
+        var reqBody = JsonSerializer.Deserialize<UpdateChatConversationScreenCaptureRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.UpdateConversationScreenCaptureAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("PUT", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_DeleteMessages()
+    {
+        
+        var mockJson = "{\"data\":{\"deleted\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"delete_message_action\":\"delete_for_all\",\"media_hash_keys\":[\"test_value\"],\"sequence_ids\":[\"test_value\"]}";
+        var reqBody = JsonSerializer.Deserialize<DeleteChatMessagesRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.DeleteMessagesAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_DeleteConversation()
+    {
+        
+        var mockJson = "{\"data\":{\"deleted\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
+        var reqBody = JsonSerializer.Deserialize<DeleteChatConversationRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.DeleteConversationAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetGroupInvite()
+    {
+        
+        var mockJson = "{\"data\":{\"conversation_id\":\"test_value\",\"expires_at\":\"test_value\",\"group_avatar_url\":\"test_value\",\"group_name\":\"test_value\",\"invite_url\":\"test_value\",\"join_state\":\"test_value\",\"member_count\":1,\"token\":\"test_value\",\"welcome_message\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new ChatClient.GetGroupInviteOptions();
+        options.Headers["X-Contract-Operation"] = "GetGroupInvite";
+        
+        
+        
+        options.ChatGroupInviteFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.GetGroupInviteAsync("test_id", "test_token", options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        Assert.Equal("GetGroupInvite", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetMessageRequests()
+    {
+        
+        var mockJson = "{\"data\":[{\"conversation_id\":\"test_value\",\"conversation_key_events\":[\"test_value\"],\"encoded_message_create_event\":\"test_value\",\"has_more_events\":true,\"message_events\":[\"test_value\"],\"sender_id\":\"test_value\",\"sender_recently_modified_profile\":true,\"social_proof_user_ids\":[\"test_value\"]}],\"meta\":{\"result_count\":1,\"total_count\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new ChatClient.GetMessageRequestsOptions();
+        options.Headers["X-Contract-Operation"] = "GetMessageRequests";
+        
+        
+        
+        options.InboxType = "opt_inboxType";
+        
+        
+        
+        
+        options.MaxResults = 10;
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.GetMessageRequestsAsync(options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/chat/message_requests", captured.Path);
+        
+        Assert.Equal("GetMessageRequests", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_AddConversationKeys()
+    {
+        
+        var mockJson = "{\"data\":{\"conversation_id\":\"test_value\",\"sequence_id\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"base64_encoded_key_rotation\":\"test_value\",\"conversation_key_version\":\"test_value\",\"conversation_participant_keys\":[{\"encrypted_conversation_key\":\"test_value\",\"public_key_version\":\"test_value\",\"user_id\":\"1234567890\"}]}";
+        var reqBody = JsonSerializer.Deserialize<AddConversationKeysRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.AddConversationKeysAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_RemoveGroupMembers()
+    {
+        
+        var mockJson = "{\"data\":{\"removed\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"group_key_rotation_data\":{\"base64_encoded_key_rotation\":\"test_value\",\"conversation_key_version\":\"test_value\",\"conversation_participant_keys\":[{\"encrypted_conversation_key\":\"test_value\",\"public_key_version\":\"test_value\",\"user_id\":\"1234567890\"}],\"encrypted_avatar\":\"test_value\",\"encrypted_description\":\"test_value\",\"encrypted_title\":\"test_value\",\"rotated_pmk_bundle\":[{\"base64_encoded_encrypted_pmk\":\"test_value\",\"message_sequence_id\":\"test_value\"}]},\"user_ids\":[\"test_value\"]}";
+        var reqBody = JsonSerializer.Deserialize<RemoveChatGroupMembersRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.RemoveGroupMembersAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_MediaUploadFinalize()
+    {
+        
+        var mockJson = "{\"data\":{\"success\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"conversation_id\":\"test_value\",\"media_hash_key\":\"test_value\",\"message_id\":\"test_value\",\"num_parts\":\"test_value\",\"ttl_msec\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<ChatMediaUploadFinalizeRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.MediaUploadFinalizeAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/media/upload/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_AddGroupAdmins()
+    {
+        
+        var mockJson = "{\"data\":{\"added\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"user_ids\":[\"test_value\"]}";
+        var reqBody = JsonSerializer.Deserialize<AddChatGroupAdminsRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.AddGroupAdminsAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_CreateConversation()
+    {
+        
+        var mockJson = "{\"data\":{\"conversation_id\":\"test_value\",\"conversation_key_change_sequence_id\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            201,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"base64_encoded_key_rotation\":\"test_value\",\"conversation_id\":\"test_value\",\"conversation_key_version\":\"test_value\",\"conversation_participant_keys\":[{\"encrypted_conversation_key\":\"test_value\",\"public_key_version\":\"test_value\",\"user_id\":\"1234567890\"}],\"group_admins\":[\"test_value\"],\"group_avatar_url\":\"test_value\",\"group_description\":\"test_value\",\"group_members\":[\"test_value\"],\"group_name\":\"test_value\",\"ttl_msec\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<CreateChatConversationRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.CreateConversationAsync(reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/group", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_MediaUploadInitialize()
+    {
+        
+        var mockJson = "{\"data\":{\"conversation_id\":\"test_value\",\"media_hash_key\":\"test_value\",\"session_id\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"conversation_id\":\"test_value\",\"total_bytes\":5000000000}";
+        var reqBody = JsonSerializer.Deserialize<ChatMediaUploadInitializeRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.MediaUploadInitializeAsync(reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/media/upload/initialize", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_CreateGroupJoinRequest()
+    {
+        
+        var mockJson = "{\"data\":{\"requested\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"token\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<CreateChatGroupJoinRequestRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.CreateGroupJoinRequestAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_ApproveGroupAdminRequest()
+    {
+        
+        var mockJson = "{\"data\":{\"approved\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
+        var reqBody = JsonSerializer.Deserialize<ApproveChatGroupAdminRequestRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.ApproveGroupAdminRequestAsync("test_id", "test_userId", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetMessageRequest()
+    {
+        
+        var mockJson = "{\"data\":{\"conversation_id\":\"test_value\",\"conversation_key_events\":[\"test_value\"],\"has_more_events\":true,\"message_events\":[\"test_value\"],\"message_request_state\":\"test_value\",\"participant_id\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new ChatClient.GetMessageRequestOptions();
+        options.Headers["X-Contract-Operation"] = "GetMessageRequest";
+        
+        
+        
+        options.ChatMessageRequestDetailFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.GetMessageRequestAsync("test_id", options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/chat/message_requests/", captured.Path);
+        
+        Assert.Equal("GetMessageRequest", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_RejectGroupAdminRequest()
+    {
+        
+        var mockJson = "{\"data\":{\"rejected\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
+        var reqBody = JsonSerializer.Deserialize<RejectChatGroupAdminRequestRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.RejectGroupAdminRequestAsync("test_id", "test_userId", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetGroupAdminRequests()
+    {
+        
+        var mockJson = "{\"data\":[{\"active_follower_count\":1,\"affiliation\":{},\"confirmed_email\":\"test_value\",\"connection_status\":[\"blocking\"],\"created_at\":\"2025-01-15T12:00:00.000Z\",\"description\":\"test_value\",\"entities\":{},\"id\":\"1234567890\",\"is_identity_verified\":true,\"location\":\"test_value\",\"most_recent_post_id\":\"test_value\",\"name\":\"test_value\",\"org_only\":true,\"parody\":true,\"pinned_post_id\":\"test_value\",\"profile_banner_url\":\"test_value\",\"profile_image_url\":\"test_value\",\"protected\":true,\"public_metrics\":{\"followers_count\":1,\"following_count\":1,\"listed_count\":1,\"post_count\":1},\"receives_your_chat\":\"test_value\",\"receives_your_dm\":true,\"subscriber_count\":1,\"subscribes_to_you\":true,\"subscription\":{\"subscribes_to_you\":true},\"subscription_type\":\"test_value\",\"url\":\"test_value\",\"username\":\"XDevelopers\",\"verified\":true,\"verified_followers_count\":1,\"verified_type\":\"test_value\",\"withheld\":{}}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"result_count\":1,\"total_count\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new ChatClient.GetGroupAdminRequestsOptions();
+        options.Headers["X-Contract-Operation"] = "GetGroupAdminRequests";
+        
+        
+        
+        options.PaginationToken = "opt_paginationToken";
+        
+        
+        
+        
+        options.UserFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.GetGroupAdminRequestsAsync("test_id", options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        Assert.Equal("GetGroupAdminRequests", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_CreateGroupAdminRequest()
+    {
+        
+        var mockJson = "{\"data\":{\"requested\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
+        var reqBody = JsonSerializer.Deserialize<CreateChatGroupAdminRequestRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.CreateGroupAdminRequestAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_UpdateGroupAdminSettings()
+    {
+        
+        var mockJson = "{\"data\":{\"updated\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"add_member\":true,\"block_screen_capture\":true,\"edit_group_info\":true,\"edit_message_ttl\":true,\"send_message\":true,\"start_call\":true}";
+        var reqBody = JsonSerializer.Deserialize<UpdateChatGroupAdminSettingsRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.UpdateGroupAdminSettingsAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("PUT", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_EnableGroupInvite()
+    {
+        
+        var mockJson = "{\"data\":{\"conversation_id\":\"test_value\",\"expires_at\":\"test_value\",\"group_avatar_url\":\"test_value\",\"group_name\":\"test_value\",\"invite_url\":\"test_value\",\"token\":\"test_value\",\"welcome_message\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"affiliate_user_id\":\"test_value\",\"decrypted_avatar_url\":\"test_value\",\"decrypted_title\":\"test_value\",\"invite_url\":\"test_value\",\"validity_duration_msec\":\"test_value\",\"validity_expiry_timestamp_msec\":\"test_value\",\"welcome_message\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<EnableChatGroupInviteRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.EnableGroupInviteAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_MediaUploadAppend()
+    {
+        
+        var mockJson = "{\"data\":{\"expires_at\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"conversation_id\":\"test_value\",\"media\":\"test_value\",\"media_hash_key\":\"test_value\",\"segment_index\":1}";
+        var reqBody = JsonSerializer.Deserialize<ChatMediaUploadAppendRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.MediaUploadAppendAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/media/upload/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_UpdateConversationMessageTtl()
+    {
+        
+        var mockJson = "{\"data\":{\"updated\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"message_ttl_ms\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<UpdateChatConversationMessageTtlRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.UpdateConversationMessageTtlAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("PUT", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_MuteConversation()
+    {
+        
+        var mockJson = "{\"data\":{\"muted\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
+        var reqBody = JsonSerializer.Deserialize<MuteChatConversationRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.MuteConversationAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_DisableGroupInvite()
+    {
+        
+        var mockJson = "{\"data\":{\"disabled\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
+        var reqBody = JsonSerializer.Deserialize<DisableChatGroupInviteRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.DisableGroupInviteAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_DeleteConversationMessageTtl()
+    {
+        
+        var mockJson = "{\"data\":{\"deleted\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
+        var reqBody = JsonSerializer.Deserialize<DeleteChatConversationMessageTtlRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.DeleteConversationMessageTtlAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_MarkConversationUnread()
+    {
+        
+        var mockJson = "{\"data\":{\"success\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.MarkConversationUnreadAsync("test_id");
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_RejectGroupJoinRequests()
+    {
+        
+        var mockJson = "{\"data\":{\"rejected\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"user_ids\":[\"test_value\"]}";
+        var reqBody = JsonSerializer.Deserialize<RejectChatGroupJoinRequestsRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Chat.RejectGroupJoinRequestsAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/chat/conversations/", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -1043,7 +2318,7 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_DeleteConversation()
+    public async Task Contract_DeleteConversationLegacy()
     {
         
         var mockJson = "{\"data\":{\"deleted\":true}}";
@@ -1055,7 +2330,7 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         
         
         var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
-        var reqBody = JsonSerializer.Deserialize<DeleteChatConversationRequest>(reqMockJson, _client.JsonOptions)!;
+        var reqBody = JsonSerializer.Deserialize<DeleteChatConversationLegacyRequest>(reqMockJson, _client.JsonOptions)!;
         
         
 
@@ -1076,7 +2351,7 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         
 
         
-        var result = await _client.Chat.DeleteConversationAsync("test_id", reqBody);
+        var result = await _client.Chat.DeleteConversationLegacyAsync("test_id", reqBody);
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -1086,233 +2361,6 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("DELETE", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_MediaUploadInitialize()
-    {
-        
-        var mockJson = "{\"data\":{\"conversation_id\":\"test_value\",\"media_hash_key\":\"test_value\",\"session_id\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"conversation_id\":\"test_value\",\"total_bytes\":5000000000}";
-        var reqBody = JsonSerializer.Deserialize<ChatMediaUploadInitializeRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.MediaUploadInitializeAsync(reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/chat/media/upload/initialize", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_MuteConversation()
-    {
-        
-        var mockJson = "{\"data\":{\"muted\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
-        var reqBody = JsonSerializer.Deserialize<MuteChatConversationRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.MuteConversationAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_UnmuteConversation()
-    {
-        
-        var mockJson = "{\"data\":{\"muted\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
-        var reqBody = JsonSerializer.Deserialize<UnmuteChatConversationRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.UnmuteConversationAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("DELETE", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_AddGroupAdmins()
-    {
-        
-        var mockJson = "{\"data\":{\"added\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"user_ids\":[\"test_value\"]}";
-        var reqBody = JsonSerializer.Deserialize<AddChatGroupAdminsRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.AddGroupAdminsAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
         Assert.Contains("/2/chat/conversations/", captured.Path);
         
         
@@ -1386,126 +2434,10 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_MediaUploadAppend()
+    public async Task Contract_UnarchiveConversation()
     {
         
-        var mockJson = "{\"data\":{\"expires_at\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"conversation_id\":\"test_value\",\"media\":\"test_value\",\"media_hash_key\":\"test_value\",\"segment_index\":1}";
-        var reqBody = JsonSerializer.Deserialize<ChatMediaUploadAppendRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.MediaUploadAppendAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/chat/media/upload/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_UpdateConversationMessageTtl()
-    {
-        
-        var mockJson = "{\"data\":{\"updated\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"message_ttl_ms\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<UpdateChatConversationMessageTtlRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.UpdateConversationMessageTtlAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("PUT", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_DeleteConversationMessageTtl()
-    {
-        
-        var mockJson = "{\"data\":{\"deleted\":true}}";
+        var mockJson = "{\"data\":{\"archived\":true}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
@@ -1514,7 +2446,7 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         
         
         var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
-        var reqBody = JsonSerializer.Deserialize<DeleteChatConversationMessageTtlRequest>(reqMockJson, _client.JsonOptions)!;
+        var reqBody = JsonSerializer.Deserialize<UnarchiveChatConversationRequest>(reqMockJson, _client.JsonOptions)!;
         
         
 
@@ -1535,70 +2467,7 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         
 
         
-        var result = await _client.Chat.DeleteConversationMessageTtlAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("DELETE", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_ApproveGroupAdminRequest()
-    {
-        
-        var mockJson = "{\"data\":{\"approved\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
-        var reqBody = JsonSerializer.Deserialize<ApproveChatGroupAdminRequestRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.ApproveGroupAdminRequestAsync("test_id", "test_userId", reqBody);
+        var result = await _client.Chat.UnarchiveConversationAsync("test_id", reqBody);
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -1623,68 +2492,10 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_DeleteMessages()
+    public async Task Contract_GetConversations()
     {
         
-        var mockJson = "{\"data\":{\"deleted\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"delete_message_action\":\"delete_for_all\",\"media_hash_keys\":[\"test_value\"],\"sequence_ids\":[\"test_value\"]}";
-        var reqBody = JsonSerializer.Deserialize<DeleteChatMessagesRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.DeleteMessagesAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetMessageRequests()
-    {
-        
-        var mockJson = "{\"data\":[{\"conversation_id\":\"test_value\",\"conversation_key_events\":[\"test_value\"],\"encoded_message_create_event\":\"test_value\",\"has_more_events\":true,\"message_events\":[\"test_value\"],\"sender_id\":\"test_value\",\"sender_recently_modified_profile\":true,\"social_proof_user_ids\":[\"test_value\"]}],\"meta\":{\"result_count\":1,\"total_count\":1}}";
+        var mockJson = "{\"data\":[{\"admin_ids\":[\"test_value\"],\"admin_settings\":{},\"created_at\":\"2025-01-15T12:00:00.000Z\",\"group_avatar_url\":\"test_value\",\"group_description\":\"test_value\",\"group_description_key_version\":\"test_value\",\"group_name\":\"test_value\",\"id\":\"1234567890\",\"invite\":{\"invite_url\":\"test_value\"},\"is_archived\":true,\"is_muted\":true,\"last_read_event_id\":\"test_value\",\"member_ids\":[\"test_value\"],\"message_ttl_ms\":5000000000,\"newest_event_id\":\"test_value\",\"participant_ids\":[\"test_value\"],\"pending_member_ids\":[\"test_value\"],\"screen_capture_blocking_enabled\":true,\"screen_capture_detection_enabled\":true,\"type\":\"test_value\",\"unread\":true,\"updated_at\":\"2025-01-15T12:00:00.000Z\"}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"has_message_requests\":true,\"has_more\":true,\"result_count\":1}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
@@ -1694,13 +2505,8 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
 
         
         
-        var options = new ChatClient.GetMessageRequestsOptions();
-        options.Headers["X-Contract-Operation"] = "GetMessageRequests";
-        
-        
-        
-        options.InboxType = "opt_inboxType";
-        
+        var options = new ChatClient.GetConversationsOptions();
+        options.Headers["X-Contract-Operation"] = "GetConversations";
         
         
         
@@ -1709,6 +2515,29 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         
         
         
+        options.PaginationToken = "opt_paginationToken";
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -1724,7 +2553,7 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         
 
         
-        var result = await _client.Chat.GetMessageRequestsAsync(options);
+        var result = await _client.Chat.GetConversationsAsync(options);
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -1734,9 +2563,9 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/chat/message_requests", captured.Path);
+        Assert.Contains("/2/chat/conversations", captured.Path);
         
-        Assert.Equal("GetMessageRequests", captured.FirstHeader("X-Contract-Operation"));
+        Assert.Equal("GetConversations", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -1841,21 +2670,16 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_AddGroupMembers()
+    public async Task Contract_AcceptMessageRequest()
     {
         
-        var mockJson = "{\"data\":{\"article\":{},\"article_title\":{},\"attachments\":{\"media_keys\":[\"test_value\"],\"media_source_tweet_id\":[\"test_value\"],\"poll_ids\":[\"test_value\"]},\"author_id\":\"test_value\",\"card_uri\":\"test_value\",\"community_id\":\"test_value\",\"context_annotations\":[{\"domain\":{\"id\":\"1234567890\",\"name\":\"test_value\"},\"entity\":{\"id\":\"1234567890\",\"name\":\"test_value\"}}],\"conversation_id\":\"test_value\",\"created_at\":\"2025-01-15T12:00:00.000Z\",\"display_text_range\":[1],\"edit_controls\":{\"editable_until\":\"test_value\",\"edits_remaining\":1,\"is_edit_eligible\":true},\"edit_history_post_ids\":[\"test_value\"],\"entities\":{\"cashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"hashtags\":[{\"end\":1,\"start\":1,\"tag\":\"test_value\"}],\"mentions\":[{\"end\":1,\"id\":\"1234567890\",\"start\":1,\"username\":\"XDevelopers\"}],\"urls\":[{\"end\":1,\"start\":1}]},\"geo\":{\"coordinates\":{\"coordinates\":[1.5],\"type\":\"Point\"},\"place_id\":\"test_value\"},\"id\":\"1234567890\",\"in_reply_to_user_id\":\"test_value\",\"lang\":\"test_value\",\"matched_media_notes\":[{}],\"media_metadata\":[{}],\"non_public_metrics\":{},\"note_post\":{\"entities\":{},\"text\":\"Hello from XDK!\"},\"note_request_suggestions\":[{}],\"organic_metrics\":{},\"paid_partnership\":true,\"possibly_sensitive\":true,\"promoted_metrics\":{},\"public_metrics\":{\"bookmark_count\":1,\"impression_count\":1,\"like_count\":1,\"quote_count\":1,\"reply_count\":1,\"repost_count\":1},\"referenced_posts\":[{\"id\":\"1234567890\",\"type\":\"retweeted\"}],\"reply_settings\":\"test_value\",\"scopes\":{\"followers\":true},\"source\":\"test_value\",\"suggested_source_links\":[\"test_value\"],\"suggested_source_links_with_counts\":[{}],\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\",\"withheld\":{\"copyright\":true,\"country_codes\":[\"test_value\"],\"scope\":\"post\"}}}";
+        var mockJson = "{\"data\":{\"accepted\":true}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
         
 
         
-        
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"conversation_key_version\":\"test_value\",\"conversation_participant_keys\":[{\"encrypted_conversation_key\":\"test_value\",\"public_key_version\":\"test_value\",\"user_id\":\"1234567890\"}],\"encrypted_avatar_url\":\"test_value\",\"encrypted_title\":\"test_value\",\"user_ids\":[\"test_value\"]}";
-        var reqBody = JsonSerializer.Deserialize<AddChatGroupMembersRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
 
         
 
@@ -1868,13 +2692,9 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         
         
         
-        
-        
-        
-        
 
         
-        var result = await _client.Chat.AddGroupMembersAsync("test_id", reqBody);
+        var result = await _client.Chat.AcceptMessageRequestAsync("test_id");
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -1884,197 +2704,8 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_RemoveGroupAdmins()
-    {
-        
-        var mockJson = "{\"data\":{\"removed\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"user_ids\":[\"test_value\"]}";
-        var reqBody = JsonSerializer.Deserialize<RemoveChatGroupAdminsRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.RemoveGroupAdminsAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetGroupInvite()
-    {
-        
-        var mockJson = "{\"data\":{\"conversation_id\":\"test_value\",\"expires_at\":\"test_value\",\"group_avatar_url\":\"test_value\",\"group_name\":\"test_value\",\"invite_url\":\"test_value\",\"join_state\":\"test_value\",\"member_count\":1,\"token\":\"test_value\",\"welcome_message\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new ChatClient.GetGroupInviteOptions();
-        options.Headers["X-Contract-Operation"] = "GetGroupInvite";
-        
-        
-        
-        options.ChatGroupInviteFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.GetGroupInviteAsync("test_id", "test_token", options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        Assert.Equal("GetGroupInvite", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetMessageRequest()
-    {
-        
-        var mockJson = "{\"data\":{\"conversation_id\":\"test_value\",\"conversation_key_events\":[\"test_value\"],\"has_more_events\":true,\"message_events\":[\"test_value\"],\"message_request_state\":\"test_value\",\"participant_id\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new ChatClient.GetMessageRequestOptions();
-        options.Headers["X-Contract-Operation"] = "GetMessageRequest";
-        
-        
-        
-        options.ChatMessageRequestDetailFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.GetMessageRequestAsync("test_id", options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
         Assert.Contains("/2/chat/message_requests/", captured.Path);
         
-        Assert.Equal("GetMessageRequest", captured.FirstHeader("X-Contract-Operation"));
-        
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
         
@@ -2082,79 +2713,10 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_GetGroupAdminRequests()
+    public async Task Contract_UnmuteConversation()
     {
         
-        var mockJson = "{\"data\":[{\"active_follower_count\":1,\"affiliation\":{},\"confirmed_email\":\"test_value\",\"connection_status\":[\"blocking\"],\"created_at\":\"2025-01-15T12:00:00.000Z\",\"description\":\"test_value\",\"entities\":{},\"id\":\"1234567890\",\"is_identity_verified\":true,\"location\":\"test_value\",\"most_recent_post_id\":\"test_value\",\"name\":\"test_value\",\"org_only\":true,\"parody\":true,\"pinned_post_id\":\"test_value\",\"profile_banner_url\":\"test_value\",\"profile_image_url\":\"test_value\",\"protected\":true,\"public_metrics\":{\"followers_count\":1,\"following_count\":1,\"listed_count\":1,\"post_count\":1},\"receives_your_chat\":\"test_value\",\"receives_your_dm\":true,\"subscriber_count\":1,\"subscribes_to_you\":true,\"subscription\":{\"subscribes_to_you\":true},\"subscription_type\":\"test_value\",\"url\":\"test_value\",\"username\":\"XDevelopers\",\"verified\":true,\"verified_followers_count\":1,\"verified_type\":\"test_value\",\"withheld\":{}}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"result_count\":1,\"total_count\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new ChatClient.GetGroupAdminRequestsOptions();
-        options.Headers["X-Contract-Operation"] = "GetGroupAdminRequests";
-        
-        
-        
-        options.PaginationToken = "opt_paginationToken";
-        
-        
-        
-        
-        options.UserFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.GetGroupAdminRequestsAsync("test_id", options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        Assert.Equal("GetGroupAdminRequests", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_CreateGroupAdminRequest()
-    {
-        
-        var mockJson = "{\"data\":{\"requested\":true}}";
+        var mockJson = "{\"data\":{\"muted\":true}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
@@ -2163,7 +2725,7 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         
         
         var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
-        var reqBody = JsonSerializer.Deserialize<CreateChatGroupAdminRequestRequest>(reqMockJson, _client.JsonOptions)!;
+        var reqBody = JsonSerializer.Deserialize<UnmuteChatConversationRequest>(reqMockJson, _client.JsonOptions)!;
         
         
 
@@ -2184,7 +2746,7 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         
 
         
-        var result = await _client.Chat.CreateGroupAdminRequestAsync("test_id", reqBody);
+        var result = await _client.Chat.UnmuteConversationAsync("test_id", reqBody);
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -2195,452 +2757,6 @@ public class ChatContractsTests : IClassFixture<ChatLoopbackFixture>
         Assert.NotNull(captured);
         Assert.Equal("POST", captured!.Method);
         Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_MarkConversationUnread()
-    {
-        
-        var mockJson = "{\"data\":{\"success\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.MarkConversationUnreadAsync("test_id");
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetConversationEvents()
-    {
-        
-        var mockJson = "{\"data\":[{\"conversation_id\":\"test_value\",\"conversation_key_version\":\"test_value\",\"conversation_token\":\"test_value\",\"created_at\":\"2025-01-15T12:00:00.000Z\",\"encoded_event\":\"test_value\",\"id\":\"1234567890\",\"is_trusted\":true,\"message_event_signature\":{},\"previous_id\":\"test_value\",\"sender_id\":\"test_value\"}],\"meta\":{\"conversation_key_events\":[\"test_value\"],\"has_more\":true,\"result_count\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new ChatClient.GetConversationEventsOptions();
-        options.Headers["X-Contract-Operation"] = "GetConversationEvents";
-        
-        
-        
-        options.MaxResults = 10;
-        
-        
-        
-        
-        options.PaginationToken = "opt_paginationToken";
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.GetConversationEventsAsync("test_id", options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        Assert.Equal("GetConversationEvents", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_MediaDownload()
-    {
-        
-        var expectedBinary = new byte[] { 0x00, 0x01, 0x58, 0x44, 0x4B, 0xFF };
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Bytes(
-            200,
-            "application/octet-stream",
-            expectedBinary));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.MediaDownloadAsync("test_id", "test_mediaHashKey");
-        Assert.Equal(expectedBinary, result);
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/chat/media/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_UpdateGroupAdminSettings()
-    {
-        
-        var mockJson = "{\"data\":{\"updated\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"add_member\":true,\"block_screen_capture\":true,\"edit_group_info\":true,\"edit_message_ttl\":true,\"send_message\":true,\"start_call\":true}";
-        var reqBody = JsonSerializer.Deserialize<UpdateChatGroupAdminSettingsRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.UpdateGroupAdminSettingsAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("PUT", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_EnableGroupInvite()
-    {
-        
-        var mockJson = "{\"data\":{\"conversation_id\":\"test_value\",\"expires_at\":\"test_value\",\"group_avatar_url\":\"test_value\",\"group_name\":\"test_value\",\"invite_url\":\"test_value\",\"token\":\"test_value\",\"welcome_message\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"affiliate_user_id\":\"test_value\",\"decrypted_avatar_url\":\"test_value\",\"decrypted_title\":\"test_value\",\"invite_url\":\"test_value\",\"validity_duration_msec\":\"test_value\",\"validity_expiry_timestamp_msec\":\"test_value\",\"welcome_message\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<EnableChatGroupInviteRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.EnableGroupInviteAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_DisableGroupInvite()
-    {
-        
-        var mockJson = "{\"data\":{\"disabled\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}]}";
-        var reqBody = JsonSerializer.Deserialize<DisableChatGroupInviteRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.DisableGroupInviteAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("DELETE", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_RemoveGroupMembers()
-    {
-        
-        var mockJson = "{\"data\":{\"removed\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"action_signatures\":[{\"encoded_message_event_detail\":\"test_value\",\"message_event_signature\":{\"public_key_version\":\"test_value\",\"signature\":\"test_value\",\"signature_version\":\"test_value\"},\"message_id\":\"test_value\",\"signature_payload\":\"test_value\"}],\"group_key_rotation_data\":{\"base64_encoded_key_rotation\":\"test_value\",\"conversation_key_version\":\"test_value\",\"conversation_participant_keys\":[{\"encrypted_conversation_key\":\"test_value\",\"public_key_version\":\"test_value\",\"user_id\":\"1234567890\"}],\"encrypted_avatar\":\"test_value\",\"encrypted_description\":\"test_value\",\"encrypted_title\":\"test_value\",\"rotated_pmk_bundle\":[{\"base64_encoded_encrypted_pmk\":\"test_value\",\"message_sequence_id\":\"test_value\"}]},\"user_ids\":[\"test_value\"]}";
-        var reqBody = JsonSerializer.Deserialize<RemoveChatGroupMembersRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.RemoveGroupMembersAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/chat/conversations/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_MediaUploadFinalize()
-    {
-        
-        var mockJson = "{\"data\":{\"success\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"conversation_id\":\"test_value\",\"media_hash_key\":\"test_value\",\"message_id\":\"test_value\",\"num_parts\":\"test_value\",\"ttl_msec\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<ChatMediaUploadFinalizeRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Chat.MediaUploadFinalizeAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/chat/media/upload/", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));

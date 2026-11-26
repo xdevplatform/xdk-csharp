@@ -174,327 +174,6 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_ListScheduled()
-    {
-        
-        var mockJson = "{\"data\":[{\"available_for_replay\":true,\"broadcast_id\":\"test_value\",\"chat_option\":\"test_value\",\"description\":\"test_value\",\"locale\":\"test_value\",\"manual_publish\":true,\"recurring_schedule_id\":\"test_value\",\"scheduled_broadcast_id\":\"test_value\",\"scheduled_end_ms\":\"test_value\",\"scheduled_start_ms\":\"test_value\",\"source_id\":\"test_value\",\"state\":\"test_value\",\"telecast_id\":\"test_value\",\"thumbnail_media_id\":\"test_value\",\"title\":\"test_value\"}]}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new BroadcastsClient.ListScheduledOptions();
-        options.Headers["X-Contract-Operation"] = "ListScheduled";
-        
-        
-        
-        options.MaxResults = 10;
-        
-        
-        
-        
-        options.OldestStartTime = "opt_oldestStartTime";
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Broadcasts.ListScheduledAsync(options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/broadcasts/scheduled", captured.Path);
-        
-        Assert.Equal("ListScheduled", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_CreateScheduledBroadcast()
-    {
-        
-        var mockJson = "{\"data\":{\"available_for_replay\":true,\"broadcast_id\":\"test_value\",\"chat_option\":\"test_value\",\"description\":\"test_value\",\"locale\":\"test_value\",\"manual_publish\":true,\"recurring_schedule_id\":\"test_value\",\"scheduled_broadcast_id\":\"test_value\",\"scheduled_end_ms\":\"test_value\",\"scheduled_start_ms\":\"test_value\",\"source_id\":\"test_value\",\"state\":\"test_value\",\"telecast_id\":\"test_value\",\"thumbnail_media_id\":\"test_value\",\"title\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            201,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"available_for_replay\":true,\"chat_option\":\"test_value\",\"description\":\"test_value\",\"is_locked\":true,\"locale\":\"test_value\",\"manual_publish\":true,\"recurrence\":{\"frequency\":\"Daily\",\"repeats\":\"test_value\"},\"scheduled_end_ms\":\"test_value\",\"scheduled_start_ms\":\"test_value\",\"source_id\":\"test_value\",\"telecast_id\":\"test_value\",\"thumbnail_media_id\":\"test_value\",\"title\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<CreateScheduledBroadcastRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Broadcasts.CreateScheduledBroadcastAsync(reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/broadcasts/scheduled", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetBroadcast()
-    {
-        
-        var mockJson = "{\"data\":{\"available_for_replay\":true,\"broadcast_id\":\"test_value\",\"chat_option\":1,\"created_at_ms\":\"test_value\",\"end_ms\":\"test_value\",\"height\":1,\"id\":\"1234567890\",\"image_url\":\"test_value\",\"image_url_medium\":\"test_value\",\"image_url_small\":\"test_value\",\"is_high_latency\":true,\"language\":\"test_value\",\"live_category_id\":\"test_value\",\"media_key\":\"test_value\",\"scheduled_end_ms\":\"test_value\",\"scheduled_start_ms\":\"test_value\",\"share_url\":\"test_value\",\"source_id\":\"test_value\",\"start_ms\":\"test_value\",\"state\":\"test_value\",\"title\":\"test_value\",\"total_watched\":\"test_value\",\"total_watching\":\"test_value\",\"tweet_id\":\"1234567890\",\"twitter_user_id\":\"test_value\",\"updated_at_ms\":\"test_value\",\"width\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new BroadcastsClient.GetBroadcastOptions();
-        options.Headers["X-Contract-Operation"] = "GetBroadcast";
-        
-        
-        
-        options.BroadcastFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Broadcasts.GetBroadcastAsync("test_id", options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/broadcasts/", captured.Path);
-        
-        Assert.Equal("GetBroadcast", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_UpdateBroadcast()
-    {
-        
-        var mockJson = "{\"data\":{\"broadcast_id\":\"test_value\",\"chat_option\":1,\"id\":\"1234567890\",\"language\":\"test_value\",\"live_category_id\":\"test_value\",\"media_key\":\"test_value\",\"share_url\":\"test_value\",\"start_ms\":\"test_value\",\"state\":\"test_value\",\"title\":\"test_value\",\"tweet_id\":\"1234567890\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"chat_option\":1,\"live_category_id\":\"test_value\",\"title\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<UpdateBroadcastRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Broadcasts.UpdateBroadcastAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("PUT", captured!.Method);
-        Assert.Contains("/2/broadcasts/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_DeleteBroadcast()
-    {
-        
-        var mockJson = "{\"data\":{\"deleted\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Broadcasts.DeleteBroadcastAsync("test_id");
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("DELETE", captured!.Method);
-        Assert.Contains("/2/broadcasts/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetSourceStreamKey()
-    {
-        
-        var mockJson = "{\"data\":{\"id\":\"1234567890\",\"stream_key\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Broadcasts.GetSourceStreamKeyAsync("test_id");
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/sources/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
     public async Task Contract_ListUser()
     {
         
@@ -613,19 +292,83 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_MuteBroadcastChatUser()
+    public async Task Contract_ListScheduled()
     {
         
-        var mockJson = "{\"data\":{\"muted\":true}}";
+        var mockJson = "{\"data\":[{\"available_for_replay\":true,\"broadcast_id\":\"test_value\",\"chat_option\":\"test_value\",\"description\":\"test_value\",\"locale\":\"test_value\",\"manual_publish\":true,\"recurring_schedule_id\":\"test_value\",\"scheduled_broadcast_id\":\"test_value\",\"scheduled_end_ms\":\"test_value\",\"scheduled_start_ms\":\"test_value\",\"source_id\":\"test_value\",\"state\":\"test_value\",\"telecast_id\":\"test_value\",\"thumbnail_media_id\":\"test_value\",\"title\":\"test_value\"}]}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
         
 
         
+
         
-        var reqMockJson = "{\"end_at_ms\":\"test_value\",\"message_id\":\"test_value\",\"user_id\":\"1234567890\"}";
-        var reqBody = JsonSerializer.Deserialize<MuteBroadcastChatUserRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        var options = new BroadcastsClient.ListScheduledOptions();
+        options.Headers["X-Contract-Operation"] = "ListScheduled";
+        
+        
+        
+        options.MaxResults = 10;
+        
+        
+        
+        
+        options.OldestStartTime = "opt_oldestStartTime";
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Broadcasts.ListScheduledAsync(options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/broadcasts/scheduled", captured.Path);
+        
+        Assert.Equal("ListScheduled", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_CreateScheduledBroadcast()
+    {
+        
+        var mockJson = "{\"data\":{\"available_for_replay\":true,\"broadcast_id\":\"test_value\",\"chat_option\":\"test_value\",\"description\":\"test_value\",\"locale\":\"test_value\",\"manual_publish\":true,\"recurring_schedule_id\":\"test_value\",\"scheduled_broadcast_id\":\"test_value\",\"scheduled_end_ms\":\"test_value\",\"scheduled_start_ms\":\"test_value\",\"source_id\":\"test_value\",\"state\":\"test_value\",\"telecast_id\":\"test_value\",\"thumbnail_media_id\":\"test_value\",\"title\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            201,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"available_for_replay\":true,\"chat_option\":\"test_value\",\"description\":\"test_value\",\"is_locked\":true,\"locale\":\"test_value\",\"manual_publish\":true,\"recurrence\":{\"frequency\":\"Daily\",\"repeats\":\"test_value\"},\"scheduled_end_ms\":\"test_value\",\"scheduled_start_ms\":\"test_value\",\"source_id\":\"test_value\",\"telecast_id\":\"test_value\",\"thumbnail_media_id\":\"test_value\",\"title\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<CreateScheduledBroadcastRequest>(reqMockJson, _client.JsonOptions)!;
         
         
 
@@ -639,14 +382,9 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         
         
         
-        
-        
-        
-        
-        
 
         
-        var result = await _client.Broadcasts.MuteBroadcastChatUserAsync("test_id", reqBody);
+        var result = await _client.Broadcasts.CreateScheduledBroadcastAsync(reqBody);
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -656,7 +394,7 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/broadcasts/", captured.Path);
+        Assert.Contains("/2/broadcasts/scheduled", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -671,48 +409,10 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_GetRegion()
+    public async Task Contract_UnmuteBroadcastChatUser()
     {
         
-        var mockJson = "{\"region\":\"us-east-1\"}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-
-        
-        var result = await _client.Broadcasts.GetRegionAsync();
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/region", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_RemoveChatModerator()
-    {
-        
-        var mockJson = "{\"data\":{\"moderator_user_ids\":[\"test_value\"]}}";
+        var mockJson = "{\"data\":{\"muted\":true}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
@@ -731,9 +431,14 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         
         
         
+        
+        
+        
+        
+        
 
         
-        var result = await _client.Broadcasts.RemoveChatModeratorAsync("test_userId");
+        var result = await _client.Broadcasts.UnmuteBroadcastChatUserAsync("test_id", "test_userId");
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -743,7 +448,7 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("DELETE", captured!.Method);
-        Assert.Contains("/2/broadcasts/chat/moderators/", captured.Path);
+        Assert.Contains("/2/broadcasts/", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -800,35 +505,22 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_GetChatModerators()
+    public async Task Contract_UpdateBroadcastState()
     {
         
-        var mockJson = "{\"data\":[{\"active_follower_count\":1,\"affiliation\":{},\"confirmed_email\":\"test_value\",\"connection_status\":[\"blocking\"],\"created_at\":\"2025-01-15T12:00:00.000Z\",\"description\":\"test_value\",\"entities\":{},\"id\":\"1234567890\",\"is_identity_verified\":true,\"location\":\"test_value\",\"most_recent_post_id\":\"test_value\",\"name\":\"test_value\",\"org_only\":true,\"parody\":true,\"pinned_post_id\":\"test_value\",\"profile_banner_url\":\"test_value\",\"profile_image_url\":\"test_value\",\"protected\":true,\"public_metrics\":{\"followers_count\":1,\"following_count\":1,\"listed_count\":1,\"post_count\":1},\"receives_your_chat\":\"test_value\",\"receives_your_dm\":true,\"subscriber_count\":1,\"subscribes_to_you\":true,\"subscription\":{\"subscribes_to_you\":true},\"subscription_type\":\"test_value\",\"url\":\"test_value\",\"username\":\"XDevelopers\",\"verified\":true,\"verified_followers_count\":1,\"verified_type\":\"test_value\",\"withheld\":{}}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"result_count\":1}}";
+        var mockJson = "{\"data\":{\"id\":\"1234567890\",\"state\":\"test_value\"}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
         
 
         
+        
+        var reqMockJson = "{\"chat_option\":1,\"locale\":\"test_value\",\"should_not_tweet\":true,\"state\":\"test_value\",\"title\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<UpdateBroadcastStateRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
 
-        
-        
-        var options = new BroadcastsClient.GetChatModeratorsOptions();
-        options.Headers["X-Contract-Operation"] = "GetChatModerators";
-        
-        
-        
-        options.UserFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-        options.Expansions = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-        
         
 
         
@@ -839,9 +531,14 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         
         
         
+        
+        
+        
+        
+        
 
         
-        var result = await _client.Broadcasts.GetChatModeratorsAsync(options);
+        var result = await _client.Broadcasts.UpdateBroadcastStateAsync("test_id", reqBody);
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -850,57 +547,8 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
 
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/broadcasts/chat/moderators", captured.Path);
-        
-        Assert.Equal("GetChatModerators", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_AddChatModerator()
-    {
-        
-        var mockJson = "{\"data\":{\"moderator_user_ids\":[\"test_value\"]}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"user_id\":\"1234567890\"}";
-        var reqBody = JsonSerializer.Deserialize<AddChatModeratorRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Broadcasts.AddChatModeratorAsync(reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/broadcasts/chat/moderators", captured.Path);
+        Assert.Equal("PUT", captured!.Method);
+        Assert.Contains("/2/broadcasts/", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -1030,97 +678,6 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         Assert.NotNull(captured);
         Assert.Equal("POST", captured!.Method);
         Assert.Contains("/2/broadcasts/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_ListSources()
-    {
-        
-        var mockJson = "{\"data\":[{\"created_at_ms\":\"test_value\",\"id\":\"1234567890\",\"is_stream_active\":true,\"name\":\"test_value\",\"region\":\"test_value\",\"rtmp_url\":\"test_value\",\"rtmps_url\":\"test_value\"}],\"meta\":{\"result_count\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-
-        
-        var result = await _client.Broadcasts.ListSourcesAsync();
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/sources", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_CreateSource()
-    {
-        
-        var mockJson = "{\"data\":{\"created_at_ms\":\"test_value\",\"id\":\"1234567890\",\"is_stream_active\":true,\"name\":\"test_value\",\"region\":\"test_value\",\"rtmp_url\":\"test_value\",\"rtmps_url\":\"test_value\",\"stream_key\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            201,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"name\":\"test_value\",\"region\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<CreateSourceRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Broadcasts.CreateSourceAsync(reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/sources", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -1279,10 +836,10 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_ListUserSources()
+    public async Task Contract_GoLiveScheduledBroadcast()
     {
         
-        var mockJson = "{\"data\":{\"sources\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}]}}";
+        var mockJson = "{\"data\":{\"available_for_replay\":true,\"broadcast_id\":\"test_value\",\"chat_option\":\"test_value\",\"description\":\"test_value\",\"locale\":\"test_value\",\"manual_publish\":true,\"recurring_schedule_id\":\"test_value\",\"scheduled_broadcast_id\":\"test_value\",\"scheduled_end_ms\":\"test_value\",\"scheduled_start_ms\":\"test_value\",\"source_id\":\"test_value\",\"state\":\"test_value\",\"telecast_id\":\"test_value\",\"thumbnail_media_id\":\"test_value\",\"title\":\"test_value\"}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
@@ -1303,59 +860,7 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         
 
         
-        var result = await _client.Broadcasts.ListUserSourcesAsync("test_id");
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/users/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_CreateUserSource()
-    {
-        
-        var mockJson = "{\"data\":{\"source\":{\"creation_origin\":{\"name\":\"test_value\"},\"creation_time\":1,\"id\":\"1234567890\",\"is360\":true,\"is_stream_active\":true,\"name\":\"test_value\",\"owner_id\":1,\"rtmp_region\":\"test_value\",\"rtmp_stream_key\":\"test_value\",\"rtmp_url\":\"test_value\",\"rtmps_url\":\"test_value\",\"video_service\":{\"name\":\"test_value\"}}}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"name\":\"test_value\",\"region\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<CreateUserSourceRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Broadcasts.CreateUserSourceAsync("test_id", reqBody);
+        var result = await _client.Broadcasts.GoLiveScheduledBroadcastAsync("test_id");
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -1365,61 +870,7 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/users/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetUserBroadcast()
-    {
-        
-        var mockJson = "{\"data\":{\"broadcast\":{\"available_for_replay\":true,\"broadcast_id\":\"test_value\",\"chat_option\":1,\"created_at_ms\":\"test_value\",\"end_ms\":\"test_value\",\"height\":1,\"id\":\"1234567890\",\"image_url\":\"test_value\",\"image_url_medium\":\"test_value\",\"image_url_small\":\"test_value\",\"is_high_latency\":true,\"language\":\"test_value\",\"media_id\":\"1234567890\",\"media_key\":\"test_value\",\"scheduled_end_ms\":\"test_value\",\"scheduled_start_ms\":\"test_value\",\"start_ms\":\"test_value\",\"state\":\"test_value\",\"status\":\"test_value\",\"total_watched\":\"test_value\",\"total_watching\":\"test_value\",\"tweet_id\":\"1234567890\",\"twitter_user_id\":\"test_value\",\"updated_at_ms\":\"test_value\",\"width\":1}}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Broadcasts.GetUserBroadcastAsync("test_id", "test_broadcastId");
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/users/", captured.Path);
+        Assert.Contains("/2/broadcasts/scheduled/", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -1428,10 +879,10 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_DeleteUserBroadcast()
+    public async Task Contract_UnmuteChatUser()
     {
         
-        var mockJson = "{\"data\":{\"success\":true}}";
+        var mockJson = "{\"data\":{\"muted\":true}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
@@ -1440,6 +891,17 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         
 
         
+        
+        var options = new BroadcastsClient.UnmuteChatUserOptions();
+        options.Headers["X-Contract-Operation"] = "UnmuteChatUser";
+        
+        
+        
+        options.BroadcastId = "opt_broadcastId";
+        
+        
+        
+        
 
         
         
@@ -1454,10 +916,9 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         
         
         
-        
 
         
-        var result = await _client.Broadcasts.DeleteUserBroadcastAsync("test_id", "test_broadcastId");
+        var result = await _client.Broadcasts.UnmuteChatUserAsync("test_userId", options);
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -1467,185 +928,12 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("DELETE", captured!.Method);
-        Assert.Contains("/2/users/", captured.Path);
+        Assert.Contains("/2/broadcasts/chat/mutes/", captured.Path);
+        
+        Assert.Equal("UnmuteChatUser", captured.FirstHeader("X-Contract-Operation"));
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_List()
-    {
-        
-        var mockJson = "{\"data\":[{\"available_for_replay\":true,\"broadcast_id\":\"test_value\",\"chat_option\":1,\"created_at_ms\":\"test_value\",\"end_ms\":\"test_value\",\"height\":1,\"id\":\"1234567890\",\"image_url\":\"test_value\",\"image_url_medium\":\"test_value\",\"image_url_small\":\"test_value\",\"is_high_latency\":true,\"language\":\"test_value\",\"live_category_id\":\"test_value\",\"media_key\":\"test_value\",\"scheduled_end_ms\":\"test_value\",\"scheduled_start_ms\":\"test_value\",\"share_url\":\"test_value\",\"source_id\":\"test_value\",\"start_ms\":\"test_value\",\"state\":\"test_value\",\"title\":\"test_value\",\"total_watched\":\"test_value\",\"total_watching\":\"test_value\",\"tweet_id\":\"1234567890\",\"twitter_user_id\":\"test_value\",\"updated_at_ms\":\"test_value\",\"width\":1}],\"meta\":{\"result_count\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new BroadcastsClient.ListOptions();
-        options.Headers["X-Contract-Operation"] = "List";
-        
-        
-        
-        options.Ids = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-        options.MaxResults = 10;
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Broadcasts.ListAsync(options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/broadcasts", captured.Path);
-        
-        Assert.Equal("List", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_CreateBroadcast()
-    {
-        
-        var mockJson = "{\"data\":{\"broadcast_id\":\"test_value\",\"chat_option\":1,\"id\":\"1234567890\",\"language\":\"test_value\",\"live_category_id\":\"test_value\",\"media_key\":\"test_value\",\"share_url\":\"test_value\",\"start_ms\":\"test_value\",\"state\":\"test_value\",\"title\":\"test_value\",\"tweet_id\":\"1234567890\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            201,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"additional_source_ids\":[\"test_value\"],\"chat_option\":1,\"live_category_id\":\"test_value\",\"locale\":\"test_value\",\"should_not_tweet\":true,\"source_id\":\"test_value\",\"title\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<CreateBroadcastRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Broadcasts.CreateBroadcastAsync(reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/broadcasts", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_UpdateBroadcastState()
-    {
-        
-        var mockJson = "{\"data\":{\"id\":\"1234567890\",\"state\":\"test_value\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"chat_option\":1,\"locale\":\"test_value\",\"should_not_tweet\":true,\"state\":\"test_value\",\"title\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<UpdateBroadcastStateRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Broadcasts.UpdateBroadcastStateAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("PUT", captured!.Method);
-        Assert.Contains("/2/broadcasts/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
         
         
     }
@@ -1812,10 +1100,10 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_UnmuteBroadcastChatUser()
+    public async Task Contract_ListSources()
     {
         
-        var mockJson = "{\"data\":{\"muted\":true}}";
+        var mockJson = "{\"data\":[{\"created_at_ms\":\"test_value\",\"id\":\"1234567890\",\"is_stream_active\":true,\"name\":\"test_value\",\"region\":\"test_value\",\"rtmp_url\":\"test_value\",\"rtmps_url\":\"test_value\"}],\"meta\":{\"result_count\":1}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
@@ -1829,19 +1117,9 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
 
         
-        var result = await _client.Broadcasts.UnmuteBroadcastChatUserAsync("test_id", "test_userId");
+        var result = await _client.Broadcasts.ListSourcesAsync();
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -1850,11 +1128,64 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
 
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
-        Assert.Equal("DELETE", captured!.Method);
-        Assert.Contains("/2/broadcasts/", captured.Path);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/sources", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_CreateSource()
+    {
+        
+        var mockJson = "{\"data\":{\"created_at_ms\":\"test_value\",\"id\":\"1234567890\",\"is_stream_active\":true,\"name\":\"test_value\",\"region\":\"test_value\",\"rtmp_url\":\"test_value\",\"rtmps_url\":\"test_value\",\"stream_key\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            201,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"name\":\"test_value\",\"region\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<CreateSourceRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Broadcasts.CreateSourceAsync(reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/sources", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
         
         
     }
@@ -1893,6 +1224,383 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetBroadcast()
+    {
+        
+        var mockJson = "{\"data\":{\"available_for_replay\":true,\"broadcast_id\":\"test_value\",\"chat_option\":1,\"created_at_ms\":\"test_value\",\"end_ms\":\"test_value\",\"height\":1,\"id\":\"1234567890\",\"image_url\":\"test_value\",\"image_url_medium\":\"test_value\",\"image_url_small\":\"test_value\",\"is_high_latency\":true,\"language\":\"test_value\",\"live_category_id\":\"test_value\",\"media_key\":\"test_value\",\"scheduled_end_ms\":\"test_value\",\"scheduled_start_ms\":\"test_value\",\"share_url\":\"test_value\",\"source_id\":\"test_value\",\"start_ms\":\"test_value\",\"state\":\"test_value\",\"title\":\"test_value\",\"total_watched\":\"test_value\",\"total_watching\":\"test_value\",\"tweet_id\":\"1234567890\",\"twitter_user_id\":\"test_value\",\"updated_at_ms\":\"test_value\",\"width\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new BroadcastsClient.GetBroadcastOptions();
+        options.Headers["X-Contract-Operation"] = "GetBroadcast";
+        
+        
+        
+        options.BroadcastFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Broadcasts.GetBroadcastAsync("test_id", options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/broadcasts/", captured.Path);
+        
+        Assert.Equal("GetBroadcast", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_UpdateBroadcast()
+    {
+        
+        var mockJson = "{\"data\":{\"broadcast_id\":\"test_value\",\"chat_option\":1,\"id\":\"1234567890\",\"language\":\"test_value\",\"live_category_id\":\"test_value\",\"media_key\":\"test_value\",\"share_url\":\"test_value\",\"start_ms\":\"test_value\",\"state\":\"test_value\",\"title\":\"test_value\",\"tweet_id\":\"1234567890\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"chat_option\":1,\"live_category_id\":\"test_value\",\"title\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<UpdateBroadcastRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Broadcasts.UpdateBroadcastAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("PUT", captured!.Method);
+        Assert.Contains("/2/broadcasts/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_DeleteBroadcast()
+    {
+        
+        var mockJson = "{\"data\":{\"deleted\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Broadcasts.DeleteBroadcastAsync("test_id");
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("DELETE", captured!.Method);
+        Assert.Contains("/2/broadcasts/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetChatModerators()
+    {
+        
+        var mockJson = "{\"data\":[{\"active_follower_count\":1,\"affiliation\":{},\"confirmed_email\":\"test_value\",\"connection_status\":[\"blocking\"],\"created_at\":\"2025-01-15T12:00:00.000Z\",\"description\":\"test_value\",\"entities\":{},\"id\":\"1234567890\",\"is_identity_verified\":true,\"location\":\"test_value\",\"most_recent_post_id\":\"test_value\",\"name\":\"test_value\",\"org_only\":true,\"parody\":true,\"pinned_post_id\":\"test_value\",\"profile_banner_url\":\"test_value\",\"profile_image_url\":\"test_value\",\"protected\":true,\"public_metrics\":{\"followers_count\":1,\"following_count\":1,\"listed_count\":1,\"post_count\":1},\"receives_your_chat\":\"test_value\",\"receives_your_dm\":true,\"subscriber_count\":1,\"subscribes_to_you\":true,\"subscription\":{\"subscribes_to_you\":true},\"subscription_type\":\"test_value\",\"url\":\"test_value\",\"username\":\"XDevelopers\",\"verified\":true,\"verified_followers_count\":1,\"verified_type\":\"test_value\",\"withheld\":{}}],\"includes\":{\"calls\":[{\"id\":\"1234567890\"}],\"media\":[{}],\"places\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"polls\":[{\"id\":\"1234567890\"}],\"posts\":[{\"id\":\"1234567890\",\"text\":\"Hello from XDK!\",\"username\":\"XDevelopers\"}],\"topics\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}],\"users\":[{\"id\":\"1234567890\",\"name\":\"test_value\",\"username\":\"XDevelopers\"}]},\"meta\":{\"result_count\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new BroadcastsClient.GetChatModeratorsOptions();
+        options.Headers["X-Contract-Operation"] = "GetChatModerators";
+        
+        
+        
+        options.UserFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+        options.Expansions = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Broadcasts.GetChatModeratorsAsync(options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/broadcasts/chat/moderators", captured.Path);
+        
+        Assert.Equal("GetChatModerators", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_AddChatModerator()
+    {
+        
+        var mockJson = "{\"data\":{\"moderator_user_ids\":[\"test_value\"]}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"user_id\":\"1234567890\"}";
+        var reqBody = JsonSerializer.Deserialize<AddChatModeratorRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Broadcasts.AddChatModeratorAsync(reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/broadcasts/chat/moderators", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_ListUserSources()
+    {
+        
+        var mockJson = "{\"data\":{\"sources\":[{\"id\":\"1234567890\",\"name\":\"test_value\"}]}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Broadcasts.ListUserSourcesAsync("test_id");
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/users/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_CreateUserSource()
+    {
+        
+        var mockJson = "{\"data\":{\"source\":{\"creation_origin\":{\"name\":\"test_value\"},\"creation_time\":1,\"id\":\"1234567890\",\"is360\":true,\"is_stream_active\":true,\"name\":\"test_value\",\"owner_id\":1,\"rtmp_region\":\"test_value\",\"rtmp_stream_key\":\"test_value\",\"rtmp_url\":\"test_value\",\"rtmps_url\":\"test_value\",\"video_service\":{\"name\":\"test_value\"}}}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"name\":\"test_value\",\"region\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<CreateUserSourceRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Broadcasts.CreateUserSourceAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/users/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
         
         
     }
@@ -1961,10 +1669,10 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_GoLiveScheduledBroadcast()
+    public async Task Contract_GetSourceStreamKey()
     {
         
-        var mockJson = "{\"data\":{\"available_for_replay\":true,\"broadcast_id\":\"test_value\",\"chat_option\":\"test_value\",\"description\":\"test_value\",\"locale\":\"test_value\",\"manual_publish\":true,\"recurring_schedule_id\":\"test_value\",\"scheduled_broadcast_id\":\"test_value\",\"scheduled_end_ms\":\"test_value\",\"scheduled_start_ms\":\"test_value\",\"source_id\":\"test_value\",\"state\":\"test_value\",\"telecast_id\":\"test_value\",\"thumbnail_media_id\":\"test_value\",\"title\":\"test_value\"}}";
+        var mockJson = "{\"data\":{\"id\":\"1234567890\",\"stream_key\":\"test_value\"}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
@@ -1985,7 +1693,118 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         
 
         
-        var result = await _client.Broadcasts.GoLiveScheduledBroadcastAsync("test_id");
+        var result = await _client.Broadcasts.GetSourceStreamKeyAsync("test_id");
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/sources/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_List()
+    {
+        
+        var mockJson = "{\"data\":[{\"available_for_replay\":true,\"broadcast_id\":\"test_value\",\"chat_option\":1,\"created_at_ms\":\"test_value\",\"end_ms\":\"test_value\",\"height\":1,\"id\":\"1234567890\",\"image_url\":\"test_value\",\"image_url_medium\":\"test_value\",\"image_url_small\":\"test_value\",\"is_high_latency\":true,\"language\":\"test_value\",\"live_category_id\":\"test_value\",\"media_key\":\"test_value\",\"scheduled_end_ms\":\"test_value\",\"scheduled_start_ms\":\"test_value\",\"share_url\":\"test_value\",\"source_id\":\"test_value\",\"start_ms\":\"test_value\",\"state\":\"test_value\",\"title\":\"test_value\",\"total_watched\":\"test_value\",\"total_watching\":\"test_value\",\"tweet_id\":\"1234567890\",\"twitter_user_id\":\"test_value\",\"updated_at_ms\":\"test_value\",\"width\":1}],\"meta\":{\"result_count\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new BroadcastsClient.ListOptions();
+        options.Headers["X-Contract-Operation"] = "List";
+        
+        
+        
+        options.Ids = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+        options.MaxResults = 10;
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Broadcasts.ListAsync(options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/broadcasts", captured.Path);
+        
+        Assert.Equal("List", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_CreateBroadcast()
+    {
+        
+        var mockJson = "{\"data\":{\"broadcast_id\":\"test_value\",\"chat_option\":1,\"id\":\"1234567890\",\"language\":\"test_value\",\"live_category_id\":\"test_value\",\"media_key\":\"test_value\",\"share_url\":\"test_value\",\"start_ms\":\"test_value\",\"state\":\"test_value\",\"title\":\"test_value\",\"tweet_id\":\"1234567890\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            201,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"additional_source_ids\":[\"test_value\"],\"chat_option\":1,\"live_category_id\":\"test_value\",\"locale\":\"test_value\",\"should_not_tweet\":true,\"source_id\":\"test_value\",\"title\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<CreateBroadcastRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Broadcasts.CreateBroadcastAsync(reqBody);
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -1995,19 +1814,25 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/broadcasts/scheduled/", captured.Path);
+        Assert.Contains("/2/broadcasts", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
         
         
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
     }
     
     [Fact]
-    public async Task Contract_UnmuteChatUser()
+    public async Task Contract_GetUserBroadcast()
     {
         
-        var mockJson = "{\"data\":{\"muted\":true}}";
+        var mockJson = "{\"data\":{\"broadcast\":{\"available_for_replay\":true,\"broadcast_id\":\"test_value\",\"chat_option\":1,\"created_at_ms\":\"test_value\",\"end_ms\":\"test_value\",\"height\":1,\"id\":\"1234567890\",\"image_url\":\"test_value\",\"image_url_medium\":\"test_value\",\"image_url_small\":\"test_value\",\"is_high_latency\":true,\"language\":\"test_value\",\"media_id\":\"1234567890\",\"media_key\":\"test_value\",\"scheduled_end_ms\":\"test_value\",\"scheduled_start_ms\":\"test_value\",\"start_ms\":\"test_value\",\"state\":\"test_value\",\"status\":\"test_value\",\"total_watched\":\"test_value\",\"total_watching\":\"test_value\",\"tweet_id\":\"1234567890\",\"twitter_user_id\":\"test_value\",\"updated_at_ms\":\"test_value\",\"width\":1}}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
@@ -2016,18 +1841,8 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         
 
         
-        
-        var options = new BroadcastsClient.UnmuteChatUserOptions();
-        options.Headers["X-Contract-Operation"] = "UnmuteChatUser";
-        
-        
-        
-        options.BroadcastId = "opt_broadcastId";
-        
-        
-        
-        
 
+        
         
         
         
@@ -2043,7 +1858,55 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         
 
         
-        var result = await _client.Broadcasts.UnmuteChatUserAsync("test_userId", options);
+        var result = await _client.Broadcasts.GetUserBroadcastAsync("test_id", "test_broadcastId");
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/users/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_DeleteUserBroadcast()
+    {
+        
+        var mockJson = "{\"data\":{\"success\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Broadcasts.DeleteUserBroadcastAsync("test_id", "test_broadcastId");
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -2053,9 +1916,7 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("DELETE", captured!.Method);
-        Assert.Contains("/2/broadcasts/chat/mutes/", captured.Path);
-        
-        Assert.Equal("UnmuteChatUser", captured.FirstHeader("X-Contract-Operation"));
+        Assert.Contains("/2/users/", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -2215,6 +2076,145 @@ public class BroadcastsContractsTests : IClassFixture<BroadcastsLoopbackFixture>
         Assert.NotNull(captured);
         Assert.Equal("DELETE", captured!.Method);
         Assert.Contains("/2/users/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_MuteBroadcastChatUser()
+    {
+        
+        var mockJson = "{\"data\":{\"muted\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"end_at_ms\":\"test_value\",\"message_id\":\"test_value\",\"user_id\":\"1234567890\"}";
+        var reqBody = JsonSerializer.Deserialize<MuteBroadcastChatUserRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Broadcasts.MuteBroadcastChatUserAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/broadcasts/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetRegion()
+    {
+        
+        var mockJson = "{\"region\":\"us-east-1\"}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+
+        
+        var result = await _client.Broadcasts.GetRegionAsync();
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/region", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_RemoveChatModerator()
+    {
+        
+        var mockJson = "{\"data\":{\"moderator_user_ids\":[\"test_value\"]}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Broadcasts.RemoveChatModeratorAsync("test_userId");
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("DELETE", captured!.Method);
+        Assert.Contains("/2/broadcasts/chat/moderators/", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));

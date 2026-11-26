@@ -55,10 +55,48 @@ public class MediaContractsTests : IClassFixture<MediaLoopbackFixture>
 
     
     [Fact]
-    public async Task Contract_GetAmplifyProgram()
+    public async Task Contract_GetAmplifyPrograms()
     {
         
-        var mockJson = "{\"data\":{\"advertiser_ids\":[\"test_value\"],\"id\":\"1234567890\",\"name\":\"test_value\",\"publisher_ids\":[\"test_value\"],\"state\":\"active\"}}";
+        var mockJson = "{\"data\":[{\"advertiser_ids\":[\"test_value\"],\"id\":\"1234567890\",\"name\":\"test_value\",\"publisher_ids\":[\"test_value\"],\"state\":\"active\"}]}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+
+        
+        
+        
+        
+
+        
+        var result = await _client.Media.GetAmplifyProgramsAsync();
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/media/amplify/programs", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetAmplifyProgramPosts()
+    {
+        
+        var mockJson = "{\"data\":[{\"added_at\":\"test_value\",\"post_id\":\"test_value\",\"promotion_ends_at\":\"test_value\"}]}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
@@ -79,7 +117,7 @@ public class MediaContractsTests : IClassFixture<MediaLoopbackFixture>
         
 
         
-        var result = await _client.Media.GetAmplifyProgramAsync("test_programId");
+        var result = await _client.Media.GetAmplifyProgramPostsAsync("test_programId");
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -98,19 +136,79 @@ public class MediaContractsTests : IClassFixture<MediaLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_AddToLibrary()
+    public async Task Contract_GetUploadStatus()
     {
         
-        var mockJson = "{\"data\":{\"media_key\":\"test_value\"}}";
+        var mockJson = "{\"data\":{\"expires_after_secs\":1,\"id\":\"1234567890\",\"image\":{\"h\":1,\"image_type\":\"test_value\",\"w\":1},\"media_key\":\"test_value\",\"processing_info\":{\"check_after_secs\":1,\"progress_percent\":1,\"state\":\"test_value\"},\"size\":1,\"video\":{\"video_type\":\"test_value\"}}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            201,
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new MediaClient.GetUploadStatusOptions();
+        options.Headers["X-Contract-Operation"] = "GetUploadStatus";
+        
+        
+        
+        options.Command = "opt_command";
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Media.GetUploadStatusAsync("test_mediaId", options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/media/upload", captured.Path);
+        
+        Assert.Equal("GetUploadStatus", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_Upload()
+    {
+        
+        var mockJson = "{\"data\":{\"expires_after_secs\":1,\"id\":\"1234567890\",\"image\":{\"h\":1,\"image_type\":\"test_value\",\"w\":1},\"media_key\":\"test_value\",\"processing_info\":{\"check_after_secs\":1,\"progress_percent\":1,\"state\":\"test_value\"},\"size\":1,\"video\":{\"video_type\":\"test_value\"}}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
             mockJson));
         
 
         
         
-        var reqMockJson = "{\"description\":\"test_value\",\"label\":\"test_value\",\"media_key\":\"test_value\",\"monetization\":{\"allowed_countries\":[\"test_value\"],\"blocked_advertiser_category_ids\":[1],\"blocked_advertiser_ids\":[\"test_value\"],\"enabled\":true,\"program_id\":\"test_value\",\"video_category_ids\":[1]},\"name\":\"test_value\",\"title\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<AddMediaToLibraryRequest>(reqMockJson, _client.JsonOptions)!;
+        var reqMockJson = "{\"additional_owners\":\"test_value\",\"media\":\"test_value\",\"media_category\":\"tweet_image\"}";
+        var reqBody = JsonSerializer.Deserialize<MediaUploadRequest>(reqMockJson, _client.JsonOptions)!;
         
         
 
@@ -126,7 +224,7 @@ public class MediaContractsTests : IClassFixture<MediaLoopbackFixture>
         
 
         
-        var result = await _client.Media.AddToLibraryAsync(reqBody);
+        var result = await _client.Media.UploadAsync(reqBody);
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -136,7 +234,60 @@ public class MediaContractsTests : IClassFixture<MediaLoopbackFixture>
         var captured = _server.LastRequest;
         Assert.NotNull(captured);
         Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/media/library", captured.Path);
+        Assert.Contains("/2/media/upload", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_CreateMetadata()
+    {
+        
+        var mockJson = "{\"data\":{\"associated_metadata\":{},\"id\":\"1234567890\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"id\":\"1234567890\",\"metadata\":{\"allow_download_status\":{\"allow_download\":true},\"alt_text\":{\"text\":\"Hello from XDK!\"},\"audience_policy\":{},\"content_expiration\":{\"timestamp_sec\":1.5},\"domain_restrictions\":{\"whitelist\":[\"test_value\"]},\"found_media_origin\":{\"id\":\"1234567890\",\"provider\":\"test_value\"},\"geo_restrictions\":{},\"management_info\":{\"managed\":true},\"preview_image\":{\"media_key\":{}},\"sensitive_media_warning\":{},\"shared_info\":{\"shared\":true},\"sticker_info\":{\"stickers\":[{}]},\"upload_source\":{\"upload_source\":\"test_value\"}}}";
+        var reqBody = JsonSerializer.Deserialize<CreateMediaMetadataRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Media.CreateMetadataAsync(reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/media/metadata", captured.Path);
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
@@ -199,6 +350,483 @@ public class MediaContractsTests : IClassFixture<MediaLoopbackFixture>
         
         using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
         Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_UpdateInLibrary()
+    {
+        
+        var mockJson = "{\"data\":{\"updated\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"description\":\"test_value\",\"label\":\"test_value\",\"monetization\":{\"allowed_countries\":[\"test_value\"],\"blocked_advertiser_category_ids\":[1],\"blocked_advertiser_ids\":[\"test_value\"],\"enabled\":true,\"program_id\":\"test_value\",\"video_category_ids\":[1]},\"name\":\"test_value\",\"title\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<UpdateMediaInLibraryRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Media.UpdateInLibraryAsync("test_mediaKey", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("PUT", captured!.Method);
+        Assert.Contains("/2/media/library/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_RemoveFromLibrary()
+    {
+        
+        var mockJson = "{\"data\":{\"deleted\":true}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{}";
+        var reqBody = JsonSerializer.Deserialize<RemoveMediaFromLibraryRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Media.RemoveFromLibraryAsync("test_mediaKey", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("DELETE", captured!.Method);
+        Assert.Contains("/2/media/library/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetByKey()
+    {
+        
+        var mockJson = "{\"data\":{\"alt_text\":\"test_value\",\"duration_ms\":5000000000,\"height\":1,\"media_key\":\"test_value\",\"non_public_metrics\":{\"playback_0_count\":1,\"playback_100_count\":1,\"playback_25_count\":1,\"playback_50_count\":1,\"playback_75_count\":1},\"organic_metrics\":{\"cta_url_click_count\":1,\"cta_watch_click_count\":1,\"playback_0_count\":1,\"playback_100_count\":1,\"playback_25_count\":1,\"playback_50_count\":1,\"playback_75_count\":1,\"view_count\":1,\"watch_time_ms\":5000000000},\"preview_image_url\":\"test_value\",\"promoted_metrics\":{\"playback_0_count\":1,\"playback_100_count\":1,\"playback_25_count\":1,\"playback_50_count\":1,\"playback_75_count\":1,\"view_count\":1},\"public_metrics\":{\"view_count\":1},\"revenue\":{\"amount_micros\":1,\"currency_code\":\"test_value\"},\"type\":\"test_value\",\"url\":\"test_value\",\"variants\":[{}],\"width\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new MediaClient.GetByKeyOptions();
+        options.Headers["X-Contract-Operation"] = "GetByKey";
+        
+        
+        
+        options.MediaFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Media.GetByKeyAsync("test_mediaKey", options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/media/", captured.Path);
+        
+        Assert.Equal("GetByKey", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetAnalytics()
+    {
+        
+        var mockJson = "{\"data\":[{\"cta_url_clicks\":1,\"cta_watch_clicks\":1,\"media_key\":\"test_value\",\"play_from_tap\":1,\"playback25\":1,\"playback50\":1,\"playback75\":1,\"playback_complete\":1,\"playback_start\":1,\"timestamp\":\"test_value\",\"timestamped_metrics\":[{}],\"video_views\":1,\"watch_time_ms\":5000000000}]}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new MediaClient.GetAnalyticsOptions();
+        options.Headers["X-Contract-Operation"] = "GetAnalytics";
+        
+        
+        
+        options.Granularity = "opt_granularity";
+        
+        
+        
+        
+        options.MediaAnalyticsFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Media.GetAnalyticsAsync(new List<string> { "item1" }, "test_startTime", "test_endTime", options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/media/analytics", captured.Path);
+        
+        Assert.Equal("GetAnalytics", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_AppendUpload()
+    {
+        
+        var mockJson = "{\"data\":{\"expires_at\":1}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"media\":\"test_value\",\"segment_index\":1}";
+        var reqBody = JsonSerializer.Deserialize<AppendMediaUploadRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Media.AppendUploadAsync("test_id", reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/media/upload/", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_AddToLibrary()
+    {
+        
+        var mockJson = "{\"data\":{\"media_key\":\"test_value\"}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            201,
+            mockJson));
+        
+
+        
+        
+        var reqMockJson = "{\"description\":\"test_value\",\"label\":\"test_value\",\"media_key\":\"test_value\",\"monetization\":{\"allowed_countries\":[\"test_value\"],\"blocked_advertiser_category_ids\":[1],\"blocked_advertiser_ids\":[\"test_value\"],\"enabled\":true,\"program_id\":\"test_value\",\"video_category_ids\":[1]},\"name\":\"test_value\",\"title\":\"test_value\"}";
+        var reqBody = JsonSerializer.Deserialize<AddMediaToLibraryRequest>(reqMockJson, _client.JsonOptions)!;
+        
+        
+
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Media.AddToLibraryAsync(reqBody);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("POST", captured!.Method);
+        Assert.Contains("/2/media/library", captured.Path);
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+        Assert.NotEmpty(captured.BodyBytes);
+        
+        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
+        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetLibraryCategories()
+    {
+        
+        var mockJson = "{\"data\":{\"advertiser_categories\":[{\"description\":\"test_value\",\"id\":1}],\"video_categories\":[{\"description\":\"test_value\",\"id\":1}]}}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new MediaClient.GetLibraryCategoriesOptions();
+        options.Headers["X-Contract-Operation"] = "GetLibraryCategories";
+        
+        
+        
+        options.Lang = "opt_lang";
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Media.GetLibraryCategoriesAsync(options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/media/library/categories", captured.Path);
+        
+        Assert.Equal("GetLibraryCategories", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
+        
+        
+    }
+    
+    [Fact]
+    public async Task Contract_GetByKeys()
+    {
+        
+        var mockJson = "{\"data\":[{\"alt_text\":\"test_value\",\"duration_ms\":5000000000,\"height\":1,\"media_key\":\"test_value\",\"non_public_metrics\":{},\"organic_metrics\":{},\"preview_image_url\":\"test_value\",\"promoted_metrics\":{},\"public_metrics\":{\"view_count\":1},\"revenue\":{\"amount_micros\":1,\"currency_code\":\"test_value\"},\"type\":\"test_value\",\"url\":\"test_value\",\"variants\":[{}],\"width\":1}]}";
+        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
+            200,
+            mockJson));
+        
+
+        
+
+        
+        
+        var options = new MediaClient.GetByKeysOptions();
+        options.Headers["X-Contract-Operation"] = "GetByKeys";
+        
+        
+        
+        options.MediaFields = new List<string> { "id", "created_at" };
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        var result = await _client.Media.GetByKeysAsync(new List<string> { "item1" }, options);
+        object? boxed = result;
+        Assert.NotNull(boxed);
+        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
+        Assert.False(string.IsNullOrEmpty(roundTripJson));
+        
+
+        var captured = _server.LastRequest;
+        Assert.NotNull(captured);
+        Assert.Equal("GET", captured!.Method);
+        Assert.Contains("/2/media", captured.Path);
+        
+        Assert.Equal("GetByKeys", captured.FirstHeader("X-Contract-Operation"));
+        
+        
+        Assert.NotNull(captured.FirstHeader("Authorization"));
         
         
     }
@@ -353,66 +981,6 @@ public class MediaContractsTests : IClassFixture<MediaLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_GetByKeys()
-    {
-        
-        var mockJson = "{\"data\":[{\"alt_text\":\"test_value\",\"duration_ms\":5000000000,\"height\":1,\"media_key\":\"test_value\",\"non_public_metrics\":{},\"organic_metrics\":{},\"preview_image_url\":\"test_value\",\"promoted_metrics\":{},\"public_metrics\":{\"view_count\":1},\"revenue\":{\"amount_micros\":1,\"currency_code\":\"test_value\"},\"type\":\"test_value\",\"url\":\"test_value\",\"variants\":[{}],\"width\":1}]}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new MediaClient.GetByKeysOptions();
-        options.Headers["X-Contract-Operation"] = "GetByKeys";
-        
-        
-        
-        options.MediaFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Media.GetByKeysAsync(new List<string> { "item1" }, options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/media", captured.Path);
-        
-        Assert.Equal("GetByKeys", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
     public async Task Contract_InitializeUpload()
     {
         
@@ -466,366 +1034,10 @@ public class MediaContractsTests : IClassFixture<MediaLoopbackFixture>
     }
     
     [Fact]
-    public async Task Contract_GetByKey()
+    public async Task Contract_GetAmplifyProgram()
     {
         
-        var mockJson = "{\"data\":{\"alt_text\":\"test_value\",\"duration_ms\":5000000000,\"height\":1,\"media_key\":\"test_value\",\"non_public_metrics\":{\"playback_0_count\":1,\"playback_100_count\":1,\"playback_25_count\":1,\"playback_50_count\":1,\"playback_75_count\":1},\"organic_metrics\":{\"cta_url_click_count\":1,\"cta_watch_click_count\":1,\"playback_0_count\":1,\"playback_100_count\":1,\"playback_25_count\":1,\"playback_50_count\":1,\"playback_75_count\":1,\"view_count\":1,\"watch_time_ms\":5000000000},\"preview_image_url\":\"test_value\",\"promoted_metrics\":{\"playback_0_count\":1,\"playback_100_count\":1,\"playback_25_count\":1,\"playback_50_count\":1,\"playback_75_count\":1,\"view_count\":1},\"public_metrics\":{\"view_count\":1},\"revenue\":{\"amount_micros\":1,\"currency_code\":\"test_value\"},\"type\":\"test_value\",\"url\":\"test_value\",\"variants\":[{}],\"width\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new MediaClient.GetByKeyOptions();
-        options.Headers["X-Contract-Operation"] = "GetByKey";
-        
-        
-        
-        options.MediaFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Media.GetByKeyAsync("test_mediaKey", options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/media/", captured.Path);
-        
-        Assert.Equal("GetByKey", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetAnalytics()
-    {
-        
-        var mockJson = "{\"data\":[{\"cta_url_clicks\":1,\"cta_watch_clicks\":1,\"media_key\":\"test_value\",\"play_from_tap\":1,\"playback25\":1,\"playback50\":1,\"playback75\":1,\"playback_complete\":1,\"playback_start\":1,\"timestamp\":\"test_value\",\"timestamped_metrics\":[{}],\"video_views\":1,\"watch_time_ms\":5000000000}]}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new MediaClient.GetAnalyticsOptions();
-        options.Headers["X-Contract-Operation"] = "GetAnalytics";
-        
-        
-        
-        options.Granularity = "opt_granularity";
-        
-        
-        
-        
-        options.MediaAnalyticsFields = new List<string> { "id", "created_at" };
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Media.GetAnalyticsAsync(new List<string> { "item1" }, "test_startTime", "test_endTime", options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/media/analytics", captured.Path);
-        
-        Assert.Equal("GetAnalytics", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetUploadStatus()
-    {
-        
-        var mockJson = "{\"data\":{\"expires_after_secs\":1,\"id\":\"1234567890\",\"image\":{\"h\":1,\"image_type\":\"test_value\",\"w\":1},\"media_key\":\"test_value\",\"processing_info\":{\"check_after_secs\":1,\"progress_percent\":1,\"state\":\"test_value\"},\"size\":1,\"video\":{\"video_type\":\"test_value\"}}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new MediaClient.GetUploadStatusOptions();
-        options.Headers["X-Contract-Operation"] = "GetUploadStatus";
-        
-        
-        
-        options.Command = "opt_command";
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Media.GetUploadStatusAsync("test_mediaId", options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/media/upload", captured.Path);
-        
-        Assert.Equal("GetUploadStatus", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_Upload()
-    {
-        
-        var mockJson = "{\"data\":{\"expires_after_secs\":1,\"id\":\"1234567890\",\"image\":{\"h\":1,\"image_type\":\"test_value\",\"w\":1},\"media_key\":\"test_value\",\"processing_info\":{\"check_after_secs\":1,\"progress_percent\":1,\"state\":\"test_value\"},\"size\":1,\"video\":{\"video_type\":\"test_value\"}}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"additional_owners\":\"test_value\",\"media\":\"test_value\",\"media_category\":\"tweet_image\"}";
-        var reqBody = JsonSerializer.Deserialize<MediaUploadRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Media.UploadAsync(reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/media/upload", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetLibraryCategories()
-    {
-        
-        var mockJson = "{\"data\":{\"advertiser_categories\":[{\"description\":\"test_value\",\"id\":1}],\"video_categories\":[{\"description\":\"test_value\",\"id\":1}]}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-        
-        var options = new MediaClient.GetLibraryCategoriesOptions();
-        options.Headers["X-Contract-Operation"] = "GetLibraryCategories";
-        
-        
-        
-        options.Lang = "opt_lang";
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Media.GetLibraryCategoriesAsync(options);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/media/library/categories", captured.Path);
-        
-        Assert.Equal("GetLibraryCategories", captured.FirstHeader("X-Contract-Operation"));
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_CreateMetadata()
-    {
-        
-        var mockJson = "{\"data\":{\"associated_metadata\":{},\"id\":\"1234567890\"}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"id\":\"1234567890\",\"metadata\":{\"allow_download_status\":{\"allow_download\":true},\"alt_text\":{\"text\":\"Hello from XDK!\"},\"audience_policy\":{},\"content_expiration\":{\"timestamp_sec\":1.5},\"domain_restrictions\":{\"whitelist\":[\"test_value\"]},\"found_media_origin\":{\"id\":\"1234567890\",\"provider\":\"test_value\"},\"geo_restrictions\":{},\"management_info\":{\"managed\":true},\"preview_image\":{\"media_key\":{}},\"sensitive_media_warning\":{},\"shared_info\":{\"shared\":true},\"sticker_info\":{\"stickers\":[{}]},\"upload_source\":{\"upload_source\":\"test_value\"}}}";
-        var reqBody = JsonSerializer.Deserialize<CreateMediaMetadataRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Media.CreateMetadataAsync(reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/media/metadata", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetAmplifyProgramPosts()
-    {
-        
-        var mockJson = "{\"data\":[{\"added_at\":\"test_value\",\"post_id\":\"test_value\",\"promotion_ends_at\":\"test_value\"}]}";
+        var mockJson = "{\"data\":{\"advertiser_ids\":[\"test_value\"],\"id\":\"1234567890\",\"name\":\"test_value\",\"publisher_ids\":[\"test_value\"],\"state\":\"active\"}}";
         _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
             200,
             mockJson));
@@ -846,7 +1058,7 @@ public class MediaContractsTests : IClassFixture<MediaLoopbackFixture>
         
 
         
-        var result = await _client.Media.GetAmplifyProgramPostsAsync("test_programId");
+        var result = await _client.Media.GetAmplifyProgramAsync("test_programId");
         object? boxed = result;
         Assert.NotNull(boxed);
         var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
@@ -860,218 +1072,6 @@ public class MediaContractsTests : IClassFixture<MediaLoopbackFixture>
         
         
         Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_UpdateInLibrary()
-    {
-        
-        var mockJson = "{\"data\":{\"updated\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"description\":\"test_value\",\"label\":\"test_value\",\"monetization\":{\"allowed_countries\":[\"test_value\"],\"blocked_advertiser_category_ids\":[1],\"blocked_advertiser_ids\":[\"test_value\"],\"enabled\":true,\"program_id\":\"test_value\",\"video_category_ids\":[1]},\"name\":\"test_value\",\"title\":\"test_value\"}";
-        var reqBody = JsonSerializer.Deserialize<UpdateMediaInLibraryRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Media.UpdateInLibraryAsync("test_mediaKey", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("PUT", captured!.Method);
-        Assert.Contains("/2/media/library/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_RemoveFromLibrary()
-    {
-        
-        var mockJson = "{\"data\":{\"deleted\":true}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{}";
-        var reqBody = JsonSerializer.Deserialize<RemoveMediaFromLibraryRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Media.RemoveFromLibraryAsync("test_mediaKey", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("DELETE", captured!.Method);
-        Assert.Contains("/2/media/library/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_GetAmplifyPrograms()
-    {
-        
-        var mockJson = "{\"data\":[{\"advertiser_ids\":[\"test_value\"],\"id\":\"1234567890\",\"name\":\"test_value\",\"publisher_ids\":[\"test_value\"],\"state\":\"active\"}]}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-
-        
-
-        
-        
-        
-        
-
-        
-        var result = await _client.Media.GetAmplifyProgramsAsync();
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("GET", captured!.Method);
-        Assert.Contains("/2/media/amplify/programs", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-    }
-    
-    [Fact]
-    public async Task Contract_AppendUpload()
-    {
-        
-        var mockJson = "{\"data\":{\"expires_at\":1}}";
-        _server.SetResponder(_ => MockXApiServer.MockResponse.Json(
-            200,
-            mockJson));
-        
-
-        
-        
-        var reqMockJson = "{\"media\":\"test_value\",\"segment_index\":1}";
-        var reqBody = JsonSerializer.Deserialize<AppendMediaUploadRequest>(reqMockJson, _client.JsonOptions)!;
-        
-        
-
-        
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
-        
-        var result = await _client.Media.AppendUploadAsync("test_id", reqBody);
-        object? boxed = result;
-        Assert.NotNull(boxed);
-        var roundTripJson = JsonSerializer.Serialize(result, _client.JsonOptions);
-        Assert.False(string.IsNullOrEmpty(roundTripJson));
-        
-
-        var captured = _server.LastRequest;
-        Assert.NotNull(captured);
-        Assert.Equal("POST", captured!.Method);
-        Assert.Contains("/2/media/upload/", captured.Path);
-        
-        
-        Assert.NotNull(captured.FirstHeader("Authorization"));
-        
-        
-        Assert.NotEmpty(captured.BodyBytes);
-        
-        using var parsedReq = JsonDocument.Parse(captured.BodyBytes);
-        Assert.NotEqual(JsonValueKind.Undefined, parsedReq.RootElement.ValueKind);
         
         
     }
